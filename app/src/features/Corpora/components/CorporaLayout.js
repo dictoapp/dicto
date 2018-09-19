@@ -160,7 +160,7 @@ const CorporaLayout = ( {
         <div className={ 'modal-content' }>
           <div className={ 'modal-header' }>
             <h1 className={ 'title is-1' }>
-              {translate( 'create a new corpus' )}
+              {translate( 'Create a new corpus' )}
             </h1>
             <div className={ 'close-modal-icon-container' }>
               <span
@@ -186,7 +186,7 @@ const CorporaLayout = ( {
         <div className={ 'modal-content' }>
           <div className={ 'modal-header' }>
             <h1 className={ 'title is-1' }>
-              {translate( 'delete a corpus' )}
+              {translate( 'Delete a corpus' )}
             </h1>
             <div className={ 'close-modal-icon-container' }>
               <span

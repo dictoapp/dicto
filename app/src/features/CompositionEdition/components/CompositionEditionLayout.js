@@ -753,7 +753,9 @@ const CompositionEditionLayout = ( {
                                             mediasMap = Object.keys( mediasMap ).reduce( ( result, mediaId ) => ( {
                                               ...result,
                                               [mediaId]: mediasMap[mediaId].sort( ( a, b ) => {
-                                                if ( a.start > b.start ) {
+                                                const chunkA = corpus.chunks[a.content];
+                                                const chunkB = corpus.chunks[b.content];
+                                                if ( chunkA.start > chunkB.start ) {
                                                   return 1;
                                                 }
                                                 return -1;
@@ -843,7 +845,7 @@ const CompositionEditionLayout = ( {
               <div className={ 'modal-header' }>
                 <h1 className={ 'title is-1' }>
                   {
-                            t( 'edit composition part' )
+                            t( 'Edit composition part' )
                           }
                 </h1>
                 <div className={ 'close-modal-icon-container' }>
@@ -919,7 +921,7 @@ const CompositionEditionLayout = ( {
                 {
                             previewVisible ?
                               t( 'Preview and export composition' )
-                              : t( 'Composition metadata' )
+                              : t( 'Composition properties' )
                           }
               </h1>
               <div className={ 'close-modal-icon-container' }>

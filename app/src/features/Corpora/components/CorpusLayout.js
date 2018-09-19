@@ -1069,9 +1069,9 @@ const CorpusLayout = ( {
               <h1 className={ 'title is-1' }>
                 {
                             corpusMetadataModalOpen ?
-                              t( 'edit corpus metadata' )
+                              t( 'Edit corpus properties' )
                               :
-                              t( 'create a new composition' )
+                              t( 'Create a new composition' )
                           }
               </h1>
             </div>
@@ -1119,9 +1119,9 @@ const CorpusLayout = ( {
               <h1 className={ 'title is-1' }>
                 {
                           editedTagCategoryId ?
-                            t( 'edit tag category "{n}"', { n: corpus.tagCategories[editedTagCategoryId] && corpus.tagCategories[editedTagCategoryId].name } )
+                            t( 'Edit tag category "{n}"', { n: corpus.tagCategories[editedTagCategoryId] && corpus.tagCategories[editedTagCategoryId].name } )
                             :
-                            t( 'create a new tag category' )
+                            t( 'Create a new tag category' )
                         }
               </h1>
             </div>
@@ -1150,9 +1150,9 @@ const CorpusLayout = ( {
               <h1 className={ 'title is-1' }>
                 {
                           editedTagId ?
-                            t( 'edit tag "{n}"', { n: corpus.tags[editedTagId] && corpus.tags[editedTagId].name } )
+                            t( 'Edit tag "{n}"', { n: corpus.tags[editedTagId] && corpus.tags[editedTagId].name } )
                             :
-                            t( 'create a new tag in category "{n}"', { n: corpus.tagCategories[newTagPrompted] && corpus.tagCategories[newTagPrompted].name } )
+                            t( 'Create a new tag in category "{n}"', { n: corpus.tagCategories[newTagPrompted] && corpus.tagCategories[newTagPrompted].name } )
                         }
               </h1>
             </div>
@@ -1179,7 +1179,7 @@ const CorpusLayout = ( {
           <div className={ 'modal-content' }>
             <div className={ 'modal-header' }>
               <h1 className={ 'title is-1' }>
-                {t( 'delete a media' )}
+                {t( 'Delete a media' )}
               </h1>
             </div>
             <div className={ 'modal-body' }>
@@ -1216,7 +1216,7 @@ const CorpusLayout = ( {
           <div className={ 'modal-content' }>
             <div className={ 'modal-header' }>
               <h1 className={ 'title is-1' }>
-                {t( 'delete a tag category' )}
+                {t( 'Delete a tag category' )}
               </h1>
             </div>
             <div className={ 'modal-body' }>
@@ -1267,7 +1267,7 @@ const CorpusLayout = ( {
           <div className={ 'modal-content' }>
             <div className={ 'modal-header' }>
               <h1 className={ 'title is-1' }>
-                {t( 'delete a tag' )}
+                {t( 'Delete a tag' )}
               </h1>
             </div>
             <div className={ 'modal-body' }>
@@ -1313,7 +1313,7 @@ const CorpusLayout = ( {
           <div className={ 'modal-content' }>
             <div className={ 'modal-header' }>
               <h1 className={ 'title is-1' }>
-                {t( 'delete a composition' )}
+                {t( 'Delete a composition' )}
               </h1>
             </div>
             <div className={ 'modal-body' }>
@@ -1349,7 +1349,9 @@ const CorpusLayout = ( {
         >
           <div className={ 'modal-content' }>
             <div className={ 'modal-header' }>
-              <h1 className={ 'title is-1' }>{t( 'import corpus' )}</h1>
+              <h1 className={ 'title is-1' }>
+                {t( 'Import a corpus' )}
+              </h1>
               <div className={ 'close-modal-icon-container' }>
                 <span
                   className={ 'icon' }
@@ -1431,7 +1433,7 @@ const CorpusLayout = ( {
         >
           <div className={ 'modal-content' }>
             <div className={ 'modal-header' }>
-              <h1 className={ 'title is-1' }>{t( 'export corpus' )}</h1>
+              <h1 className={ 'title is-1' }>{t( 'Export corpus' )}</h1>
               <div className={ 'close-modal-icon-container' }>
                 <span
                   className={ 'icon' }

@@ -1645,7 +1645,7 @@ export class ChunksEditionLayout extends Component {
                 </div>
                 <div className={ 'modal-body' }>
                   <ul
-                    style={ { paddingLeft: '1rem' } }
+                    style={ { paddingLeft: '2rem', paddingRight: '1rem' } }
                     className={ 'column content is-large' }
                   >
                     {

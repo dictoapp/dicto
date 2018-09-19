@@ -98,7 +98,7 @@ if ( !inElectron ) {
   approveBrowser( ACCEPTED_BROWSERS, ( approved ) => {
     if ( !approved && !localStorage.getItem( 'dicto:warning' ) ) {
       localStorage.setItem( 'dicto:warning', true );
-      alert( 'Dicto is an experiment that has been only tested on latest chrome and firefox browsers. You are Please switch to one of these to use the tool !' );/* eslint no-alert: 0 */
+      alert( 'Dicto is an experiment that has been only tested on latest chrome and firefox browsers. Please switch to one of these to use the tool !' );/* eslint no-alert: 0 */
     }
   } );
 }

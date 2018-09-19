@@ -6,7 +6,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReduxToastr from 'react-redux-toastr';
 import Modal from 'react-modal';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './LayoutLayout.scss';
 
