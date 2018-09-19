@@ -1,0 +1,156 @@
+$breadcrumb-item-color: $link !default;
+$breadcrumb-item-hover-color: $link-hover !default;
+$breadcrumb-item-active-color: $text-strong !default;
+
+$breadcrumb-item-separator-color: $text !default;
+
+.breadcrumb
+{
+    font-size: $size-normal;
+
+    display: flex;
+    overflow: hidden;
+    overflow-x: auto;
+    align-items: stretch;
+
+    white-space: nowrap;
+
+    @include block;
+    @include unselectable;
+
+    a
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: .5em .75em;
+
+        color: $breadcrumb-item-color;
+
+        &:hover
+        {
+            color: $breadcrumb-item-hover-color;
+        }
+    }
+
+    li
+    {
+        display: flex;
+        align-items: center;
+
+        &:first-child a
+        {
+            padding-left: 0;
+        }
+
+        &.is-active
+        {
+            a
+            {
+                cursor: default;
+                pointer-events: none;
+
+                color: $breadcrumb-item-active-color;
+            }
+        }
+
+        & + li::before
+        {
+            content: '/';
+
+            color: $breadcrumb-item-separator-color;
+        }
+    }
+
+    ul,
+    ol
+    {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        flex-shrink: 0;
+        justify-content: flex-start;
+    }
+
+    .icon
+    {
+        &:first-child
+        {
+            margin-right: .5em;
+        }
+
+        &:last-child
+        {
+            margin-left: .5em;
+        }
+    }
+
+    // Alignment
+    &.is-centered
+    {
+        ol,
+        ul
+        {
+            justify-content: center;
+        }
+    }
+
+    &.is-right
+    {
+        ol,
+        ul
+        {
+            justify-content: flex-end;
+        }
+    }
+
+    // Sizes
+    &.is-small
+    {
+        font-size: $size-small;
+    }
+
+    &.is-medium
+    {
+        font-size: $size-medium;
+    }
+
+    &.is-large
+    {
+        font-size: $size-large;
+    }
+
+    // Styles
+    &.has-arrow-separator
+    {
+        li + li::before
+        {
+            content: '→';
+        }
+    }
+
+    &.has-bullet-separator
+    {
+        li + li::before
+        {
+            content: '•';
+        }
+    }
+
+    &.has-dot-separator
+    {
+        li + li::before
+        {
+            content: '·';
+        }
+    }
+
+    &.has-succeeds-separator
+    {
+        li + li::before
+        {
+            content: '≻';
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "plugins": [
+      "transform-decorators-legacy",
+      "transform-decorators",
+      "transform-object-rest-spread",
+      "transform-class-properties",
+      "transform-export-extensions"
+    ],
+    "presets": [
+      ["env", {
+        "targets": {
+          "node": "current",
+          "uglify" : true
+        }
+      }],
+      "react"
+    ]
+  }

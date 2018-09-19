@@ -1,0 +1,45 @@
+
+$gradient-top-left: 0;
+$gradient-bottom-right: 0;
+
+@import '~font-awesome/css/font-awesome.min.css';
+
+@import './custom-variables.scss';
+
+@import './bulma/bulma.scss';
+
+@import './_overrides.scss';
+
+@import './accordion.bulma-plugin.scss';
+
+@import '~react-redux-toastr/src/styles/index';
+
+#mount
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+}
+
+.button
+{
+    justify-content: center;
+}
+
+.is-stretched-row,
+.is-stretched-column
+{
+    display: flex;
+    justify-content: stretch;
+}
+.is-stretched-row
+{
+    flex-flow: row nowrap;
+}
+.is-stretched-column
+{
+    flex-flow: column nowrap;
+}

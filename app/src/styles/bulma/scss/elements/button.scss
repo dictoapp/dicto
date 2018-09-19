@@ -1,0 +1,344 @@
+$button-color: $grey-darker !default;
+$button-background-color: $white !default;
+$button-border-color: $grey-lighter !default;
+
+$button-hover-color: $link-hover !default;
+$button-hover-border-color: $link-hover-border !default;
+
+$button-focus-color: $link-focus !default;
+$button-focus-border-color: $link-focus-border !default;
+$button-focus-box-shadow-size: 0 0 0 .125em !default;
+$button-focus-box-shadow-color: rgba($link, .25) !default;
+
+$button-active-color: $link-active !default;
+$button-active-border-color: $link-active-border !default;
+
+$button-text-color: $text !default;
+$button-text-hover-background-color: $background !default;
+$button-text-hover-color: $text-strong !default;
+
+$button-disabled-background-color: $white !default;
+$button-disabled-border-color: $grey-lighter !default;
+$button-disabled-shadow: none !default;
+$button-disabled-opacity: .5 !default;
+
+$button-static-color: $grey !default;
+$button-static-background-color: $white-ter !default;
+$button-static-border-color: $grey-lighter !default;
+
+// The button sizes use mixins so they can be used at different breakpoints
+@mixin button-small
+{
+    font-size: $size-small;
+
+    border-radius: $radius-small;
+}
+
+@mixin button-medium
+{
+    font-size: $size-medium;
+}
+
+@mixin button-large
+{
+    font-size: $size-large;
+}
+
+.button
+{
+    justify-content: center;
+
+    padding-right: .75em;
+    padding-left: .75em;
+
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+
+    color: $button-color;
+    border-color: $button-border-color;
+    background-color: $button-background-color;
+
+    @include control;
+    @include unselectable;
+
+    strong
+    {
+        color: inherit;
+    }
+
+    .icon
+    {
+        &,
+        &.is-small,
+        &.is-medium,
+        &.is-large
+        {
+            width: 1.5em;
+            height: 1.5em;
+        }
+
+        &:first-child:not(:last-child)
+        {
+            margin-right: .1875em;
+            margin-left: calc(-.375em - 1px);
+        }
+
+        &:last-child:not(:first-child)
+        {
+            margin-right: calc(-.375em - 1px);
+            margin-left: .1875em;
+        }
+
+        &:first-child:last-child
+        {
+            margin-right: calc(-.375em - 1px);
+            margin-left: calc(-.375em - 1px);
+        }
+    }
+
+    // States
+    &:hover,
+    &.is-hovered
+    {
+        color: $button-hover-color;
+        border-color: $button-hover-border-color;
+    }
+
+    &:focus,
+    &.is-focused
+    {
+        color: $button-focus-color;
+        border-color: $button-focus-border-color;
+
+        &:not(:active)
+        {
+            box-shadow: $button-focus-box-shadow-size $button-focus-box-shadow-color;
+        }
+    }
+
+    &:active,
+    &.is-active
+    {
+        color: $button-active-color;
+        border-color: $button-active-border-color;
+    }
+
+    // Colors
+    &.is-text
+    {
+        text-decoration: underline;
+
+        color: $button-text-color;
+        border-color: transparent;
+        background-color: transparent;
+
+        &:hover,
+        &.is-hovered,
+        &:focus,
+        &.is-focused
+        {
+            color: $button-text-hover-color;
+            background-color: $button-text-hover-background-color;
+        }
+
+        &:active,
+        &.is-active
+        {
+            color: $button-text-hover-color;
+            background-color: darken($button-text-hover-background-color, 5%);
+        }
+
+        &[disabled]
+        {
+            border-color: transparent;
+            background-color: transparent;
+            box-shadow: none;
+        }
+    }
+
+    @each $name, $pair in $colors
+    {
+        $color: nth($pair, 1);
+        $color-invert: nth($pair, 2);
+
+        &.is-#{$name}
+        {
+            color: $color-invert;
+            border-color: transparent;
+            background-color: $color;
+
+            &:hover,
+            &.is-hovered
+            {
+                color: $color-invert;
+                border-color: transparent;
+                background-color: darken($color, 2.5%);
+            }
+
+            &:focus,
+            &.is-focused
+            {
+                color: $color-invert;
+                border-color: transparent;
+
+                &:not(:active)
+                {
+                    box-shadow: $button-focus-box-shadow-size rgba($color, .25);
+                }
+            }
+
+            &:active,
+            &.is-active
+            {
+                color: $color-invert;
+                border-color: transparent;
+                background-color: darken($color, 5%);
+            }
+
+            &[disabled]
+            {
+                border-color: transparent;
+                background-color: $color;
+                box-shadow: none;
+            }
+
+            &.is-inverted
+            {
+                color: $color;
+                background-color: $color-invert;
+
+                &:hover
+                {
+                    background-color: darken($color-invert, 5%);
+                }
+
+                &[disabled]
+                {
+                    color: $color;
+                    border-color: transparent;
+                    background-color: $color-invert;
+                    box-shadow: none;
+                }
+            }
+
+            &.is-loading
+            {
+                &:after
+                {
+                    border-color: transparent transparent $color-invert $color-invert !important;
+                }
+            }
+
+            &.is-outlined
+            {
+                color: $color;
+                border-color: $color;
+                background-color: transparent;
+
+                &:hover,
+                &:focus
+                {
+                    color: $color-invert;
+                    border-color: $color;
+                    background-color: $color;
+                }
+
+                &.is-loading
+                {
+                    &:after
+                    {
+                        border-color: transparent transparent $color $color !important;
+                    }
+                }
+
+                &[disabled]
+                {
+                    color: $color;
+                    border-color: $color;
+                    background-color: transparent;
+                    box-shadow: none;
+                }
+            }
+
+            &.is-inverted.is-outlined
+            {
+                color: $color-invert;
+                border-color: $color-invert;
+                background-color: transparent;
+
+                &:hover,
+                &:focus
+                {
+                    color: $color;
+                    background-color: $color-invert;
+                }
+
+                &[disabled]
+                {
+                    color: $color-invert;
+                    border-color: $color-invert;
+                    background-color: transparent;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+
+    // Sizes
+    &.is-small
+    {
+        @include button-small;
+    }
+
+    &.is-medium
+    {
+        @include button-medium;
+    }
+
+    &.is-large
+    {
+        @include button-large;
+    }
+
+    // Modifiers
+    &[disabled]
+    {
+        opacity: $button-disabled-opacity;
+        border-color: $button-disabled-border-color;
+        background-color: $button-disabled-background-color;
+        box-shadow: $button-disabled-shadow;
+    }
+
+    &.is-fullwidth
+    {
+        display: flex;
+
+        width: 100%;
+    }
+
+    &.is-loading
+    {
+        pointer-events: none;
+
+        color: transparent !important;
+
+        &:after
+        {
+            position: absolute !important;
+
+            @include loader;
+            @include center(1em);
+        }
+    }
+
+    &.is-static
+    {
+        pointer-events: none;
+
+        color: $button-static-color;
+        border-color: $button-static-border-color;
+        background-color: $button-static-background-color;
+        box-shadow: none;
+    }
+}

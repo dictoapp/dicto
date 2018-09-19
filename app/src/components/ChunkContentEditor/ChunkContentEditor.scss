@@ -1,0 +1,218 @@
+
+
+
+.dicto-ChunkContentEditor
+{
+    display: flex;
+    align-items: stretch;
+    flex-flow: column nowrap;
+    justify-content: stretch;
+    .inactive-placeholder
+    {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        flex-flow: column nowrap;
+        justify-content: center;
+
+        height: 100%;
+
+        transition: all .5s ease;
+
+        opacity: 0;
+
+        &.is-visible
+        {
+            opacity: 1;
+        }
+    }
+
+    input,
+    textarea
+    {
+        transition: all .5s ease;
+
+        background: #f0e9df;
+        box-shadow: none;
+        &:hover,
+        &:focus
+        {
+            background: #d2ccc3;
+        }
+    }
+
+    .main-editor-container
+    {
+        overflow: auto;
+        flex: 1;
+
+        background: #f8f5f0;
+
+
+        textarea
+        {
+            padding: 1rem;
+
+            resize: none;
+
+            border: none;
+        }
+    }
+    /**
+       * Styling the top and bottom rows
+       */
+
+    .time-input-container
+    {
+        display: flex;
+        align-items: stretch;
+        flex-flow: row nowrap;
+        justify-content: center;
+
+        min-height: 4rem;
+        padding: 0;
+
+        background: #f8f5f0;
+        li
+        {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            flex-flow: row nowrap;
+            justify-content: center;
+
+            padding: 1rem;
+        }
+        li:first-of-type
+        {
+            justify-content: flex-start;
+        }
+        li:last-of-type
+        {
+            justify-content: flex-end;
+        }
+        .main-time-input-column
+        {
+            flex: 8;
+        }
+
+        .tags-counter
+        {
+            padding-left: .5rem;
+        }
+
+        input
+        {
+            padding: 0;
+
+            transition: all .5s ease;
+            text-align: center;
+
+            border: none;
+            outline: none;
+        }
+    }
+
+    /**
+     * Styling the transcription view
+     */
+
+    .tabs
+    {
+        min-height: 3em;
+        margin-bottom: .5em;
+        .is-active
+        {
+            border-bottom: 1px solid #2a2a26;
+        }
+    }
+
+    /**
+    * Styling the tagging view;
+    */
+
+    .active-tags-container
+    {
+        width: 100%;
+        margin: 1rem;
+        padding: 1rem;
+
+        background: #d2ccc3;
+    }
+
+    .tag-category-group
+    {
+        padding-top: .25em;
+        padding-bottom: .25em;
+
+        background: #f0e9df;
+        // margin-bottom: .25rem;
+    }
+
+    .tag-category-title
+    {
+        flex: 1;
+
+        margin: 0;
+
+        cursor: pointer;
+    }
+
+    .tags-group
+    {
+        // display: flex;
+        // flex-flow: row nowrap;
+
+         > li
+        {
+            display: inline-block;
+        }
+        .tag
+        {
+            opacity: .3;
+            &.is-active
+            {
+                opacity: 1;
+            }
+        }
+    }
+
+    .color-marker
+    {
+        display: inline-block;
+
+        width: 1em;
+        height: 1em;
+        margin-right: 1em;
+
+        border-radius: 50%;
+    }
+
+    .DateRangePicker_picker,
+    .DateInput_fang
+    {
+        display: none;
+    }
+
+    #PlacesAutocomplete__autocomplete-container
+    {
+        z-index: 2;
+    }
+
+    .panel-management-icons
+    {
+        position: absolute;
+        top: .5rem;
+        right: .5rem;
+
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-end;
+
+        text-align: right;
+        .icon
+        {
+            cursor: pointer;
+        }
+    }
+}

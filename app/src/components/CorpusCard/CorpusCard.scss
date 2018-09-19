@@ -1,0 +1,37 @@
+
+
+
+.dicto-CorpusCard
+{
+    position: relative;
+    .preview-item
+    {
+        cursor: pointer;
+        transition: all .5s ease;
+
+        opacity: .3;
+        &.active
+        {
+            font-weight: 800;
+
+            opacity: 1;
+        }
+    }
+
+    .main-contents
+    {
+        z-index: 2;
+    }
+
+    .corpus-preview
+    {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        width: 70%;
+        height: 80%;
+
+        transition: all .5s ease;
+    }
+}

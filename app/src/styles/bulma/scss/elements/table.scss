@@ -1,0 +1,203 @@
+$table-color: $grey-darker !default;
+$table-background-color: $white !default;
+
+$table-cell-border: 1px solid $grey-lighter !default;
+$table-cell-border-width: 0 0 1px !default;
+$table-cell-padding: .5em .75em !default;
+$table-cell-heading-color: $text-strong !default;
+
+$table-head-cell-border-width: 0 0 2px !default;
+$table-head-cell-color: $text-strong !default;
+$table-foot-cell-border-width: 2px 0 0 !default;
+$table-foot-cell-color: $text-strong !default;
+
+$table-row-hover-background-color: $white-bis !default;
+
+$table-row-active-background-color: $primary !default;
+$table-row-active-color: $primary-invert !default;
+
+$table-striped-row-even-background-color: $white-bis !default;
+$table-striped-row-even-hover-background-color: $white-ter !default;
+
+.table
+{
+    margin-bottom: 1.5rem;
+
+    color: $table-color;
+    background-color: $table-background-color;
+
+    td,
+    th
+    {
+        padding: $table-cell-padding;
+
+        vertical-align: top;
+
+        border: $table-cell-border;
+        border-width: $table-cell-border-width;
+
+        // Colors
+        @each $name, $pair in $colors
+        {
+            $color: nth($pair, 1);
+            $color-invert: nth($pair, 2);
+
+            &.is-#{$name}
+            {
+                color: $color-invert;
+                border-color: $color;
+                background-color: $color;
+            }
+        }
+
+        // Modifiers
+        &.is-narrow
+        {
+            width: 1%;
+
+            white-space: nowrap;
+        }
+    }
+
+    th
+    {
+        text-align: left;
+
+        color: $table-cell-heading-color;
+    }
+
+    tr
+    {
+        &.is-selected
+        {
+            color: $table-row-active-color;
+            background-color: $table-row-active-background-color;
+
+            a,
+            strong
+            {
+                color: currentColor;
+            }
+
+            td,
+            th
+            {
+                color: currentColor;
+                border-color: $table-row-active-color;
+            }
+        }
+    }
+
+    thead
+    {
+        td,
+        th
+        {
+            color: $table-head-cell-color;
+            border-width: $table-head-cell-border-width;
+        }
+    }
+
+    tfoot
+    {
+        td,
+        th
+        {
+            color: $table-foot-cell-color;
+            border-width: $table-foot-cell-border-width;
+        }
+    }
+
+    tbody
+    {
+        tr
+        {
+            &:last-child
+            {
+                td,
+                th
+                {
+                    border-bottom-width: 0;
+                }
+            }
+        }
+    }
+
+    // Modifiers
+    &.is-bordered
+    {
+        td,
+        th
+        {
+            border-width: 1px;
+        }
+
+        tr
+        {
+            &:last-child
+            {
+                td,
+                th
+                {
+                    border-bottom-width: 1px;
+                }
+            }
+        }
+    }
+
+    &.is-fullwidth
+    {
+        width: 100%;
+    }
+
+    &.is-hoverable
+    {
+        tbody
+        {
+            tr
+            {
+                &:hover
+                {
+                    background-color: $table-row-hover-background-color;
+                }
+            }
+        }
+
+        &.is-striped
+        {
+            tbody
+            {
+                tr:not(.is-selected)
+                {
+                    &:hover
+                    {
+                        background-color: $table-striped-row-even-hover-background-color;
+                    }
+                }
+            }
+        }
+    }
+
+    &.is-narrow
+    {
+        td,
+        th
+        {
+            padding: .25em .5em;
+        }
+    }
+
+    &.is-striped
+    {
+        tbody
+        {
+            tr:not(.is-selected)
+            {
+                &:nth-child(even)
+                {
+                    background-color: $table-striped-row-even-background-color;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,67 @@
+.tile
+{
+    display: block;
+    align-items: stretch;
+    flex-basis: 0;
+    flex-grow: 1;
+    flex-shrink: 1;
+
+    min-height: min-content;
+    // Responsiveness
+
+    @include tablet
+    {
+        &:not(.is-child)
+        {
+            display: flex;
+        }
+
+        @for $i from 1 through 12
+        {
+            &.is-#{$i}
+            {
+                flex: none;
+
+                width: $i / 12 * 100%;
+            }
+        }
+    }
+
+    // Modifiers
+    &.is-ancestor
+    {
+        margin-top: -.75rem;
+        margin-right: -.75rem;
+        margin-left: -.75rem;
+
+        &:last-child
+        {
+            margin-bottom: -.75rem;
+        }
+
+        &:not(:last-child)
+        {
+            margin-bottom: .75rem;
+        }
+    }
+
+    &.is-child
+    {
+        margin: 0 !important;
+    }
+
+    &.is-parent
+    {
+        padding: .75rem;
+    }
+
+    &.is-vertical
+    {
+        flex-direction: column;
+
+        & > .tile.is-child:not(:last-child)
+        {
+            margin-bottom: 1.5rem !important;
+        }
+    }
+}

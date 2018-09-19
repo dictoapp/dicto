@@ -1,0 +1,69 @@
+$progress-bar-background-color: $border !default;
+$progress-value-background-color: $text !default;
+
+.progress
+{
+    display: block;
+    overflow: hidden;
+
+    width: 100%;
+    height: $size-normal;
+    padding: 0;
+
+    border: none;
+    border-radius: 290486px;
+
+    @include block;
+       -moz-appearance: none;
+    -webkit-appearance: none;
+
+    &::-webkit-progress-bar
+    {
+        background-color: $progress-bar-background-color;
+    }
+
+    &::-webkit-progress-value
+    {
+        background-color: $progress-value-background-color;
+    }
+
+    &::-moz-progress-bar
+    {
+        background-color: $progress-value-background-color;
+    }
+
+    // Colors
+    @each $name, $pair in $colors
+    {
+        $color: nth($pair, 1);
+
+        &.is-#{$name}
+        {
+            &::-webkit-progress-value
+            {
+                background-color: $color;
+            }
+
+            &::-moz-progress-bar
+            {
+                background-color: $color;
+            }
+        }
+    }
+
+    // Sizes
+    &.is-small
+    {
+        height: $size-small;
+    }
+
+    &.is-medium
+    {
+        height: $size-medium;
+    }
+
+    &.is-large
+    {
+        height: $size-large;
+    }
+}

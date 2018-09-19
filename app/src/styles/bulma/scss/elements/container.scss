@@ -1,0 +1,46 @@
+.container
+{
+    position: relative;
+
+    margin: 0 auto;
+
+    @include from($desktop)
+    {
+        width: $desktop - 2 * $gap;
+        max-width: $desktop - 2 * $gap;
+
+        &.is-fluid
+        {
+            width: auto;
+            max-width: none;
+            margin-right: $gap;
+            margin-left: $gap;
+        }
+    }
+    @include until($widescreen)
+    {
+        &.is-widescreen
+        {
+            width: auto;
+            max-width: $widescreen - 2 * $gap;
+        }
+    }
+    @include until($fullhd)
+    {
+        &.is-fullhd
+        {
+            width: auto;
+            max-width: $fullhd - 2 * $gap;
+        }
+    }
+    @include from($widescreen)
+    {
+        width: $widescreen - 2 * $gap;
+        max-width: $widescreen - 2 * $gap;
+    }
+    @include from($fullhd)
+    {
+        width: $fullhd - 2 * $gap;
+        max-width: $fullhd - 2 * $gap;
+    }
+}

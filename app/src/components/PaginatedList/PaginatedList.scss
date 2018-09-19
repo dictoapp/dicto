@@ -1,0 +1,44 @@
+
+
+.dicto-PaginatedList
+{
+    display: flex;
+    overflow: hidden;
+    flex-flow: column nowrap;
+    justify-content: stretch;
+    .items-container
+    {
+        flex: 1;
+         > div
+        {
+            overflow: auto;
+        }
+    }
+    .pagination
+    {
+        min-height: 5rem;
+    }
+
+    .pagination-list
+    {
+        li
+        {
+            a
+            {
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: center;
+
+                text-align: center;
+            }
+            &.is-current
+            {
+                a
+                {
+                    color: white!important;
+                    background: brown;
+                }
+            }
+        }
+    }
+}

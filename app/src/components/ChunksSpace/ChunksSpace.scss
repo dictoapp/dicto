@@ -1,0 +1,105 @@
+
+
+
+.dicto-ChunksSpace
+{
+    position: relative;
+
+    height: 100%;
+
+    .ticks-space
+    {
+        position: relative;
+
+        width: 100%;
+
+        background: #f0e9df;
+    }
+
+    .time-mark
+    {
+        position: absolute;
+        z-index: 2;
+        left: 0;
+
+        width: 100%;
+
+        pointer-events: none;
+
+        border-bottom: 1px solid red;
+    }
+
+    .dicto-MiniControl
+    {
+        position: absolute;
+        z-index: 2;
+        right: 1rem;
+        li
+        {
+            position: relative;
+            top: -.5rem;
+
+            padding: 0;
+        }
+
+        .button
+        {
+            display: flex;
+            align-items: center;
+            flex-flow: row nowrap;
+            justify-content: center;
+        }
+    }
+
+    .ratio-ui
+    {
+        position: absolute;
+        z-index: 4;
+        top: 1rem;
+        left: 1rem;
+    }
+
+    .selection-placeholder
+    {
+        position: absolute;
+
+        pointer-events: none;
+
+        background: white;
+    }
+
+    .marks-container
+    {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        pointer-events: none;
+        .mark
+        {
+            position: absolute;
+            left: 0;
+
+            width: 100%;
+
+            color: #2a2a26;
+            border-top: 1px dashed #2a2a26;
+
+            .mark-content{
+                position: absolute;
+                padding: .5rem;
+                top: 0;
+                opacity: .5;
+                &.left{
+                    left: .5rem;
+                }
+                &.right{
+                    right: .5rem;
+                }
+            }
+        }
+    }
+}

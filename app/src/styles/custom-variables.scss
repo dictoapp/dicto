@@ -1,0 +1,40 @@
+$gap: 32px;
+$tablet: 400px;
+$desktop: 568px + (2 * $gap);
+// $desktop:   896px + (2 * $gap);
+// $widescreen:  1152px + (2 * $gap);
+// $fullhd:  1344px + (2 * $gap);
+
+////////////////////////////////////////////////
+// SANDSTONE
+////////////////////////////////////////////////
+$grey-darker: #2a2a26;
+$grey-dark: #3e3f3a;
+$grey: #8e8c84;
+$grey-light: #c9c8b8;
+$grey-lighter: #e6e1d7;
+
+$white-ter: #f8f5f0;
+
+$orange: #f47c3c;
+$green: #93c54b;
+$blue: #29abe0;
+$red: #d9534f;
+
+$primary: #325d88 !default;
+$warning: $orange;
+$warning-invert: #fff;
+
+$family-sans-serif: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$body-size: 14px;
+
+$link: #8e8c84;
+
+$pagination-background-color: $grey-lighter;
+
+$navbar-background-color: $grey-dark;
+$navbar-item-color: $grey-light;
+$navbar-item-hover-color: $white-ter;
+$navbar-item-active-color: $white-ter;
+$navbar-item-hover-background-color: $grey-darker;
+$navbar-dropdown-arrow: $navbar-item-color;

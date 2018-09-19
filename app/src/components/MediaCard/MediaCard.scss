@@ -1,0 +1,49 @@
+
+
+.dicto-MediaCard,
+.dicto-CompositionCard
+{
+    cursor: pointer;
+    transition: all .5s ease;
+    .preview-container
+    {
+        padding: 0;
+
+        background: #d2ccc3;
+    }
+    .info-container
+    {
+        padding: 2rem;
+    }
+
+
+    .creators
+    {
+        margin-bottom: 1rem;
+
+        color: darkgrey;
+    }
+
+    .info-numbers
+    {
+        display: flex;
+        flex-flow: row nowrap;
+
+        margin-bottom: 2rem;
+        li
+        {
+            margin-right: 1rem;
+            .info-number
+            {
+                margin-left: .5rem;
+            }
+        }
+    }
+
+    .buttons-row
+    {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-end;
+    }
+}

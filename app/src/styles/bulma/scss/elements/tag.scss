@@ -1,0 +1,164 @@
+$tag-background-color: $background !default;
+$tag-color: $text !default;
+$tag-radius: $radius !default;
+$tag-delete-margin: 1px !default;
+
+.tags
+{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    .tag
+    {
+        margin-bottom: .5rem;
+
+        &:not(:last-child)
+        {
+            margin-right: .5rem;
+        }
+    }
+
+    &:last-child
+    {
+        margin-bottom: -.5rem;
+    }
+
+    &:not(:last-child)
+    {
+        margin-bottom: 1rem;
+    }
+
+    &.has-addons
+    {
+        .tag
+        {
+            margin-right: 0;
+
+            &:not(:first-child)
+            {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+            &:not(:last-child)
+            {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+    }
+}
+
+.tag:not(body)
+{
+    font-size: $size-small;
+    line-height: 1.5;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 2em;
+    padding-right: .75em;
+    padding-left: .75em;
+
+    white-space: nowrap;
+
+    color: $tag-color;
+    border-radius: $tag-radius;
+    background-color: $tag-background-color;
+
+    .delete
+    {
+        margin-right: -.375em;
+        margin-left: .25em;
+    }
+
+    // Colors
+    @each $name, $pair in $colors
+    {
+        $color: nth($pair, 1);
+        $color-invert: nth($pair, 2);
+
+        &.is-#{$name}
+        {
+            color: $color-invert;
+            background-color: $color;
+        }
+    }
+
+    // Sizes
+    &.is-medium
+    {
+        font-size: $size-normal;
+    }
+
+    &.is-large
+    {
+        font-size: $size-medium;
+    }
+
+    // Modifiers
+    &.is-delete
+    {
+        position: relative;
+
+        width: 2em;
+        margin-left: $tag-delete-margin;
+        padding: 0;
+
+        &:before,
+        &:after
+        {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+
+            display: block;
+
+            content: '';
+            transform: translateX(-50%) translateY(-50%) rotate(45deg);
+            transform-origin: center center;
+
+            background-color: currentColor;
+        }
+
+        &:before
+        {
+            width: 50%;
+            height: 1px;
+        }
+
+        &:after
+        {
+            width: 1px;
+            height: 50%;
+        }
+
+        &:hover,
+        &:focus
+        {
+            background-color: darken($tag-background-color, 5%);
+        }
+
+        &:active
+        {
+            background-color: darken($tag-background-color, 10%);
+        }
+    }
+
+    &.is-rounded
+    {
+        border-radius: 290486px;
+    }
+}
+
+a.tag
+{
+    &:hover
+    {
+        text-decoration: underline;
+    }
+}

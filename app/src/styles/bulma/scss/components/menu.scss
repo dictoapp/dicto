@@ -1,0 +1,90 @@
+$menu-item-color: $text !default;
+$menu-item-radius: $radius-small !default;
+$menu-item-hover-color: $text-strong !default;
+$menu-item-hover-background-color: $background !default;
+$menu-item-active-color: $link-invert !default;
+$menu-item-active-background-color: $link !default;
+
+$menu-list-border-left: 1px solid $border !default;
+
+$menu-label-color: $text-light !default;
+
+.menu
+{
+    font-size: $size-normal;
+
+    // Sizes
+    &.is-small
+    {
+        font-size: $size-small;
+    }
+
+    &.is-medium
+    {
+        font-size: $size-medium;
+    }
+
+    &.is-large
+    {
+        font-size: $size-large;
+    }
+}
+
+.menu-list
+{
+    line-height: 1.25;
+
+    a
+    {
+        display: block;
+
+        padding: .5em .75em;
+
+        color: $menu-item-color;
+        border-radius: $menu-item-radius;
+
+        &:hover
+        {
+            color: $menu-item-hover-color;
+            background-color: $menu-item-hover-background-color;
+        }
+
+        // Modifiers
+        &.is-active
+        {
+            color: $menu-item-active-color;
+            background-color: $menu-item-active-background-color;
+        }
+    }
+
+    li
+    {
+        ul
+        {
+            margin: .75em;
+            padding-left: .75em;
+
+            border-left: $menu-list-border-left;
+        }
+    }
+}
+
+.menu-label
+{
+    font-size: .75em;
+
+    letter-spacing: .1em;
+    text-transform: uppercase;
+
+    color: $menu-label-color;
+
+    &:not(:first-child)
+    {
+        margin-top: 1em;
+    }
+
+    &:not(:last-child)
+    {
+        margin-bottom: 1em;
+    }
+}

@@ -1,0 +1,245 @@
+
+
+
+
+
+.dicto-MontagePlayer
+{
+    position: absolute;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: stretch;
+
+    width: 100%;
+    height: 100%;
+
+    .main-row
+    {
+        position: relative;
+
+        display: flex;
+        flex: 10;
+        flex-flow: column nowrap;
+        justify-content: stretch;
+
+        background: black;
+    }
+    .gui-row
+    {
+        display: flex;
+        flex: 1;
+        flex-flow: row nowrap;
+        justify-content: stretch;
+
+        .railway-container
+        {
+            flex: 1;
+        }
+
+        .gui-btn-container
+        {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: stretch;
+            .button
+            {
+                flex: 1;
+
+                min-width: 5em;
+                height: 100%;
+            }
+        }
+    }
+
+    .comment-card
+    {
+        display: flex;
+        overflow: auto;
+        flex: 1;
+        flex-flow: column nowrap;
+        // justify-content: center;
+
+        padding-top: 20%;
+        padding-right: 10%;
+        padding-bottom: 2em;
+        padding-left: 10%;
+
+        text-align: left;
+
+        background: #f8f5f0;
+         > div
+        {
+            transition: all .5s ease;
+        }
+    }
+
+
+    .media-wrapper
+    {
+        flex: 1;
+
+        min-height: 70%;
+        &.with-comment
+        {
+            display: flex;
+            flex-flow: column nowrap;
+
+            min-height: 90%;
+
+            justify-contents: stretch;
+        }
+
+        .media-contents-container
+        {
+            display: flex;
+            overflow: hidden;
+            align-items: stretch;
+            flex-flow: row nowrap;
+            justify-content: stretch;
+
+            max-width: 100%;
+            height: 100%;
+             > div
+            {
+                flex: 3;
+
+                min-width: 66%;
+                height: 100%;
+            }
+            iframe
+            {
+                width: 100%;
+                height: 100%;
+            }
+
+            .asides-wrapper
+            {
+                display: flex;
+                align-items: stretch;
+                flex-flow: column nowrap;
+                justify-content: stretch;
+
+                max-width: 0;
+
+                transition: all .5s ease;
+                &.active
+                {
+                    flex: 1;
+
+                    max-width: 33%;
+                }
+                .aside-row
+                {
+                    display: flex;
+                    align-items: stretch;
+                    flex: 1;
+                    justify-content: stretch;
+                    .aside-block
+                    {
+                        flex: 1;
+
+                        background: #f8f5f0;
+                        &.link,
+                        &.markdown,
+                        &.image .content
+                        {
+                            padding: 1rem;
+                        }
+                        &.images
+                        {
+                            .content
+                            {
+                                h1,
+                                h2,
+                                h3,
+                                h4,
+                                h5,
+                                h6,
+                                p,
+                                blockquote,
+                                ul,
+                                ol,
+                                pre
+                                {
+                                    color: white!important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .chunk-comment-card
+    {
+        overflow: auto;
+
+        max-width: calc(100% - 2em);
+        max-height: 30%;
+        margin: 1em;
+        padding: 1em;
+
+        opacity: .9;
+        background: #f8f5f0;
+    }
+
+    .metadata-wrapper
+    {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        display: flex;
+        overflow: auto;
+
+        width: 100%;
+        height: 100%;
+        padding: 10%;
+
+        transition: all .5s ease;
+        pointer-events: none;
+
+        opacity: 0;
+        color: white!important;
+        background: rgba(0,0,0,.9);
+        h1,
+        h2,
+        h3,
+        h4,
+        div
+        {
+            color: white;
+        }
+        &.visible
+        {
+            pointer-events: all;
+
+            opacity: 1;
+        }
+    }
+
+    .montage-title
+    {
+        color: white;
+    }
+
+    .dicto-Railway
+    {
+         > div
+        {
+            border: 1px solid #f8f5f0!important;
+            border-right: unset!important;
+            background: #232320!important;
+        }
+        .time-mark
+        {
+            top: 10%;
+
+            height: 80%;
+
+            border: unset!important;
+            border-left: 1px solid red!important;
+        }
+    }
+}

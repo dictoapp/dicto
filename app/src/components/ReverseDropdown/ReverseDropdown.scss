@@ -1,0 +1,98 @@
+
+
+.dicto-ReverseDropdown
+{
+    .cache
+    {
+        position: fixed;
+        z-index: 5;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        background: rgba(0,0,0,.1);
+    }
+    .anchor
+    {
+        position: relative;
+
+        overflow: visible;
+    }
+
+    .dropdown-content
+    {
+        position: absolute;
+        z-index: 6;
+        bottom: 0;
+        left: 0;
+
+        overflow: hidden;
+
+        width: 25rem;
+        max-height: 0;
+        margin: 0;
+        padding: 0;
+
+        transition: max-height .5s cubic-bezier(0, 1, 0, 1);
+
+        background: white;
+        box-shadow: none;
+    }
+
+    .dropdown-item-label
+    {
+        padding: .3rem;
+        padding-left: 1rem;
+
+        text-align: left;
+        text-transform: initial;
+
+        color: #f8f5f0;
+        background: #8e8c84;
+    }
+    &.is-active
+    {
+        .dropdown-content
+        {
+            display: flex;
+            flex-flow: column nowrap;
+
+            max-height: 60rem;
+
+            transition: max-height 1s ease-in-out;
+
+            color: black;
+            box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+
+            justify-contents: stretch;
+            .dropdown-item
+            {
+                display: flex;
+                align-items: center;
+                flex-flow: row nowrap;
+                justify-content: stretch;
+
+                cursor: pointer;
+                transition: background .5s ease;
+
+                border-bottom: 1px solid #f8f5f0;
+
+                .dropdown-item-main-content
+                {
+                    flex: 1;
+
+                    margin-right: 1rem;
+                    margin-left: 1rem;
+
+                    text-align: left;
+                }
+                &:hover
+                {
+                    background: #f8f5f0;
+                }
+            }
+        }
+    }
+}

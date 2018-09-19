@@ -1,0 +1,65 @@
+.block
+{
+    @include block;
+}
+
+.delete
+{
+    @include delete;
+}
+
+.heading
+{
+    font-size: 11px;
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.highlight
+{
+    font-weight: $weight-normal;
+
+    overflow: hidden;
+
+    max-width: 100%;
+    padding: 0;
+
+    @include block;
+
+    pre
+    {
+        overflow: auto;
+
+        max-width: 100%;
+    }
+}
+
+.loader
+{
+    @include loader;
+}
+
+.number
+{
+    font-size: $size-medium;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 2.5em;
+    height: 2em;
+    margin-right: 1.5rem;
+    padding: .25rem .5rem;
+
+    text-align: center;
+    vertical-align: top;
+
+    border-radius: 290486px;
+    background-color: $background;
+}

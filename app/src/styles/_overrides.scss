@@ -1,0 +1,672 @@
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+// clearfixes
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+
+:root
+{
+    // responsive font size relative to the surface of the screen
+    font-size: 1vmax;
+}
+
+:global
+{
+    @import './normalize.scss';
+    html
+    {
+        box-sizing: border-box;
+    }
+
+    html,
+    body
+    {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    *,
+    *:before,
+    *:after
+    {
+        box-sizing: inherit;
+    }
+
+    /*
+  clear-fixes
+  */
+    button
+    {
+        color: inherit;
+        border: none;
+        outline: none;
+        background: inherit;
+    }
+}
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+// sandstone overrides
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700);
+
+.button,
+.control.has-icons-left .icon,
+.control.has-icons-right .icon,
+.input,
+.pagination-ellipsis,
+.pagination-link,
+.pagination-next,
+.pagination-previous,
+.select,
+.select select,
+.textarea
+{
+    height: 2.572em;
+}
+
+.button
+{
+    text-transform: uppercase;
+    &.is-primary,
+    &.is-success,
+    &.is-primary:hover,
+    &.is-success:hover,
+    &.is-primary:focus,
+    &.is-success:focus
+    {
+        color: white;
+    }
+}
+
+.notification
+{
+    @each $name, $pair in $colors
+    {
+        $color: nth($pair, 1);
+        $color-invert: nth($pair, 2);
+
+        &.is-#{$name}
+        {
+            a:not(.button)
+            {
+                text-decoration: underline;
+
+                color: $color-invert;
+            }
+        }
+    }
+}
+
+.card
+{
+    transition: all .5s ease;
+
+    box-shadow: 0 2px 3px rgba($grey-dark, .1), 0 0 0 1px rgba($grey-dark, .1);
+    &:hover
+    {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
+        // box-shadow: 0 9px 12px 0 rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(0, 0, 0, 0.19);
+    }
+}
+
+.navbar
+{
+    border-radius: $radius;
+
+    @include desktop
+    {
+        .navbar-dropdown .navbar-item
+        {
+            color: $text;
+        }
+    }
+    @include touch
+    {
+        .navbar-menu
+        {
+            background-color: inherit;
+        }
+    }
+
+    .navbar-item,
+    .navbar-link
+    {
+        font-size: .875rem;
+        font-weight: 700;
+
+        max-height: 5rem;// @added
+
+        text-transform: uppercase;
+
+        &.is-active
+        {
+            background-color: darken($grey-dark, 5);
+
+            @include touch
+            {
+                background-color: rgba($grey-dark, .25);
+            }
+        }
+    }
+
+    &:not([class*='is-']) .navbar-burger span
+    {
+        background-color: $white-ter;
+    }
+
+    @each $name, $pair in $colors
+    {
+        $color: nth($pair, 1);
+        $color-invert: nth($pair, 2);
+
+        &.is-#{$name}
+        {
+            @include touch
+            {
+                .navbar-item,
+                .navbar-link
+                {
+                    color: rgba($color-invert, .7);
+                    &.is-active
+                    {
+                        color: $color-invert;
+                    }
+                }
+            }
+        }
+    }
+
+    &.is-transparent
+    {
+        background-color: transparent;
+    }
+}
+
+.hero
+{
+    // Colors
+    .navbar
+    {
+        background-color: $grey-dark;
+    }
+    @each $name, $pair in $colors
+    {
+        $color: nth($pair, 1);
+        $color-invert: nth($pair, 2);
+
+        &.is-#{$name}
+        {
+            .navbar
+            {
+                background: none;
+            }
+        }
+    }
+}
+
+.pagination-link,
+.pagination-next,
+.pagination-previous
+{
+    color: $primary;
+    background-color: $pagination-background-color;
+}
+
+
+
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+// bulma customization
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+
+.pagination.is-rounded
+{
+    .pagination-link,
+    .pagination-next,
+    .pagination-previous
+    {
+        border-radius: 1.266rem;
+    }
+}
+
+.button
+{
+    border-radius: unset;
+    &.is-rounded
+    {
+        min-width: 2.5rem;
+
+        border-radius: 50%;
+        box-shadow: 0 2px 3px rgba($grey-dark, .1), 0 0 0 1px rgba($grey-dark, .1);
+    }
+}
+.box .media .media-left
+{
+    width: 7rem;
+}
+
+.tag
+{
+    margin-left: .5rem;
+}
+
+// global classes
+
+
+.ReactModalPortal
+{
+    position: absolute;
+    z-index: 3;
+}
+
+.ReactModal__Content
+{
+    z-index: 3;
+    // form
+    // {
+    //     display: flex;
+    //     overflow: hidden;
+
+    //     height: 100%;
+
+    //     flex-flow: column nowrap;
+    //     align-items: stretch;
+    //      > div
+    //     {
+    //         overflow: auto;
+
+    //         flex: 1;
+    //     }
+    // }
+}
+
+
+.is-scrollable
+{
+    overflow: auto;
+}
+
+.fix-height
+{
+    overflow: hidden;
+
+    height: 100%;
+}
+
+.rows
+{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: stretch;
+}
+.row
+{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: stretch;
+}
+.stretched-columns
+{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: stretch;
+}
+
+.is-flex-1
+{
+    flex: 1;
+}
+
+iframe
+{
+    width: 100%;
+    height: 100%;
+}
+
+.ReactModalPortal > div
+{
+    opacity: 0;
+}
+
+.ReactModalPortal
+{
+    display: flex;
+    align-items: center;
+    flex-flow: column nowrap;
+    justify-content: center;
+    .ReactModal__Overlay
+    {
+        display: flex;
+        align-items: center;
+        flex-flow: row nowrap;
+        justify-content: center;
+
+        transition: opacity 500ms ease-in-out;
+
+        background: rgba(0, 0, 0, .15);
+
+
+        &--after-open
+        {
+            transform: scale(1);
+
+            opacity: 1;
+        }
+        &--before-close
+        {
+            transform: scale(.1);
+
+            opacity: 0;
+        }
+
+        .ReactModal__Content
+        {
+            position: relative!important;
+            top: unset!important;
+            right: unset!important;
+            bottom: unset!important;
+            left: unset!important;
+
+            width: 80%;
+            padding: 0!important;
+
+            outline: none;
+        }
+    }
+}
+
+
+
+.modal-content
+{
+    // position: absolute;
+    position: relative;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: stretch;
+
+    width: 100%;
+    height: 100%;
+    &.is-fullheight
+    {
+        height: 30rem;
+    }
+    .modal-header
+    {
+        padding: 1.5rem;
+
+        // color: #f8f5f0;
+        // background: #325d88;
+        .title
+        {
+            // color: #f8f5f0;
+            font-size: 2.5rem;
+
+            margin: 0;
+        }
+    }
+    .modal-body
+    {
+        position: relative;
+
+        overflow: auto;
+        // padding: 1rem;
+        flex: 1;
+        &.composition-modal,
+        &.corpus-modal-body
+        {
+            padding: 0;
+        }
+    }
+
+    .modal-footer
+    {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: stretch;
+
+        min-height: 2rem;
+        li
+        {
+            flex: 1;
+        }
+    }
+    .dico-SchemaForm
+    {
+        margin-bottom: 0;
+    }
+    .dicto-SchemaForm,
+    .dicto-TagEditor
+    {
+        display: flex;
+        flex: 1;
+        flex-flow: column nowrap;
+        justify-content: stretch;
+        .schema-item
+        {
+            overflow: auto;
+            flex: 1;
+
+            .section
+            {
+                padding-right: 0;
+                padding-left: 0;
+            }
+        }
+        .form-footer
+        {
+            display: flex;
+            align-items: center;
+            flex-flow: row nowrap;
+            justify-content: stretch;
+
+            min-height: 2rem;
+            li
+            {
+                flex: 1;
+            }
+        }
+    }
+
+    .media-modal-body
+    {
+        display: flex;
+        flex-flow: column nowrap;
+
+        justify-conten: stretch;
+    }
+
+    .media-player-wrapper
+    {
+        display: flex;
+        flex: 1;
+        flex-flow: column nowrap;
+        justify-content: stretch;
+
+        height: 30rem;
+        .media-player
+        {
+            overflow: hidden;
+            flex: 1;
+            iframe
+            {
+                width: 100%;
+                max-height: 100%;
+            }
+        }
+    }
+}
+
+.montage-container
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 50%;
+    height: 100%;
+}
+
+.small-modal
+{
+    position: absolute;
+    top: 35%;
+    right: 40px;
+    bottom: 35%;
+    left: 40px;
+
+    overflow: visible;
+
+    padding: 20px;
+
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 4px;
+    outline: none;
+    background: rgb(255, 255, 255);
+}
+
+.close-modal-icon-container
+{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    cursor: pointer;
+    .icon
+    {
+        font-size: 3em;
+
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+
+        cursor: pointer;
+
+        // color: white;
+    }
+}
+
+
+.Select-menu-outer
+{
+    z-index: 50!important;
+}
+
+
+
+#PlacesAutocomplete__autocomplete-container
+{
+    z-index: 1000;
+}
+
+.content a
+{
+    font-weight: 800;
+
+    text-decoration: underline;
+}
+
+.button
+{
+    font-weight: 800;
+
+    &.is-fullheight
+    {
+        height: 100%;
+    }
+
+    &.is-disabled
+    {
+        cursor: not-allowed;
+        pointer-events: none;
+
+        opacity: .5;
+    }
+}
+
+.card-header
+{
+    padding-left: 1rem;
+
+    box-shadow: none;
+}
+
+.tag
+{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+.column.is-collapsable
+{
+    overflow: hidden;
+
+    max-width: 100%;
+
+    transition: all 1s ease;
+    &.is-0
+    {
+        max-width: 0;
+        padding: 0;
+    }
+}
+
+.switch-wrapper
+{
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+}
+
+
+.react-contextmenu-item
+{
+    cursor: pointer;
+
+    outline: none;
+}
+
+.react-contextmenu--visible
+{
+    z-index: 1000;
+}
+
+.__floater__body > div > div
+{
+    text-align: left!important;
+}
+
+.dropdown-item
+{
+    &.is-active
+    {
+        color: $white-ter;
+        background: $grey-dark;
+    }
+}
+
+.redux-toastr
+{
+    z-index: 1000;
+}

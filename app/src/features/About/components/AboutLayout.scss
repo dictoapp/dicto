@@ -1,0 +1,50 @@
+/**
+ * style definitions for the About component
+ *
+ * @module dicto/features/About
+ */
+
+.dicto-AboutLayout
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    overflow: auto;
+    flex-flow: column nowrap;
+
+    width: 100%;
+    height: 100%;
+    .hero-title
+    {
+        position: relative;
+
+        display: flex;
+        align-items: center;
+        flex-flow: row nowrap;
+        .tag
+        {
+            font-size: 1rem;
+
+            color: white;
+            border-radius: 1em;
+            background: #333;
+            background: #93c54b;
+        }
+    }
+
+    .logo-img
+    {
+        position: absolute;
+        top: .2em;
+        left: - 1.2em;
+
+        height: .8em;
+    }
+
+    .about-container
+    {
+        padding-top: 10%;
+    }
+}

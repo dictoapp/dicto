@@ -1,0 +1,20 @@
+
+
+
+.dicto-TagEditor
+{
+    display: flex;
+    align-items: stretch;
+     > form
+    {
+        display: flex;
+        align-items: stretch;
+        flex: 1;
+        flex-flow: column nowrap;
+        .main-contents
+        {
+            overflow: auto;
+            flex: 1;
+        }
+    }
+}

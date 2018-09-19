@@ -1,0 +1,54 @@
+/**
+ * style definitions for the Corpus component
+ *
+ * @module dicto/features/Corpus
+ */
+
+
+
+/*
+ * Primary layout
+ */
+
+.dicto-Corpus
+{
+    overflow: hidden;
+
+    height: 100%;
+
+    .subviews-menu
+    {
+        margin-top: 10rem;
+        .subview-menu-item
+        {
+            margin-bottom: 1em;
+
+            cursor: pointer;
+            transition: all .5s ease;
+
+            opacity: .6;
+            &:hover
+            {
+                opacity: .8;
+            }
+            &.is-active
+            {
+                opacity: 1;
+            }
+            .subview-title
+            {
+                position: absolute;
+                left: 3em;
+            }
+        }
+    }
+
+    .category-header
+    {
+        cursor: pointer;
+        .card
+        {
+            cursor: pointer;
+        }
+    }
+}

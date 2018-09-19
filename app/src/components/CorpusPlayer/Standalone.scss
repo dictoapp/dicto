@@ -1,0 +1,28 @@
+
+button
+{
+    border: none;
+    outline: none;
+    background: inherit;
+}
+
+@import '../../styles/entrypoint.scss';
+
+.close-modal-icon-container
+{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    .icon
+    {
+        font-size: 3em;
+
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+
+        cursor: pointer;
+
+        color: white;
+    }
+}

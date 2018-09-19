@@ -1,0 +1,144 @@
+.level
+{
+    align-items: center;
+    justify-content: space-between;
+
+    @include block;
+    // Responsiveness
+    @include tablet
+    {
+        display: flex;
+
+        & > .level-item
+        {
+            &:not(.is-narrow)
+            {
+                flex-grow: 1;
+            }
+        }
+    }
+
+    code
+    {
+        border-radius: $radius;
+    }
+
+    img
+    {
+        display: inline-block;
+
+        vertical-align: top;
+    }
+
+    // Modifiers
+    &.is-mobile
+    {
+        display: flex;
+
+        .level-left,
+        .level-right
+        {
+            display: flex;
+        }
+
+        .level-left + .level-right
+        {
+            margin-top: 0;
+        }
+
+        .level-item
+        {
+            margin-right: .75rem;
+            &:not(:last-child)
+            {
+                margin-bottom: 0;
+            }
+
+            &:not(.is-narrow)
+            {
+                flex-grow: 1;
+            }
+        }
+    }
+}
+
+.level-item
+{
+    display: flex;
+    align-items: center;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+    justify-content: center;
+    // Responsiveness
+
+    @include mobile
+    {
+        &:not(:last-child)
+        {
+            margin-bottom: .75rem;
+        }
+    }
+
+    .title,
+    .subtitle
+    {
+        margin-bottom: 0;
+    }
+}
+
+.level-left,
+.level-right
+{
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    .level-item
+    {
+        // Responsiveness
+        @include tablet
+        {
+            &:not(:last-child)
+            {
+                margin-right: .75rem;
+            }
+        }
+        // Modifiers
+        &.is-flexible
+        {
+            flex-grow: 1;
+        }
+    }
+}
+
+.level-left
+{
+    align-items: center;
+    justify-content: flex-start;
+    // Responsiveness
+
+    @include mobile
+    {
+        & + .level-right
+        {
+            margin-top: 1.5rem;
+        }
+    }
+    @include tablet
+    {
+        display: flex;
+    }
+}
+
+.level-right
+{
+    align-items: center;
+    justify-content: flex-end;
+    // Responsiveness
+
+    @include tablet
+    {
+        display: flex;
+    }
+}

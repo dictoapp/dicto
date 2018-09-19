@@ -1,0 +1,120 @@
+$dropdown-content-background-color: $white !default;
+$dropdown-content-arrow: $link !default;
+$dropdown-content-offset: 4px !default;
+$dropdown-content-radius: $radius !default;
+$dropdown-content-shadow: 0 2px 3px rgba($black, .1), 0 0 0 1px rgba($black, .1) !default;
+$dropdown-content-z: 20 !default;
+
+$dropdown-item-color: $grey-dark !default;
+$dropdown-item-hover-color: $black !default;
+$dropdown-item-hover-background-color: $background !default;
+$dropdown-item-active-color: $link-invert !default;
+$dropdown-item-active-background-color: $link !default;
+
+$dropdown-divider-background-color: $border !default;
+
+.dropdown
+{
+    position: relative;
+
+    display: inline-flex;
+
+    vertical-align: top;
+
+    &.is-active,
+    &.is-hoverable:hover
+    {
+        .dropdown-menu
+        {
+            display: block;
+        }
+    }
+
+    &.is-right
+    {
+        .dropdown-menu
+        {
+            right: 0;
+            left: auto;
+        }
+    }
+
+    &.is-up
+    {
+        .dropdown-menu
+        {
+            top: auto;
+            bottom: 100%;
+
+            padding-top: unset;
+            padding-bottom: $dropdown-content-offset;
+        }
+    }
+}
+
+.dropdown-menu
+{
+    position: absolute;
+    z-index: $dropdown-content-z;
+    top: 100%;
+    left: 0;
+
+    display: none;
+
+    min-width: 12rem;
+    padding-top: $dropdown-content-offset;
+}
+
+.dropdown-content
+{
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+
+    border-radius: $dropdown-content-radius;
+    background-color: $dropdown-content-background-color;
+    box-shadow: $dropdown-content-shadow;
+}
+
+.dropdown-item
+{
+    font-size: .875rem;
+    line-height: 1.5;
+
+    position: relative;
+
+    display: block;
+
+    padding: .375rem 1rem;
+
+    color: $dropdown-item-color;
+}
+
+a.dropdown-item
+{
+    padding-right: 3rem;
+
+    white-space: nowrap;
+
+    &:hover
+    {
+        color: $dropdown-item-hover-color;
+        background-color: $dropdown-item-hover-background-color;
+    }
+
+    &.is-active
+    {
+        color: $dropdown-item-active-color;
+        background-color: $dropdown-item-active-background-color;
+    }
+}
+
+.dropdown-divider
+{
+    display: block;
+
+    height: 1px;
+    margin: .5rem 0;
+
+    border: none;
+    background-color: $dropdown-divider-background-color;
+}

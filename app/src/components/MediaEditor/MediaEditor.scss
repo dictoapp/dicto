@@ -1,0 +1,33 @@
+
+
+.dicto-MediaEditor
+{
+    .media-player-wrapper
+    {
+        position: relative;
+
+        min-height: 15rem;
+        .media-player
+        {
+            position: relative;
+
+            min-height: 15rem;
+             > div
+            {
+                max-height: 100%;
+            }
+        }
+
+        .media-thumbnail-wrapper
+        {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+
+            overflow: hidden;
+
+            width: 5rem;
+            height: 5rem;
+        }
+    }
+}

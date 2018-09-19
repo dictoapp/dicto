@@ -1,0 +1,26 @@
+
+
+
+
+
+.dicto-MarkdownEditor
+{
+    .mde-help
+    {
+        display: none;
+    }
+    .mde-text,
+    .mde-preview
+    {
+        display: inline-block;
+        float: left;
+
+        width: 50%;
+        height: unset;
+        max-height: unset!important;
+    }
+    .mde-preview .mde-preview-content
+    {
+        margin-top: 0;
+    }
+}

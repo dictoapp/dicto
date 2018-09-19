@@ -1,0 +1,70 @@
+
+.dicto-Railway
+{
+    position: relative;
+
+    overflow: hidden;
+
+    width: 100%;
+    height: 100%;
+
+    background: #f0e9df;
+    .time-mark,
+    .scroll-mark
+    {
+        transition: all .05s ease;
+        pointer-events: none;
+    }
+
+    .time-mark
+    {
+        position: absolute;
+
+        pointer-events: none;
+    }
+
+
+    .scroll-mark
+    {
+        position: absolute;
+
+        pointer-events: none;
+
+        opacity: .3;
+        background: darkgrey;
+    }
+    &.vertical
+    {
+        .time-mark
+        {
+            left: 0;
+
+            width: 100%;
+
+            border-bottom: 1px solid blue;
+        }
+        .scroll-mark
+        {
+            left: 0;
+
+            width: 100%;
+        }
+    }
+    &.horizontal
+    {
+        .time-mark
+        {
+            top: 0;
+
+            height: 100%;
+
+            border-left: 1px solid blue;
+        }
+        .scroll-mark
+        {
+            top: 0;
+
+            height: 100%;
+        }
+    }
+}

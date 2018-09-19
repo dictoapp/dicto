@@ -1,0 +1,21 @@
+
+
+.dicto-CompositionCard
+{
+    .preview-container
+    {
+        display: grid;
+        justify-content: center; /* justify grid to center of container */
+
+        background: black!important;
+
+        grid-template-columns: 100%;
+        .dicto-MediaThumbnail
+        {
+            min-height: unset;
+            padding: .2rem;
+
+            background: black;
+        }
+    }
+}

@@ -1,0 +1,168 @@
+/**
+ * style definitions for the ChunksEditionLayout component
+ *
+ * @module dicto/features/ChunksEditionLayout
+ */
+
+
+.dicto-ChunksEditionLayout
+{
+    .media-player-container
+    {
+        overflow: hidden;
+
+        max-height: 0;
+
+        cursor: pointer;
+        transition: all .5s ease;
+
+        background: black;
+         > div
+        {
+            flex: 1;
+
+            height: 100%;
+        }
+        &.active
+        {
+            max-height: 100%;
+        }
+    }
+
+    .media-choice
+    {
+        // max-height: 0;
+        // overflow: hidden;
+        // &.visible{
+        //     max-height: 200%;
+        // }
+    }
+
+    .dicto-ChunkContentEditor
+    {
+        position: absolute;
+        z-index: 2;
+        bottom: .7rem;
+        left: .7rem;
+
+        width: calc(100% - 1.4rem);
+        min-height: 30%;
+        max-height: 30%;
+
+        transition: all .5s ease;
+
+        background: white;
+        &.expanded
+        {
+            min-height: 80%;
+            max-height: 80%;
+        }
+        &.inactive
+        {
+            pointer-events: none;
+
+            opacity: .3;
+            // min-height: 10%;
+            // max-height: 10%;
+        }
+        &.disabled
+        {
+            pointer-events: none;
+        }
+    }
+
+    .chunks-space-wrapper,
+    .media-wrapper
+    {
+        transition: all .2s ease;
+    }
+
+    .media-wrapper
+    {
+        overflow: hidden;
+    }
+
+    .chunks-space-wrapper
+    {
+        position: relative;
+
+        .dicto-DropZone
+        {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .dicto-ShortcutsDisplay
+    {
+        position: absolute;
+        z-index: 3;
+        top: 10rem;
+        left: 1rem;
+
+        width: 100%;
+    }
+
+    .medias-list
+    {
+        overflow: hidden;
+
+        max-height: 0;
+
+        transition: all .5s ease;
+        &.active
+        {
+            overflow: auto;
+
+            max-height: 100%;
+        }
+    }
+
+    .seek-input-container
+    {
+        input
+        {
+            font-size: .8rem;
+
+            text-align: center;
+
+            color: #f8f5f0;
+            background: #8e8c84;
+            &:hover,
+            &:focus
+            {
+                color: white;
+                background: black;
+            }
+        }
+    }
+
+    .react-contextmenu-wrapper
+    {
+        width: 100%;
+        height: 100%;
+    }
+}
+.tag-editor-container
+{
+    display: flex;
+    align-items: stretch;
+    flex-flow: row nowrap;
+    justify-content: stretch;
+    .dicto-TagEditor
+    {
+        flex: 1;
+    }
+}
+.editor-modal-content-container
+{
+    display: flex;
+    .dicto-ChunkContentEditor
+    {
+        flex: 1;
+    }
+}

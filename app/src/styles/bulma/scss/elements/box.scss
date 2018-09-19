@@ -1,0 +1,36 @@
+$box-color: $text !default;
+$box-background-color: $white !default;
+$box-radius: $radius-large !default;
+$box-shadow: 0 2px 3px rgba($black, .1), 0 0 0 1px rgba($black, .1) !default;
+$box-padding: 1.25rem !default;
+
+$box-link-hover-shadow: 0 2px 3px rgba($black, .1), 0 0 0 1px $link !default;
+$box-link-active-shadow: inset 0 1px 2px rgba($black, .2), 0 0 0 1px $link !default;
+
+.box
+{
+    display: block;
+
+    padding: $box-padding;
+
+    color: $box-color;
+    border-radius: $box-radius;
+    background-color: $box-background-color;
+    box-shadow: $box-shadow;
+
+    @include block;
+}
+
+a.box
+{
+    &:hover,
+    &:focus
+    {
+        box-shadow: $box-link-hover-shadow;
+    }
+
+    &:active
+    {
+        box-shadow: $box-link-active-shadow;
+    }
+}

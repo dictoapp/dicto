@@ -1,0 +1,69 @@
+$dimensions: 16 24 32 48 64 96 128 !default;
+
+.image
+{
+    position: relative;
+
+    display: block;
+
+    img
+    {
+        display: block;
+
+        width: 100%;
+        height: auto;
+    }
+
+    // Ratio
+    &.is-square,
+    &.is-1by1,
+    &.is-4by3,
+    &.is-3by2,
+    &.is-16by9,
+    &.is-2by1
+    {
+        img
+        {
+            width: 100%;
+            height: 100%;
+
+            @include overlay;
+        }
+    }
+
+    &.is-square,
+    &.is-1by1
+    {
+        padding-top: 100%;
+    }
+
+    &.is-4by3
+    {
+        padding-top: 75%;
+    }
+
+    &.is-3by2
+    {
+        padding-top: 66.6666%;
+    }
+
+    &.is-16by9
+    {
+        padding-top: 56.25%;
+    }
+
+    &.is-2by1
+    {
+        padding-top: 50%;
+    }
+
+    // Sizes
+    @each $dimension in $dimensions
+    {
+        &.is-#{$dimension}x#{$dimension}
+        {
+            width: $dimension * 1px;
+            height: $dimension * 1px;
+        }
+    }
+}

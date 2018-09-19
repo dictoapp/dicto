@@ -1,0 +1,164 @@
+
+.dicto-TimelineChunk
+{
+    position: absolute;
+
+    display: flex;
+    overflow: hidden;
+    flex-flow: column nowrap;
+
+    box-sizing: border-blox;
+
+    transition: background .2s ease;
+
+    background: #d2ccc3;
+
+    justify-contents: stretch;
+
+    .middle-band
+    {
+        position: relative;
+
+        display: flex;
+        flex: 1;
+        flex-flow: row nowrap;
+
+        justify-contents: stretch;
+        .contents-preview
+        {
+            overflow: hidden;
+            flex: 1;
+
+            padding: 1em;
+
+            cursor: pointer;
+        }
+    }
+
+    .top-band,
+    .bottom-band
+    {
+        position: relative;
+
+        max-height: 3em;
+        margin: 0;
+
+        color: #f8f5f0;
+        background: #8e8c84;
+    }
+
+    .resize-top-grip,
+    .resize-bottom-grip
+    {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+    }
+
+    .resize-top-grip
+    {
+        cursor: n-resize;
+    }
+    .resize-bottom-grip
+    {
+        cursor: s-resize;
+    }
+
+    .delete-btn
+    {
+        position: absolute;
+        top: 3em;
+        right: 3em;
+    }
+
+    input
+    {
+        margin: 0;
+
+        text-align: center;
+        pointer-events: none;
+
+        border: none;
+        outline: none;
+        background: inherit;
+    }
+
+
+
+    .move-grip
+    {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        justify-content: center;
+
+        min-width: 20%;
+
+        cursor: move;
+        transition: background .5s ease;
+        text-align: center;
+
+        &:hover
+        {
+            background: #8e8c84;
+        }
+    }
+
+    .tags-marks-container
+    {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: stretch;
+
+        height: 100%;
+        span
+        {
+            flex: 1;
+
+            min-width: .5em;
+        }
+    }
+
+    .time-marker
+    {
+        width: 100%;
+
+        text-align: center;
+    }
+
+    &.selected
+    {
+        border: 3px solid #2a2a26;
+
+        .move-grip
+        {
+            background: #8e8c84;
+        }
+    }
+
+    &.minified
+    {
+        .top-band,
+        .bottom-band
+        {
+            height: 1px;
+            span
+            {
+                display: none;
+            }
+        }
+        .contents-preview
+        {
+            margin: 0;
+            padding: .2rem;
+            padding-left: 1rem;
+        }
+    }
+}
