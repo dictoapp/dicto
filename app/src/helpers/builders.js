@@ -105,9 +105,12 @@ export const buildCompositionAsStaticHtml = ( composition, corpus ) => {
     (
       <div key={ 'title' }>
         <h1>{composition.metadata.title}</h1>
-        <div>
-          <Markdown src={ composition.metadata.description } />
-        </div>
+        {
+          composition.metadata.description && composition.metadata.description.length &&
+          <div>
+            <Markdown src={ composition.metadata.description } />
+          </div>
+        }
       </div>
     ),
     // blocks
@@ -119,29 +122,71 @@ export const buildCompositionAsStaticHtml = ( composition, corpus ) => {
           const content = chunk.fields[activeFieldId];
           const media = corpus.medias[chunk.metadata.mediaId];
           const properSrc = buildProperSrc( media, chunk );
+          const prevBlock = index > 0 ? summary[index - 1] : undefined;
+          const nextBlock = index < summary.length - 1 ? summary[index + 1] : undefined;
+          let isFirst = true;
+          let isLast = false;
+          if ( prevBlock ) {
+            const prevChunkId = prevBlock.blockType === 'chunk' && prevBlock.content;
+            if ( prevChunkId ) {
+              const prevChunk = corpus.chunks[prevChunkId];
+              const prevMediaId = prevChunk.metadata.mediaId;
+              isFirst = prevMediaId !== chunk.metadata.mediaId;
+            }
+          }
+          if ( nextBlock ) {
+            const nextChunkId = nextBlock.blockType === 'chunk' && nextBlock.content;
+            if ( nextChunkId ) {
+              const nextChunk = corpus.chunks[nextChunkId];
+              const nextMediaId = nextChunk.metadata.mediaId;
+              isLast = nextMediaId !== chunk.metadata.mediaId;
+            }
+            else {
+              isLast = true;
+            }
+          }
+          else {
+            isLast = true;
+          }
           return (
-            <src key={ index }>
-              <iframe src={ properSrc } />
+            <div
+              className={ "excerpt" }
+              key={ index }
+            >
+              {isFirst && <iframe src={ properSrc } />}
+              <div className={ "timecodes" }>
+                <time className={ "timecode-in" }>{secsToSrt( chunk.start )}</time>{' - '}<time className={ "timecode-out" }>{secsToSrt( chunk.end )}</time>
+              </div>
               <blockquote
                 cite={ media.mediaUrl }
               >
                 <Markdown src={ content } />
-                <footer>
+              </blockquote>
+              {isLast && 
+              <footer>
+                <i>
                   <a
                     target={ 'blank' }
-                    href={ media.mediaUrl }
+                    href={ media.metadata.mediaUrl }
                   >
-                    {media.title}
-                  </a>{', '}{secsToSrt( chunk.start )}{' - '}{secsToSrt( chunk.end )}
-                </footer>
-              </blockquote>
-            </src>
+                    {media.metadata.title}
+                  </a>
+                </i>
+              </footer>
+              }
+            </div>
           );
         }
-        return ( <Markdown
-          key={ index }
-          src={ block.content }
-                 /> );
+        return ( 
+          <div
+            key={ index }
+            className={ "comment" }
+          >
+            <Markdown
+              src={ block.content }
+            /> 
+          </div>
+        );
       } )
     ]
   ];
