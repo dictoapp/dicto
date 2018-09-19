@@ -12,7 +12,7 @@ const version = __DICTO_VERSION__ || '0.0.1';
 const links = {
   macos: `${repo}/releases/download/${version}/dicto-${version}-mac.zip`,
   linux: `${repo}/releases/download/${version}/dicto-${version}.tar.gz`,
-  windows: `${repo}/releases/download/${version}/dicto Setup ${version}.exe`,
+  windows: `${repo}/releases/download/${version}/dicto.Setup.${version}.exe`,
 };
 
 const DownloadDesktop = ( { mode = 'horizontal' }, { t } ) => {
