@@ -601,7 +601,7 @@ const CompositionEditionLayout = ( {
                                 <button
                                   onClick={ onAddAll }
                                   className={ 'button is-fullwidth is-dark' }
-                                >{t( 'add-all-chunks' )}
+                                >{t( [ 'add one excerpt to the composition', 'add {n} excerpts to the composition', 'n' ], { n: displayedChunks.length } )}
                                 </button>
                               </div>
                             </div>
@@ -818,7 +818,7 @@ const CompositionEditionLayout = ( {
               >
                 <button
                   id={ 'export' }
-                  className={ 'button is-fullwidth' }
+                  className={ 'button is-primary is-fullwidth' }
                   onClick={ openPreview }
                 >
                   {t( 'preview and export' )}

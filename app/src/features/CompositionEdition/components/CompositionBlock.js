@@ -164,7 +164,7 @@ class CompositionBlock extends Component {
                           <li>
                             <i className={ 'fas fa-image' } />
                             <span className={ 'info-number' }>
-                              {t( [ 'one additional contents', '{n} additional contents', 'n' ], { n: compositionBlock.asides && compositionBlock.asides.length } )}
+                              {t( [ 'one additional content', '{n} additional contents', 'n' ], { n: compositionBlock.asides && compositionBlock.asides.length } )}
                             </span>
                           </li>}
                       </ul>

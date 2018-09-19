@@ -267,6 +267,7 @@ class CompositionEditionContainer extends Component {
     const composition = corpus.compositions[compositionId];
     const html = buildCompositionAsStaticHtml( composition, corpus );
     copyToClipboard( html );
+    toastr.success( this.context.t( 'HTML code copied to clipboard !' ) )
   }
 
   /**

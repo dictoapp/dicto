@@ -82,7 +82,7 @@ class CompositionChunk extends Component {
                       <li>
                         <i className={ 'fas fa-video' } />
                         <span className={ 'info-number' }>
-                          {t( [ 'one tag', '{n} tags' ], { n: chunk.tags.length } )}
+                          {t( [ 'one tag', '{n} tags', 'n' ], { n: chunk.tags.length } )}
                         </span>
                       </li>
 
