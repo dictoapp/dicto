@@ -316,7 +316,14 @@ export class ChunksEditionLayout extends Component {
       };
 
       const onSeekToMediaTime = ( seconds ) => {
-        seekToMediaTime( seconds );
+        const playing = mediaPlaying;
+        setMediaPlaying( false );
+        setTimeout( () => {
+          seekToMediaTime( seconds );
+          if ( playing ) {
+            setMediaPlaying( true );
+          }
+        }, 100 )
         setScrollTargetInSeconds( seconds );
       };
 
@@ -707,7 +714,7 @@ export class ChunksEditionLayout extends Component {
             } )
         };
       }
-
+      
       return (
         <HotKeys
           className={ 'hot-keys' }
@@ -1029,6 +1036,7 @@ export class ChunksEditionLayout extends Component {
                             <ControlledMediaPlayer
                               src={ activeMedia.metadata.mediaUrl }
                               shouldPlay={ mediaPlaying }
+                              currentTime={ mediaCurrentTime }
                               setMediaDuration={ onSetMediaDuration }
                               setMediaPlaying={ setMediaPlaying }
                               setMediaCurrentTime={ setMediaCurrentTime }

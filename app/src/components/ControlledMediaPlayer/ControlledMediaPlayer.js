@@ -27,8 +27,13 @@ class MediaPlayer extends Component {
   }
 
   componentWillReceiveProps = ( nextProps ) => {
-
-    if ( Math.abs( this.props.seekedTime - nextProps.seekedTime ) > PRECISION_THRESHOLD && this.player ) {
+    if ( 
+      (
+        Math.abs( this.props.seekedTime - nextProps.seekedTime ) > PRECISION_THRESHOLD 
+        || !this.props.seekedTime && nextProps.seekedTime
+        || Math.abs( nextProps.seekedTime - nextProps.currentTime ) > PRECISION_THRESHOLD 
+      ) && this.player 
+    ) {
       this.player.seekTo( nextProps.seekedTime );
     }
   }

@@ -415,7 +415,8 @@ function ui( state = UI_DEFAULT_STATE, action ) {
   case SET_MEDIA_CURRENT_TIME:
     return {
       ...state,
-      mediaCurrentTime: payload
+      mediaCurrentTime: payload,
+      seekedTime: undefined,
     };
   case SET_MEDIA_DURATION:
     return {
