@@ -844,7 +844,7 @@ const CorpusLayout = ( {
                                                             <span
                                                               style={ { marginRight: '1rem' } }
                                                               data-for={ 'tooltip' }
-                                                              data-tip={ t( [ 'one chunk tagged in corpus', '{n} chunks tagged in corpus', '{n}' ], { n: relatedChunksIds.length } ) }
+                                                              data-tip={ t( [ 'one excerpt tagged in corpus', '{n} excerpts tagged in corpus', '{n}' ], { n: relatedChunksIds.length } ) }
                                                             >
                                                               <i className={ 'fas fa-film' } />
                                                               <span style={ { marginLeft: '.2rem' } }>{relatedChunksIds.length}</span>
@@ -864,7 +864,7 @@ const CorpusLayout = ( {
                                                                         <span
                                                                           style={ { marginRight: '1rem' } }
                                                                           data-for={ 'tooltip' }
-                                                                          data-tip={ t( 'tag has dates information' ) }
+                                                                          data-tip={ t( 'tag has temporal information' ) }
                                                                         >
                                                                           <i className={ 'fas fa-clock' } />
                                                                         </span>
