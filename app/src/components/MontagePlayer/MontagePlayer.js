@@ -296,7 +296,7 @@ export default class MontagePlayer extends Component {
               {
                 aside.title && aside.title.length &&
                 <div className={ 'content' }>
-                  <h2>{aside.title}</h2>
+                  <h2 className={ "aside-title" }>{aside.title}</h2>
                 </div>
               }
               <ImageGallery items={ images } />
@@ -309,7 +309,7 @@ export default class MontagePlayer extends Component {
               {
                 aside.title && aside.title.length &&
                 <div className={ 'title' }>
-                  <h2>{aside.title}</h2>
+                  <h2 className={ "aside-title" }>{aside.title}</h2>
                 </div>
               }
               <img src={ aside.images[0].url } />
@@ -398,9 +398,11 @@ export default class MontagePlayer extends Component {
                         ) : null
                     }
             <div className={ `metadata-wrapper ${metadataVisible ? 'visible' : ''}` }>
-              <div>
-                <h1 className={ 'title is-1' }>
-                  {metadata.title}
+              <div style={ { width: '100%' } }>
+                <h1 className={ 'title is-1 stretched-columns' }>
+                  <span className={ "is-flex-1" }>
+                    {metadata.title}
+                  </span>
                   {
                                   metadataVisible &&
                                   <span
@@ -414,7 +416,7 @@ export default class MontagePlayer extends Component {
                 </h1>
                 {
                               metadata.creators &&
-                              <h2 className={ 'title is-2' }>
+                              <h2 className={ 'title is-3' }>
                                   {
                                     metadata.creators.reduce( ( res, creator, index ) => [
                                       ...res,

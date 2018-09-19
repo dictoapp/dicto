@@ -141,6 +141,11 @@
                         flex: 1;
 
                         background: #f8f5f0;
+                        .aside-title{
+                            padding: 1rem;
+                            color: black;
+                            font-size: 1.5rem;
+                        }
                         &.link,
                         &.markdown,
                         &.image .content
