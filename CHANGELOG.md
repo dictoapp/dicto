@@ -2,7 +2,7 @@
 
 *Written according to [Keep a changelog](https://keepachangelog.com/en/1.0.0/) guidelines and [semantic versioning](https://semver.org/)*.
 
-## [1.0.0-alpha](https://github.com/dictoapp/dicto/tree/1.0.0-alpha) - 2019-09-20
+## [1.0.0-alpha](https://github.com/dictoapp/dicto/tree/1.0.0-alpha) - 2018-09-20
 
 ### Changed
 
