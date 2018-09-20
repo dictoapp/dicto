@@ -108,7 +108,7 @@ const CompositionCard = ( {
             <li>
               <i className={ 'fas fa-video' } />
               <span className={ 'info-number' }>
-                {t( [ 'one media', '{n} medias' ], { n: mediasCount } )}
+                {t( [ 'one media', '{n} medias', 'n' ], { n: mediasCount } )}
               </span>
             </li>
             <li>
