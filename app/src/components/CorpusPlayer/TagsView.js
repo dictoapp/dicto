@@ -153,13 +153,13 @@ export default class TagsView extends Component {
                             <div className={ 'card-header' }>
                               <div className={ 'column' }>
                                 <h3
-                                  className={ 'title is-3' }
+                                  className={ 'title is-3 stretched-columns' }
                                 >
                                   <i
                                     style={ { color: tagCategories[tag.tagCategoryId].color } }
                                     className={ 'fas fa-tag' }
                                   />
-                                  <span style={ { paddingLeft: '1em' } }>{tag.label}</span>
+                                  <span className="is-flex-1" style={ { paddingLeft: '1em' } }>{tag.label}</span>
                                 </h3>
                               </div>
                             </div>
