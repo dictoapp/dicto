@@ -159,7 +159,11 @@ export default class TagsView extends Component {
                                     style={ { color: tagCategories[tag.tagCategoryId].color } }
                                     className={ 'fas fa-tag' }
                                   />
-                                  <span className="is-flex-1" style={ { paddingLeft: '1em' } }>{tag.label}</span>
+                                  <span
+                                    className={ "is-flex-1" }
+                                    style={ { paddingLeft: '1em' } }
+                                  >{tag.label}
+                                  </span>
                                 </h3>
                               </div>
                             </div>
