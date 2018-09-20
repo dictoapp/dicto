@@ -4,11 +4,11 @@
 [![License: AGPL v3.0](https://img.shields.io/badge/license-AGPL-blue.svg)](https://github.com/dictoapp/dicto/blob/master/LICENSE)
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Dicto%20-%20A%20media%20annotation%20and%20publishing%20tool%20for%20academic%2C%20%20journalistic%20and%20educational%20use&url=https://www.dictoapp.github.io/dicto&hashtags=annotation,caqdas,video,publishing,design)
 
-> A media annotation and publishing tool for academic, journalistic, and use
+> A media annotation and publishing tool for academic, journalistic, and educational use
 
 ![Dicto screenshot](https://github.com/dictoapp/dicto/raw/master/screenshot.png)
 
-Dicto is an application made for the annotation, analysis and publication of video and audio media. It allows to work with interviews, videos analysis, or oral communication restitutions, for private analysis and/or online publishing contexts.
+Dicto is an application made for the annotation, analysis and publication of video and audio content. It allows to work with interviews, videos analysis, or oral communication restitutions, for private analysis and/or online publishing contexts.
 
 Dicto allows to annotate videos with transcriptions, translations or commentaries, to tag them with themes, people, places and dates, and possibly to publish them as websites or embeddable html code.
 
