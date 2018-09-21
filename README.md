@@ -16,15 +16,20 @@ Dicto is designed as a flexible tool: it can be connected to other transcription
 
 # Installation
 
+
+1. Get a google api key in google dev console -> https://console.developers.google.com then enable youtube and maps apis.
+2. Go to vimeo api website, and create a new app --> https://developer.vimeo.com/apps/new then copy client id and client secret
+3. Open a terminal/bash and type the following lines :
+
 ```
 git clone https://github.com/dictoapp/dicto
 cd dicto
 npm install
-cp config.sample.json config.dev.json
-cp config.sample.json config.prod.json
-# then fill config.dev.json and config.prod.json with a google api key (youtube and maps APIs have to be enabled in google dev console -> https://console.developers.google.com)
-
+cp config.sample.json app/config.dev.json
+cp config.sample.json app/config.prod.json
 ```
+
+4. Fill `app/config.dev.json` and `app/config.prod.json` with your google and vimeo credentials
 
 # Main dev scripts
 

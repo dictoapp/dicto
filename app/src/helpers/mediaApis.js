@@ -1,8 +1,10 @@
-import get from 'axios';
+import { get, post } from 'axios';
 import { getMediaPlatformFromUrl } from './utils';
 
 import {
   googleApiKey,
+  vimeoClientId,
+  vimeoClientSecret,
 
   /*
    * soundcloudClientId,
@@ -20,6 +22,12 @@ const getYoutubeThumbnailUrl = ( thumbnails ) => {
   }
   else if ( thumbnails.default ) {
     return thumbnails.default.url;
+  }
+}
+
+const getVimeoThumbnailUrl = ( pictures = [] ) => {
+  if ( pictures.length ) {
+    return pictures.pop().link;
   }
 }
 
@@ -77,29 +85,49 @@ const getVimeoMetadata = ( url ) => {
     let videoId = url.match( vimeoIdRegex );
     if ( videoId !== null ) {
       videoId = videoId[1];
-      const endpoint = `http://vimeo.com/api/v2/video/${videoId}.json?callback`;
-      get( endpoint )
-        .then( ( { data } ) => {
-          const info = data[0];
-          if ( info ) {
+      const authorizationEndpoint = `https://api.vimeo.com/oauth/authorize/client?grant_type=client_credentials`;
+      const Authorization = `Authorization : basic ${btoa( `${vimeoClientId}:${vimeoClientSecret}` )}`;
+      try {
+        console.log( 'get', 'https://api.vimeo.com/oauth/authorize/client' );
+        post(
+          "https://api.vimeo.com/oauth/authorize/client",
+          { grant_type: "client_credentials" },
+          {
+            auth: {
+               username: vimeoClientId,
+               password: vimeoClientSecret
+             }
+          } )
+          .then( ( { data: { access_token } } ) => {
+            const requestEndpoint = `https://api.vimeo.com/videos/${videoId}`;
+            console.log( 'get', requestEndpoint );
+            return get( requestEndpoint, {
+              headers: {
+                Authorization: `Bearer ${access_token}`
+              }
+            } )
+          } )
+          .then( ( { data = {} } ) => {
+            const mediaThumbnailUrl = getVimeoThumbnailUrl( data.pictures );
             return resolve( {
-              mediaUrl: info.url,
-              description: info.description,
-              // source: info.channelTitle + ` (youtube: ${url})`,
-              title: info.title,
-              mediaThumbnailUrl: info.thumbnail_large,
+              mediaUrl: data.link,
+              description: data.description,
+              title: data.name,
+              mediaThumbnailUrl,
               creators: [
                 {
-                  family: info.user_name,
+                  family: data.user && data.user.name,
                   role: 'publisher'
                 }
               ],
             } );
-          }
-          else {
-            reject();
-          }
-        } );
+          } )
+          .catch( reject );
+        }
+        catch ( e ) {
+          reject( e );
+        }
+        
     }
   } );
 };

@@ -1,3 +1,5 @@
 {
   "googleApiKey": "your google api key here (for youtube metadata retrieval)",
+  "vimeoClientId": "your vimeo app client id here",
+  "vimeoClientSecret": "your vimeo app client secret here"
 }

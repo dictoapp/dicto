@@ -121,9 +121,9 @@ class CorporaContainer extends Component {
     };
     this.props.actions.createCorpus( newCorpus );
     this.props.actions.unpromptNewCorpus();
-    setTimeout(() => {
+    setTimeout( () => {
       this.props.history.push( { pathname: `/corpora/${newCorpus.metadata.id}` } );      
-    }, 100)
+    }, 100 )
   }
 
   downloadCorpus = ( corpus ) => {
