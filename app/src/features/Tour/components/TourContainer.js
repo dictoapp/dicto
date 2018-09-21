@@ -86,7 +86,7 @@ export default class TourContainer extends Component {
               <div className={ 'content' }>
                 <h1 className={ 'title is-3' }>{t( 'Welcome to Dicto !' )}</h1>
                 <p>
-                  {t( 'Dicto is an hybrid analysis and editing tool aimed at enabling you to make sense of existing video and audio content.' )}
+                  {t( 'Dicto is a hybrid analysis and editing tool aimed at enabling you to make sense of existing video and audio content.' )}
                 </p>
                 <p>
                   {t( 'This tour will walk through the major features of the tool.' )}
