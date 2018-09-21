@@ -178,7 +178,7 @@ export const getColorByBgColor = ( bgColor ) => {
   return ( parseInt( bgColor.replace( '#', '' ).toUpperCase(), 16 ) > 0xffffff / 2 ) ? '#000' : '#fff';
 };
 
-export const abbrev = ( str, maxLength = 10 ) => {
+export const abbrev = ( str = '', maxLength = 10 ) => {
   if ( str.length > maxLength ) {
     return `${str.slice( 0, maxLength ) }...`;
   }
