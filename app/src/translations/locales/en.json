@@ -84,7 +84,7 @@
   "dicto": "dicto",
   "dicto-baseline": "transcribe > annotate > remix > publish",
   "dicto-description-1": "Dicto is an application made for the annotation, analysis and publication of audio and video media. It allows to work with interviews, videos analysis, or oral communication restitutions, for private analysis and/or online publishing contexts.",
-  "dicto-description-2": "Dicto allows to annotate medias with transcriptions, translations and other comments ; to tag them with themes, people, places and dates ; and possibly to publish them as websites or embeddable html code.",
+  "dicto-description-2": "Dicto allows to annotate audio and video documents with transcriptions, translations and other comments ; to tag them with themes, people, places and dates ; and possibly to publish them as websites or embeddable html code.",
   "dicto-description-3": "Dicto is designed as a flexible tool: it can be connected to other transcription tools ; it also allows to export a corpus or a selection of excerpts as an autonomous web page ready for consultation, or as data files encoded in standard formats allowing further work with other tools.",
   "Display chunks from": "Display chunks from...",
   "display webpage": "display webpage",

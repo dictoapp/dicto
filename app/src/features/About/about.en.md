@@ -1,4 +1,4 @@
-Dicto is an application made for the annotation, analysis and publication of video and audio media. It allows to work with interviews, videos analysis, or oral communication restitutions, for private analysis and/or online publishing contexts.
+Dicto is an application made for the annotation, analysis and publication of video and audio content. It allows to work with interviews, videos analysis, or oral communication restitutions, for private analysis and/or online publishing contexts.
 
 Dicto allows to annotate videos with transcriptions, translations or commentaries, to tag them with themes, people, places and dates, and possibly to publish them as websites or embeddable html code.
 
