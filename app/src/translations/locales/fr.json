@@ -449,6 +449,7 @@
   "preview": "Aperçu",
   "Help": "Aide",
   "About": "À propos",
+  "{f} field contents": "Contenus pour le champ {f}",
   "metadata": "propriétés",
   "find a media": "trouver un média",
   "find a tag": "trouver une étiquette",
