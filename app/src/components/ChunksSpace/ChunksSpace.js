@@ -271,6 +271,13 @@ export default class ChunksSpace extends Component {
   }
 
   computeScrollbarValues = () => {
+    if ( !this.scrollbar ) {
+      return {
+        clientHeight: undefined,
+        scrollHeight: undefined,
+        top: undefined
+      }
+    }
     const clientHeight = this.scrollbar.getClientHeight();
     const top = this.scrollbar.getScrollTop();
     const scrollHeight = this.scrollbar.getScrollHeight();
