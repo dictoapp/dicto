@@ -1,7 +1,7 @@
 const {readFile, writeFile, copy} = require('fs-extra');
-var homepage = require('./package.json').homepage;
-var version = require('./package.json').version;
-var repository = require('./package.json').repository;
+const homepage = require('./package.json').homepage;
+const version = require('./package.json').version;
+const repository = require('./package.json').repository;
 
 const inputIndexPath = `${__dirname}/app/index.html`;
 const input404Path = `${__dirname}/app/404.html`;
