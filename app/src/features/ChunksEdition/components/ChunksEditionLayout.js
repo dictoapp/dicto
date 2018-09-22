@@ -848,6 +848,7 @@ export class ChunksEditionLayout extends Component {
                                 chunk={ chunksMap[selectedChunkId] }
                                 corpusId={ corpusId }
                                 chunks={ chunks }
+                                media={ activeMedia }
 
                                 setNewTagPrompted={ setNewTagPrompted }
                                 newTagTempData={ newTagTempData }
@@ -1392,6 +1393,8 @@ export class ChunksEditionLayout extends Component {
                                   chunk={ chunksMap[selectedChunkId] }
                                   corpusId={ corpusId }
                                   chunks={ chunks }
+
+                                  media={ activeMedia }
 
                                   optionsDropdownOpen={ optionsDropdownOpen }
                                   setOptionsDropdownOpen={ setOptionsDropdownOpen }
