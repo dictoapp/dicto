@@ -10,7 +10,7 @@ const bindSocketToRoutes = require('./services/bindSocketToRoutes');
 const isDevelopment = (process.env.NODE_ENV === 'development');
 
 if (isDevelopment) {
-  // Let electron reloads by itself when webpack watches changes in ./app/
+  // Let electron reload by itself when webpack watches changes in ./app/
   require('electron-reload')(__dirname, {
     electron: require('${__dirname}/../../node_modules/electron')
   })
@@ -154,9 +154,9 @@ app.on('window-all-closed', () => {
 });
 
 crashReporter.start({
-  productName: 'YourName',
-  companyName: 'YourCompany',
-  submitURL: 'https://your-domain.com/url-to-submit',
+  productName: 'dicto',
+  companyName: 'dictoapp',
+  submitURL: 'https://github.com/dictoapp/dicto/issues/new?template=bug_report.md',
   uploadToServer: false
 });
 
