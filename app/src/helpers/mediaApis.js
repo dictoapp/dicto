@@ -88,7 +88,6 @@ const getVimeoMetadata = ( url ) => {
       const authorizationEndpoint = `https://api.vimeo.com/oauth/authorize/client?grant_type=client_credentials`;
       const Authorization = `Authorization : basic ${btoa( `${vimeoClientId}:${vimeoClientSecret}` )}`;
       try {
-        console.log( 'get', 'https://api.vimeo.com/oauth/authorize/client' );
         post(
           "https://api.vimeo.com/oauth/authorize/client",
           { grant_type: "client_credentials" },
@@ -100,7 +99,6 @@ const getVimeoMetadata = ( url ) => {
           } )
           .then( ( { data: { access_token } } ) => {
             const requestEndpoint = `https://api.vimeo.com/videos/${videoId}`;
-            console.log( 'get', requestEndpoint );
             return get( requestEndpoint, {
               headers: {
                 Authorization: `Bearer ${access_token}`
