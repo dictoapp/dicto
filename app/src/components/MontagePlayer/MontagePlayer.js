@@ -142,10 +142,13 @@ export default class MontagePlayer extends Component {
         }
       } );
     }
-    // fallback 2 : first block
-    if ( !activeBlock ) {
-      activeBlock = list[0];
-    }
+
+    /*
+     * fallback 2 : first block
+     * if ( !activeBlock ) {
+     *   activeBlock = list[0];
+     * }
+     */
     return activeBlock;
   }
 
@@ -174,20 +177,32 @@ export default class MontagePlayer extends Component {
       activeBlock,
       currentPosition
     } = this.state;
+    // where we are regarding active block position in montage
     const currentPositionInChunk = currentPosition - activeBlock.start;
+    // where we are regarding  active block position in current media
     const currentPositionInMedia = currentPositionInChunk + activeBlock.chunk.start;
+    // the future position in the chunk
     const newPositionInChunk = time - activeBlock.chunk.start;
+    // the future position in the montage
     const newPositionInTimeline = activeBlock.start + newPositionInChunk;
-
+    // if current position (in montage) differs from new one, update state data
     if ( Math.abs( currentPosition - newPositionInTimeline ) < TOLERANCE_SECONDS ) {
       const newActiveBlock = this.findActiveBlock( this.state.playlist, newPositionInTimeline );
-      this.setState( {
-        currentPosition: newPositionInTimeline,
-        activeBlock: newActiveBlock
-      } );
+      if ( newActiveBlock ) {
+        this.setState( {
+          currentPosition: newPositionInTimeline,
+          activeBlock: newActiveBlock
+        } );
+      }
+      else {
+        this.setMediaPlaying( false )
+      }
+        
     }
+    // else jump to proper position
     else {
-      this.player.seekTo( currentPositionInMedia );
+      const to = currentPositionInMedia < TOLERANCE_SECONDS ? TOLERANCE_SECONDS : currentPositionInMedia
+      this.player.seekTo( to );
     }
   }
 
