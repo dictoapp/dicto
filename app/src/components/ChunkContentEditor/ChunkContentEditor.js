@@ -73,17 +73,19 @@ export default class ChunkContentEditor extends Component {
     }
   }
 
-  onStartChange = ( start ) => {
+  onStartChange = ( start = 0 ) => {
     if ( start < this.props.chunk.end ) {
+      const realStart =  start > 0 ? start : 0;
       const { props: { updateChunk, corpusId, chunk: { metadata: { id } } } } = this;
-      updateChunk( corpusId, id, { ...this.props.chunk, start } );
+      updateChunk( corpusId, id, { ...this.props.chunk, start: realStart } );
     }
   }
 
-  onEndChange = ( end ) => {
+  onEndChange = ( end = 0 ) => {
     if ( end > this.props.chunk.start ) {
+      const realEnd = end < this.props.media.duration ? end : this.props.media.duration;
       const { props: { updateChunk, corpusId, chunk: { metadata: { id } } } } = this;
-      updateChunk( corpusId, id, { ...this.props.chunk, end } );
+      updateChunk( corpusId, id, { ...this.props.chunk, end: realEnd } );
     }
   }
 
@@ -412,7 +414,7 @@ export default class ChunkContentEditor extends Component {
           <div className={ 'stretched-columns' }>
             {
               activeFieldId !== defaultFieldId &&
-              <div style={ { padding: '1rem' } }>
+              <div style={ { padding: '1rem', paddingTop: 0 } }>
                 <h6
                   style={ { display: 'flex', alignItems: 'center' } }
                   className={ 'title is-6' }
