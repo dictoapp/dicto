@@ -2,6 +2,21 @@
 
 *Written according to [Keep a changelog](https://keepachangelog.com/en/1.0.0/) guidelines and [semantic versioning](https://semver.org/)*.
 
+## [1.0.0-alpha.2](https://github.com/dictoapp/dicto/tree/1.0.0-alpha.2) - 2018-09-22
+
+### Fixed
+
+* fix vimeo metadata retrieval method
+* add missing terms in translations and correct language/wording mistakes
+* fix bug in media annotation when inputing incorrect time codes
+* fix diverse design minor problems
+* fix some bugs with montage player
+
+### Added
+
+* add link to github repo issues to electron crash report
+* allow copy/pasting in the electron version
+
 ## [1.0.0-alpha.1](https://github.com/dictoapp/dicto/tree/1.0.0-alpha.1) - 2018-09-21
 
 ### Fixed
