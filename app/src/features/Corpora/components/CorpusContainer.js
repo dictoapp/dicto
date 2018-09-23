@@ -518,6 +518,7 @@ class CorpusContainer extends Component {
     } = this;
     const corpus = corpora[corpusId];
     if ( corpus ) {
+      console.log( corpus );
       return (
         <Layout>
           <CorpusLayout

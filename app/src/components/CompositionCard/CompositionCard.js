@@ -39,7 +39,7 @@ const CompositionCard = ( {
   const relatedChunks = summary.filter( ( c ) => c.blockType === 'chunk' ).map( ( compositionBlock ) => {
     const chunkId = compositionBlock.content;
     return chunks[chunkId];
-  } );
+  } ).filter( ( c ) => c );
   const relatedMedias = uniq( relatedChunks.map( ( c ) => c.metadata.mediaId ) )
     .map( ( mediaId ) => medias[mediaId] );
   const mediasCount = relatedMedias.length;

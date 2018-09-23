@@ -43,9 +43,15 @@ class CompositionBlock extends Component {
 
     let chunk;
     let duration;
+    let invalidChunk;
     if ( type === 'chunk' ) {
       chunk = corpus.chunks[compositionBlock.content];
-      duration = Math.abs( chunk.end - chunk.start );
+      if ( chunk ) {
+        duration = Math.abs( chunk.end - chunk.start );
+      }
+ else {
+        invalidChunk = true;
+      }
     }
     else {
       duration = compositionBlock.duration;
@@ -100,7 +106,12 @@ class CompositionBlock extends Component {
     if ( type === 'chunk' ) {
 
       const onSetActiveAsideEdition = () => {
-        setActiveCompositionBlockId( compositionBlock.metadata.id );
+        if (
+          compositionBlock.blockType !== 'chunk' ||
+          corpus.chunks[compositionBlock.content]
+        ) {
+          setActiveCompositionBlockId( compositionBlock.metadata.id );
+        }
       };
 
       const handleMoveUp = ( e ) => {
@@ -135,80 +146,104 @@ class CompositionBlock extends Component {
                   className={ 'card dicto-ChunkCard' }
                   style={ { padding: 0 } }
                 >
-                  <div
-                    style={ { padding: 0, margin: 0 } }
-                    className={ 'card-content stretched-columns' }
-                  >
-                    <MediaThumbnail
-                      mediaUrl={ medias[chunk.metadata.mediaId].metadata.mediaUrl }
-                      mediaThumbnailUrl={ medias[chunk.metadata.mediaId].metadata.mediaThumbnailUrl }
-                    />
+                  {invalidChunk ?
                     <div
-                      style={ { padding: '1rem' } }
-                      className={ 'is-flex-1' }
+                      style={ { margin: 0, padding: 0 } }
+                      className={ 'card-content stretched-columns' }
                     >
                       <div
-                        data-for={ 'tooltip' }
-                        data-tip={ chunk.fields[compositionBlock.activeFieldId] }
+                        style={ { padding: '1rem' } }
+                        className={ "is-flex-1" }
                       >
-                        {abbrev( chunk.fields[compositionBlock.activeFieldId], 40 )}
+                        {t( 'Citation of an excerpt deleted from your corpus' )}
                       </div>
-                      <ul className={ 'info-numbers' }>
-                        <li>
-                          <i className={ 'fas fa-clock' } />
-                          <span className={ 'info-number' }>
-                            {secsToSrt( parseInt( duration, 10 ), false )}
-                          </span>
-                        </li>
-                        {compositionBlock.asides && compositionBlock.asides.length > 0 &&
+                      <div className={ 'actions-container' }>
+                        <button
+                          data-for={ 'tooltip' }
+                          data-place={ 'left' }
+                          data-tip={ t( 'remove this excerpt citation from the composition (the excerpt will not be deleted)' ) }
+                          onClick={ handleDelete }
+                          className={ 'button is-rounded' }
+                        >
+                          <i className={ 'fas fa-unlink' } />
+                        </button>
+                      </div>
+                    </div>
+                  :
+                    <div
+                      style={ { padding: 0, margin: 0 } }
+                      className={ 'card-content stretched-columns' }
+                    >
+                      <MediaThumbnail
+                        mediaUrl={ medias[chunk.metadata.mediaId].metadata.mediaUrl }
+                        mediaThumbnailUrl={ medias[chunk.metadata.mediaId].metadata.mediaThumbnailUrl }
+                      />
+                      <div
+                        style={ { padding: '1rem' } }
+                        className={ 'is-flex-1' }
+                      >
+                        <div
+                          data-for={ 'tooltip' }
+                          data-tip={ chunk.fields[compositionBlock.activeFieldId] }
+                        >
+                          {abbrev( chunk.fields[compositionBlock.activeFieldId], 40 )}
+                        </div>
+                        <ul className={ 'info-numbers' }>
+                          <li>
+                            <i className={ 'fas fa-clock' } />
+                            <span className={ 'info-number' }>
+                              {secsToSrt( parseInt( duration, 10 ), false )}
+                            </span>
+                          </li>
+                          {compositionBlock.asides && compositionBlock.asides.length > 0 &&
                           <li>
                             <i className={ 'fas fa-image' } />
                             <span className={ 'info-number' }>
                               {t( [ 'one additional content', '{n} additional contents', 'n' ], { n: compositionBlock.asides && compositionBlock.asides.length } )}
                             </span>
                           </li>}
-                      </ul>
-                    </div>
-                    <div className={ 'actions-container' }>
-                      <button
-                        onClick={ handleMoveUp }
-                        data-for={ 'tooltip' }
-                        data-tip={ t( 'move up in composition' ) }
-                        className={ `button is-rounded ${index === 0 ? 'is-disabled' : ''}` }
-                      >
-                        <i className={ 'fas fa-caret-up' } />
-                      </button>
-                      <button
-                        onClick={ handleMoveDown }
-                        data-for={ 'tooltip' }
-                        data-tip={ t( 'move down in composition' ) }
-                        className={ `button is-rounded ${index >= maxIndex ? 'is-disabled' : ''}` }
-                      >
-                        <i className={ 'fas fa-caret-down' } />
-                      </button>
+                        </ul>
+                      </div>
+                      <div className={ 'actions-container' }>
+                        <button
+                          onClick={ handleMoveUp }
+                          data-for={ 'tooltip' }
+                          data-tip={ t( 'move up in composition' ) }
+                          className={ `button is-rounded ${index === 0 ? 'is-disabled' : ''}` }
+                        >
+                          <i className={ 'fas fa-caret-up' } />
+                        </button>
+                        <button
+                          onClick={ handleMoveDown }
+                          data-for={ 'tooltip' }
+                          data-tip={ t( 'move down in composition' ) }
+                          className={ `button is-rounded ${index >= maxIndex ? 'is-disabled' : ''}` }
+                        >
+                          <i className={ 'fas fa-caret-down' } />
+                        </button>
 
-                      <button
-                        onClick={ onSetActiveAsideEdition }
-                        id={ 'edit-composition-block' }
-                        data-for={ 'tooltip' }
-                        data-tip={ t( 'edit additional contents' ) }
+                        <button
+                          onClick={ onSetActiveAsideEdition }
+                          id={ 'edit-composition-block' }
+                          data-for={ 'tooltip' }
+                          data-tip={ t( 'edit additional contents' ) }
 
-                        className={ 'button is-rounded' }
-                      >
-                        <i className={ 'fas fa-pencil-alt' } />
-                      </button>
+                          className={ 'button is-rounded' }
+                        >
+                          <i className={ 'fas fa-pencil-alt' } />
+                        </button>
 
-                      <button
-                        data-for={ 'tooltip' }
-                        data-place={ 'left' }
-                        data-tip={ t( 'remove this excerpt citation from the composition (the excerpt will not be deleted)' ) }
-                        onClick={ handleDelete }
-                        className={ 'button is-rounded' }
-                      >
-                        <i className={ 'fas fa-unlink' } />
-                      </button>
-                    </div>
-                  </div>
+                        <button
+                          data-for={ 'tooltip' }
+                          data-place={ 'left' }
+                          data-tip={ t( 'remove this excerpt citation from the composition (the excerpt will not be deleted)' ) }
+                          onClick={ handleDelete }
+                          className={ 'button is-rounded' }
+                        >
+                          <i className={ 'fas fa-unlink' } />
+                        </button>
+                      </div>
+                    </div>}
                 </div>
               </div>
               {providedChunk.placeholder}

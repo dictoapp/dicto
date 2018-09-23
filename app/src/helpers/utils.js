@@ -133,35 +133,47 @@ export const computePlaylist = ( {
   return summary.reduce( ( playlist, compositionBlock, index ) => {
     const type = compositionBlock.blockType;
     const duration = type === 'chunk' ?
-      Math.abs( chunks[compositionBlock.content].end - chunks[compositionBlock.content].start )
+      Math.abs( 
+        chunks[compositionBlock.content] ?
+          chunks[compositionBlock.content].end - chunks[compositionBlock.content].start
+          : 0 )
       : ( compositionBlock.duration || 5 );
     const next = index < summary.length - 1 ? summary[index + 1] : undefined;
 
-    const element = { ...compositionBlock };
+    let element = { ...compositionBlock };
 
     if ( type === 'chunk' ) {
       const chunk = chunks[compositionBlock.content];
-      element.chunk = { ...chunk };
-      element.activeFieldId = element.activeFieldId || defaultFieldId;
-      if ( next && next.blockType === 'chunk' ) {
-        // check if not overlapping with next chunk
-        if ( next.metadata.mediaId === chunk.metadata.mediaId && chunk.end > next.start ) {
-          element.chunk.end = next.start;
+      if ( chunk ) {
+        element.chunk = { ...chunk };
+        element.activeFieldId = element.activeFieldId || defaultFieldId;
+        if ( next && next.blockType === 'chunk' ) {
+          // check if not overlapping with next chunk
+          if ( next.metadata.mediaId === chunk.metadata.mediaId && chunk.end > next.start ) {
+            element.chunk.end = next.start;
+          }
         }
+        element.duration = element.chunk.end - element.chunk.start;
+        element.start = playlist.duration;
+        element.end = playlist.duration + element.duration;
       }
-      element.duration = element.chunk.end - element.chunk.start;
-      element.start = playlist.duration;
-      element.end = playlist.duration + element.duration;
+ else {
+        element = undefined;
+      }
     }
     else {
       element.duration = duration;
       element.start = playlist.duration;
       element.end = playlist.duration + element.duration;
     }
-    return {
-      list: [ ...playlist.list, element ],
-      duration: playlist.duration + element.duration
-    };
+    if ( element ) {
+      return {
+        list: [ ...playlist.list, element ],
+        duration: playlist.duration + element.duration
+      };
+    }
+    return playlist;
+      
   }, {
     list: [],
     duration: 0
