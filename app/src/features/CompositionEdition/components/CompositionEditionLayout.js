@@ -396,6 +396,7 @@ const CompositionEditionLayout = ( {
             <div
               id={ 'corpus-excerpts-container' }
               className={ `column is-collapsable ${'is-half'} rows` }
+              style={ { paddingBottom: '1rem' } }
             >
 
               <div
@@ -613,6 +614,7 @@ const CompositionEditionLayout = ( {
             <div
               id={ 'composition-summary-container' }
               className={ `column is-collapsable ${'is-half'} rows` }
+              style={ { paddingBottom: '1rem' } }
             >
               <div
                 style={ { marginBottom: 0 } }
