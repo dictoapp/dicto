@@ -692,6 +692,7 @@ export default class ChunksSpace extends Component {
                       transition: 'all .5s ease',
                       background: 'rgba(0,0,0,0.3)',
                       border: 'none',
+                      opacity: searchActive ? 1 : 0,
                       maxWidth: searchActive ? 200 : 0,
                       marginLeft: '1rem',
                       padding: searchActive ? undefined : 0,

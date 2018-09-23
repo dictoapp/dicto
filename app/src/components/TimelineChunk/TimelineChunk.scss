@@ -7,7 +7,7 @@
     overflow: hidden;
     flex-flow: column nowrap;
 
-    box-sizing: border-blox;
+    box-sizing: border-box;
 
     transition: background .2s ease;
 
@@ -24,7 +24,7 @@
         flex-flow: row nowrap;
 
         justify-contents: stretch;
-        max-height: calc(100% - 3rem);
+        max-height: calc(100% - 2rem);
         .contents-preview
         {
             overflow: hidden;
