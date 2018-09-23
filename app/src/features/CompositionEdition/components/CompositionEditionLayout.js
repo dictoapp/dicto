@@ -383,7 +383,7 @@ const CompositionEditionLayout = ( {
                   {
                     href: `/corpora/${corpus.metadata.id}/composition/${composition.metadata.id}`,
                     active: true,
-                    name: ` / ${ composition.metadata.title}` || t( 'untitled composition' )
+                    name: `${t('composition')} / ${ composition.metadata.title}` || t( 'untitled composition' )
                   },
                 ] }
           localOperations={ [] }
