@@ -11,6 +11,8 @@ Here is a non-comprehensive list of free tools that have been sources of inspira
 * [oTranscribe](http://otranscribe.com/) - an online service specialized in audio/video tracks transcription
 * [sonal](http://www.sonal-info.com/fr) - a tool specialized for the processing of qualitative research interviews
 * [scenari](https://scenari.org/co/home.html) - a series of tools for producing publishing chains, notably video
+* [Advene](http://www.advene.org/) - a tool dedicated to enerating and sharing video annotations
+* [FrameTrail](https://frametrail.org/) - a tool for editing and viewing interactive videos in the browser
 * [rekall](http://www.rekall.fr/) - a tool for documenting scenic projects with multimedia elements
 * [Entity Mapper](http://piim.newschool.edu/entitymapper/#!/home) - a tool for visualizing and manipulating qualitative data
 * [Lignes de temps](https://www.iri.centrepompidou.fr/outils/lignes-de-temps/) - a collaborative video annotation tool

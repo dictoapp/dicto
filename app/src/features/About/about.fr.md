@@ -11,6 +11,8 @@ Voici une liste non-exhaustive d'outils gratuits ayant été des sources d'inspi
 * [oTranscribe](http://otranscribe.com/) - un service en ligne spécialisé dans la retranscription de pistes vidéo/audio
 * [sonal](http://www.sonal-info.com/fr) - un outil spécialisé dans le traitement qualitatif des entretiens de recherche
 * [scenari](https://scenari.org/co/home.html) - une série de technologies pour la production de chaînes de publication, notamment vidéos
+* [Advene](http://www.advene.org/) - un outil dédié à la génération et au partage d'annotations vidéo
+* [FrameTrail](https://frametrail.org/) - un outil dédié à l'édition et au visionnage de vidéos interactives dans le navigateur
 * [rekall](http://www.rekall.fr/) - un outil de documentation de projets scéniques
 * [Entity Mapper](http://piim.newschool.edu/entitymapper/#!/home) - un outil de visualisation d'étiquettes issues d'une recherche qualitative
 * [Lignes de temps](https://www.iri.centrepompidou.fr/outils/lignes-de-temps/) - un dispositif d'annotation collaborative de médias temporels
