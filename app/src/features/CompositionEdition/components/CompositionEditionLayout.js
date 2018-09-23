@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { v4 as genId } from 'uuid';
 import Select from 'react-select';
+import { toastr } from 'react-redux-toastr';
 
 import {
   DragDropContext,
@@ -186,6 +187,13 @@ const CompositionEditionLayout = ( {
     };
     const quotedChunks = composition.summary.filter( ( c ) => c.blockType === 'chunk' ).map( ( c ) => c.content );
     const displayedChunks = filterChunks( displayFilterMode, displayFilterParam, corpus, searchTerm );
+    const unquotedChunks = displayedChunks.filter(
+      chunk => 
+        !quotedChunks.find(
+          quotedChunkId => 
+            quotedChunkId === chunk.metadata.id
+        )
+    );
 
     const onDragEnd = ( {
       destination,
@@ -197,8 +205,11 @@ const CompositionEditionLayout = ( {
       if (
         source.droppableId === 'chunks-summary'
         && destination
-        && !summary.filter( ( c ) => c.blockType === 'chunk' && c.content === draggableId ).length
       ) {
+        if (summary.filter( ( c ) => c.blockType === 'chunk' && c.content === draggableId ).length) {
+          toastr.warning(t('Excerpt already cited in the composition'))
+          return;
+        }
         const dropIndex = destination.index;
         const compositionBlock = {
           metadata: {
@@ -601,8 +612,8 @@ const CompositionEditionLayout = ( {
                               >
                                 <button
                                   onClick={ onAddAll }
-                                  className={ 'button is-fullwidth is-dark' }
-                                >{t( [ 'add one excerpt to the composition', 'add {n} excerpts to the composition', 'n' ], { n: displayedChunks.length } )}
+                                  className={ `button is-fullwidth is-dark ${unquotedChunks.length ? '' : 'is-disabled'}` }
+                                >{t( [ 'add one excerpt to the composition', 'add {n} excerpts to the composition', 'n' ], { n: unquotedChunks.length} )}
                                 </button>
                               </div>
                             </div>
