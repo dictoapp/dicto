@@ -106,7 +106,7 @@ const LayoutLayout = ( {
       <div className={ 'modal-content' }>
         <div className={ 'modal-body composition-modal' }>
           <div className={ 'column content' }>
-            {t( 'Dicto needs to use your web browser local storage to store your data in order to run this web version of the tool. That way your data will remain on your browser and won\'t have to be sent to any distant server. Do you allow Dicto to use your web browser local storage ?' )}
+            {t( 'Dicto needs to use your web browser local storage to store your data in order to run this web version of the tool. That way your data will remain in your browser and won\'t have to be sent to any distant server. Do you allow Dicto to use your web browser local storage ?' )}
           </div>
         </div>
         <ul className={ 'modal-footer' }>

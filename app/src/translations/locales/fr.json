@@ -27,7 +27,7 @@
   "Click on \"next\" button to let the tool present itself step by step !": "Cliquez sur le bouton « suivant » pour laisser l'outil se présenter étape par étape !",
   "explore": "explorer",
   "Edit tag category \"{n}\"": "Éditer la catégorie « {n} »",
-  "Dicto needs to use your web browser local storage to store your data in order to run this web version of the tool. That way your data will remain on your browser and won't have to be sent to any distant server. Do you allow Dicto to use your web browser local storage ?": "Dicto doit utiliser le stockage local de votre navigateur pour faire fonctionner cette version web de l'outil. De cette manière vos données resteront sur votre propre navigateur et ne seront envoyées à aucun serveur distant. Autorisez-vous Dicto à utiliser le stockage local de votre navigateur web ?",
+  "Dicto needs to use your web browser local storage to store your data in order to run this web version of the tool. That way your data will remain in your browser and won't have to be sent to any distant server. Do you allow Dicto to use your web browser local storage ?": "Dicto doit utiliser le stockage local de votre navigateur pour faire fonctionner cette version web de l'outil. De cette manière vos données resteront sur votre propre navigateur et ne seront envoyées à aucun serveur distant. Autorisez-vous Dicto à utiliser le stockage local de votre navigateur web ?",
   "Yes, use the local storage": "Oui, utiliser le stockage local",
   "No, get me back to home": "Non, ramenez-moi à l'accueil",
   "Download Dicto for desktop": "Télécharger Dicto en version bureau (aussi gratuit)",
