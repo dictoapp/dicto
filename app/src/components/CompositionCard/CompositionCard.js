@@ -31,7 +31,9 @@ const CompositionCard = ( {
   const duration = summary.reduce( ( sum, item ) =>
     sum + Math.abs(
       item.blockType === 'chunk' ?
-        chunks[item.content] && chunks[item.content].end - chunks[item.content].start
+        chunks[item.content] ?
+         chunks[item.content].end - chunks[item.content].start
+         : 0
         :
         item.duration
     )
