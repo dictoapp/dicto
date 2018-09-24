@@ -270,7 +270,7 @@ export default class ChunkContentEditor extends Component {
               <span className={ 'button is-rounded' }>
                 <i className={ 'fas fa-info-circle' } />
               </span>
-              <span className={ 'dropdown-item-main-content' }>{t( 'keyboard shortcuts' )}</span>
+              <span className={ 'dropdown-item-main-content' }>{t( 'Keyboard shortcuts' )}</span>
             </div>
             <div
               onClick={ onFocusRequest }

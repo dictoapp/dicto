@@ -1643,7 +1643,7 @@ export class ChunksEditionLayout extends Component {
               <div className={ 'modal-content' }>
                 <div className={ 'modal-header' }>
                   <h1 className={ 'title is-1' }>
-                    {t( 'help' )}
+                    {t( 'Keyboard shortcuts' )}
                   </h1>
                   <div className={ 'close-modal-icon-container' }>
                     <span
