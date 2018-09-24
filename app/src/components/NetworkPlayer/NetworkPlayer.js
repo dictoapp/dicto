@@ -29,12 +29,14 @@ export default class NetworkPlayer extends Component {
       }
     } = this;
 
+    const onResize = ( contentRect ) => {
+              this.setState( { dimensions: contentRect.bounds } );
+            };
+
     return (
       <Measure
         bounds
-        onResize={ ( contentRect ) => {
-              this.setState( { dimensions: contentRect.bounds } );
-            } }
+        onResize={ onResize }
       >
         {( { measureRef } ) =>
             (

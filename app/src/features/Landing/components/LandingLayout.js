@@ -18,65 +18,69 @@ const LandingLayout = ( {
     setLanguage
   },
   onStartGuidedTour
-}, { t } ) => (
-  <div className={ 'dicto-Landing hero is-light' }>
-    <section className={ 'hero-body column is-half is-offset-one-quarter' }>
-      <h1 className={ 'title is-1 hero-title' }>
-        <img
-          className={ 'logo-img' }
-          src={ require( '../assets/logo.png' ) }
-        />
-        <span>DICTO </span><span className={ 'tag' }>alpha</span>
-      </h1>
-      <h2 className={ 'subtitle is-3' }>{t( 'dicto-baseline' )}</h2>
-      <div className={ 'content' }>
-        <p>{t( 'dicto-description-1' )}</p>
-        <p>{t( 'dicto-description-2' )}</p>
-        <p>{t( 'dicto-description-3' )}</p>
-      </div>
+}, { t } ) => {
+  const setLangFr = () => setLanguage( 'fr' );
+  const setLangEn = () => setLanguage( 'en' );
+  return (
+    <div className={ 'dicto-Landing hero is-light' }>
+      <section className={ 'hero-body column is-half is-offset-one-quarter' }>
+        <h1 className={ 'title is-1 hero-title' }>
+          <img
+            className={ 'logo-img' }
+            src={ require( '../assets/logo.png' ) }
+          />
+          <span>DICTO </span><span className={ 'tag' }>alpha</span>
+        </h1>
+        <h2 className={ 'subtitle is-3' }>{t( 'dicto-baseline' )}</h2>
+        <div className={ 'content' }>
+          <p>{t( 'dicto-description-1' )}</p>
+          <p>{t( 'dicto-description-2' )}</p>
+          <p>{t( 'dicto-description-3' )}</p>
+        </div>
 
-      <div className={ 'level' }>
-        <Link
-          to={ '/corpora/' }
-          id={ 'begin-creating' }
-          className={ 'button is-dark is-fullwidth' }
-        >
-          {t( 'begin-creating' )}
-        </Link>
-        <button
-          onClick={ onStartGuidedTour }
-          className={ 'button' }
-          id={ 'start-guided-tour' }
-        >
-          {t( 'start guided tour' )}
-        </button>
-      </div>
+        <div className={ 'level' }>
+          <Link
+            to={ '/corpora/' }
+            id={ 'begin-creating' }
+            className={ 'button is-dark is-fullwidth' }
+          >
+            {t( 'begin-creating' )}
+          </Link>
+          <button
+            onClick={ onStartGuidedTour }
+            className={ 'button' }
+            id={ 'start-guided-tour' }
+          >
+            {t( 'start guided tour' )}
+          </button>
+        </div>
 
-      <div className={ 'level' }>
-        <p>
-          <button
-            onClick={ () => setLanguage( 'fr' ) }
-            className={ `button ${lang === 'fr' ? 'is-success' : ''}` }
-          >
-            {t( 'french' )}
-          </button>
-          <button
-            onClick={ () => setLanguage( 'en' ) }
-            className={ `button ${lang === 'en' ? 'is-success' : ''}` }
-          >
-            {t( 'english' )}
-          </button>
-        </p>
-      </div>
-      {
-                !inElectron &&
-                <div className={ 'level' }>
-                  <DownloadDesktop />
-                </div>
-            }
-    </section>
-  </div>
-);
+        <div className={ 'level' }>
+          <p>
+            <button
+              onClick={ setLangFr }
+              className={ `button ${lang === 'fr' ? 'is-success' : ''}` }
+            >
+              {t( 'french' )}
+            </button>
+            <button
+              onClick={ setLangEn }
+              className={ `button ${lang === 'en' ? 'is-success' : ''}` }
+            >
+              {t( 'english' )}
+            </button>
+          </p>
+        </div>
+        {
+                  !inElectron &&
+                  <div className={ 'level' }>
+                    <DownloadDesktop />
+                  </div>
+              }
+      </section>
+    </div>
+  );
+}
 
 LandingLayout.contextTypes = {
   t: PropTypes.func

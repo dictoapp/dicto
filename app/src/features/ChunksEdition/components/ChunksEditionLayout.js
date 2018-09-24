@@ -713,8 +713,89 @@ export class ChunksEditionLayout extends Component {
               };
             } )
         };
-      }
+      };
+      const onDeleteAllChunks = () => {
+        deselectChunk();
+        setTimeout( () => chunks.forEach( ( chunk ) => deleteChunk( corpus.metadata.id, chunk.metadata.id ) ) );
+      };
+
+      const onPromptActiveMediaEdition = () => promptMediaEdition( corpusId, activeMedia.metadata.id, activeMedia );
+      const onClickOnImport = ( e ) => {
+        e.stopPropagation();
+        promptImport();
+      };
+      const onClickOnExport = ( e ) => {
+        e.stopPropagation();
+        setExportMediaPrompted( true );
+      };
+      const onClickOnEditMedia = () => promptMediaEdition( corpusId, activeMedia.metadata.id, activeMedia );
+      const onToggleMediaChoice = () => setMediaChoiceVisibility( !mediaChoiceVisible );
+      const renderNoMedia = () => <div>{t( 'No media yet' )}</div>;
+      const renderMediaInList = ( media ) => {
+        const id = media.metadata.id;
+        const onSelect = () => {
+          setActiveMediaId( id );
+          setMediaChoiceVisibility( false );
+          history.push( {
+            search: `?activeMedia=${id}`
+          } );
+        };
+
+        const onEdit = () => promptMediaEdition( corpusId, id, media );
+        const onMediaDelete = () => promptMediaDeletion( corpusId, id );
+        return (
+          <li
+            key={ media.metadata.id }
+            className={ 'is-fullwidth column' }
+          >
+            <MediaCard
+              active={ id === activeMediaId }
+              media={ media }
+              onSelect={ onSelect }
+              chunksCount={ media.stats.chunksCount }
+              tagsCount={ media.stats.tagsCount }
+              onClick={ onSelect }
+              onEdit={ onEdit }
+              onDelete={ onMediaDelete }
+            />
+          </li>
+        );
+      };
+
+      const onCloseEditedField = () => {
+        setEditedFieldId( undefined );
+        setEditedFieldTempName( undefined );
+      };
+      const onEditedFieldTitleChange = ( e ) => setEditedFieldTempName( e.target.value );
+      const onDeleteEditedField = () => setPromptedToDeleteFieldId( editedFieldId );
+      const onCancelDeleteEditedField = () => setPromptedToDeleteFieldId( undefined )
+
+      const regroupImports10 = () => regroupImportCandidates( 10 );
+      const regroupImports30 = () => regroupImportCandidates( 30 );
+      const regroupImports60 = () => regroupImportCandidates( 60 );
+      const regroupImports300 = () => regroupImportCandidates( 300 );
+
+      const onCloseShortcutsModal = () => setShortcutsHelpVisibility( false );
+      const onCloseExportMedia = () => setExportMediaPrompted( false );
+      const onDownloadHTML = () => onDownloadCompositionAsHTML( tempMediaComposition );
+      const onCloseNewTagModal = () => setNewTagPrompted( false );
+      const onCloseNewTagCategoryModal = () => setNewTagCategoryPrompted( false );
       
+      const onOpenNewTagCategory = ( e ) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setNewTagCategoryPrompted( true )
+      };
+
+      const onNewTagTitleChange = ( e ) => setNewTagTempData( {
+                                                    ...newTagTempData,
+                                                    name: e.target.value
+                                                  } );
+      const onNewTagDescriptionChange = ( e ) => setNewTagTempData( {
+                                                    ...newTagTempData,
+                                                    description: e.target.value
+                                                  } );
+
       return (
         <HotKeys
           className={ 'hot-keys' }
@@ -833,10 +914,7 @@ export class ChunksEditionLayout extends Component {
 
                                   <MenuItem
                                     attributes={ { className: 'dropdown-item' } }
-                                    onClick={ () => {
-                                                deselectChunk();
-                                                setTimeout( () => chunks.forEach( ( chunk ) => deleteChunk( corpus.metadata.id, chunk.metadata.id ) ) );
-                                              } }
+                                    onClick={ onDeleteAllChunks }
                                   >
                                     {t( 'delete all excerpts for this media' )}
                                   </MenuItem>
@@ -890,7 +968,7 @@ export class ChunksEditionLayout extends Component {
 
                                 createField={ addField }
                                 updateField={ updateField }
-                                deleteField={ ( thatUselessCorpusId, id ) => setPromptedToDeleteFieldId( id ) }
+                                deleteField={ deleteField }
 
                                 createTag={ addTag }
                                 updateTag={ updateTag }
@@ -978,7 +1056,7 @@ export class ChunksEditionLayout extends Component {
                               chunksCount={ chunks.length }
                               tagsCount={ mediaTags.length }
                               minified
-                              onClick={ () => promptMediaEdition( corpusId, activeMedia.metadata.id, activeMedia ) }
+                              onClick={ onPromptActiveMediaEdition }
                               actionContents={ [
                                 <li
                                   key={ 0 }
@@ -988,10 +1066,7 @@ export class ChunksEditionLayout extends Component {
                                     data-for={ 'tooltip' }
                                     data-tip={ t( 'import an existing transcription' ) }
                                     className={ 'button is-rounded' }
-                                    onClick={ ( e ) => {
-                                                e.stopPropagation();
-                                                promptImport();
-                                              } }
+                                    onClick={ onClickOnImport }
                                   >
                                     <i className={ 'fas fa-download' } />
                                   </button>
@@ -1004,10 +1079,7 @@ export class ChunksEditionLayout extends Component {
                                     data-for={ 'tooltip' }
                                     data-tip={ t( 'export media annotations' ) }
                                     className={ 'button is-rounded' }
-                                    onClick={ ( e ) => {
-                                                e.stopPropagation();
-                                                setExportMediaPrompted( true );
-                                              } }
+                                    onClick={ onClickOnExport }
                                   >
                                     <i className={ 'fas fa-upload' } />
                                   </button>
@@ -1019,7 +1091,7 @@ export class ChunksEditionLayout extends Component {
                                     data-for={ 'tooltip' }
                                     data-tip={ t( 'edit media' ) }
                                     className={ 'button is-rounded' }
-                                    onClick={ () => promptMediaEdition( corpusId, activeMedia.metadata.id, activeMedia ) }
+                                    onClick={ onClickOnEditMedia }
                                   >
                                     <i className={ 'fas fa-pencil-alt' } />
                                   </button>
@@ -1053,7 +1125,7 @@ export class ChunksEditionLayout extends Component {
                                 <div className={ '' }>
                                   <button
                                     id={ 'change-media' }
-                                    onClick={ () => setMediaChoiceVisibility( !mediaChoiceVisible ) }
+                                    onClick={ onToggleMediaChoice }
                                     className={ `button is-fullwidth ${mediaChoiceVisible ? 'is-primary' : ''}` }
                                   >
                                     {mediaChoiceVisible ? t( 'show media' ) : t( 'change-media' )}
@@ -1064,38 +1136,9 @@ export class ChunksEditionLayout extends Component {
                               <PaginatedList
                                 style={ { maxHeight: mediaChoiceVisible ? '100%' : 0 } }
                                 itemsContainerClassName={ `medias-list ${mediaChoiceVisible ? 'active' : ''} is-flex-1` }
-                                renderNoItem={ () => <div>{t( 'No media yet' )}</div> }
+                                renderNoItem={ renderNoMedia }
                                 items={ medias }
-                                renderItem={ ( media ) => {
-                                    const id = media.metadata.id;
-                                    const onSelect = () => {
-                                      setActiveMediaId( id );
-                                      setMediaChoiceVisibility( false );
-                                      history.push( {
-                                        search: `?activeMedia=${id}`
-                                      } );
-                                    };
-
-                                    const onEdit = () => promptMediaEdition( corpusId, id, media );
-                                    const onMediaDelete = () => promptMediaDeletion( corpusId, id );
-                                    return (
-                                      <li
-                                        key={ media.metadata.id }
-                                        className={ 'is-fullwidth column' }
-                                      >
-                                        <MediaCard
-                                          active={ id === activeMediaId }
-                                          media={ media }
-                                          onSelect={ onSelect }
-                                          chunksCount={ media.stats.chunksCount }
-                                          tagsCount={ media.stats.tagsCount }
-                                          onClick={ onSelect }
-                                          onEdit={ onEdit }
-                                          onDelete={ onMediaDelete }
-                                        />
-                                      </li>
-                                    );
-                                  } }
+                                renderItem={ renderMediaInList }
                               />
 
                               {
@@ -1299,25 +1342,25 @@ export class ChunksEditionLayout extends Component {
                                           </div>
                                           <div className={ 'column columns' }>
                                             <button
-                                              onClick={ () => regroupImportCandidates( 10 ) }
+                                              onClick={ regroupImports10 }
                                               className={ 'button column is-one-quarter' }
                                             >
                                               {t( '10 seconds' )}
                                             </button>
                                             <button
-                                              onClick={ () => regroupImportCandidates( 30 ) }
+                                              onClick={ regroupImports30 }
                                               className={ 'button column is-one-quarter' }
                                             >
                                               {t( '30 seconds' )}
                                             </button>
                                             <button
-                                              onClick={ () => regroupImportCandidates( 60 ) }
+                                              onClick={ regroupImports60 }
                                               className={ 'button column is-one-quarter' }
                                             >
                                               {t( '1 minute' )}
                                             </button>
                                             <button
-                                              onClick={ () => regroupImportCandidates( 300 ) }
+                                              onClick={ regroupImports300 }
                                               className={ 'button column is-one-quarter' }
                                             >
                                               {t( '5 minutes' )}
@@ -1466,7 +1509,7 @@ export class ChunksEditionLayout extends Component {
                           width: '50%',
                         }
                       } }
-              onRequestClose={ () => setEditedFieldId( undefined ) }
+              onRequestClose={ onCloseEditedField }
             >
               <div className={ 'modal-content' }>
                 <div className={ 'modal-header' }>
@@ -1476,7 +1519,7 @@ export class ChunksEditionLayout extends Component {
                   <div className={ 'close-modal-icon-container' }>
                     <span
                       className={ 'icon' }
-                      onClick={ () => setEditedFieldId( undefined ) }
+                      onClick={ onCloseEditedField }
                     >
                       <i className={ 'fas fa-times-circle' } />
                     </span>
@@ -1508,7 +1551,7 @@ export class ChunksEditionLayout extends Component {
                       </div>
                       <input
                         value={ editedFieldTempName || '' }
-                        onChange={ ( e ) => setEditedFieldTempName( e.target.value ) }
+                        onChange={ onEditedFieldTitleChange }
                         className={ 'input' }
                         placeholder={ 'field name' }
                       />
@@ -1517,7 +1560,7 @@ export class ChunksEditionLayout extends Component {
                   <div className={ 'column' }>
                     <button
                       className={ 'button is-danger' }
-                      onClick={ () => setPromptedToDeleteFieldId( editedFieldId ) }
+                      onClick={ onDeleteEditedField }
                     >
                       <span className={ 'icon' }>
                         <i className={ 'fas fa-trash' } />
@@ -1539,10 +1582,7 @@ export class ChunksEditionLayout extends Component {
                   </li>
                   <li>
                     <button
-                      onClick={ () => {
-                                        setEditedFieldId( undefined );
-                                        setEditedFieldTempName( undefined );
-                                      } }
+                      onClick={ onCloseEditedField }
                       className={ 'button is-fullwidth is-warning' }
                     >
                       {t( 'cancel' )}
@@ -1553,7 +1593,7 @@ export class ChunksEditionLayout extends Component {
             </Modal>
             <Modal
               isOpen={ promptedToDeleteFieldId !== undefined }
-              onRequestClose={ () => setPromptedToDeleteFieldId( undefined ) }
+              onRequestClose={ onCancelDeleteEditedField }
             >
               <div className={ 'modal-content' }>
                 <div className={ 'modal-header' }>
@@ -1588,7 +1628,7 @@ export class ChunksEditionLayout extends Component {
                   </li>
                   <li>
                     <button
-                      onClick={ () => setPromptedToDeleteFieldId( undefined ) }
+                      onClick={ onCancelDeleteEditedField }
                       className={ 'button is-fullwidth is-secondary' }
                     >
                       {t( 'cancel' )}
@@ -1638,7 +1678,7 @@ export class ChunksEditionLayout extends Component {
                           width: '50%',
                         }
                       } }
-              onRequestClose={ () => setShortcutsHelpVisibility( false ) }
+              onRequestClose={ onCloseShortcutsModal }
             >
               <div className={ 'modal-content' }>
                 <div className={ 'modal-header' }>
@@ -1648,7 +1688,7 @@ export class ChunksEditionLayout extends Component {
                   <div className={ 'close-modal-icon-container' }>
                     <span
                       className={ 'icon' }
-                      onClick={ () => setShortcutsHelpVisibility( false ) }
+                      onClick={ onCloseShortcutsModal }
                     >
                       <i className={ 'fas fa-times-circle' } />
                     </span>
@@ -1684,7 +1724,7 @@ export class ChunksEditionLayout extends Component {
 
             <Modal
               isOpen={ exportMediaPrompted }
-              onRequestClose={ () => setExportMediaPrompted( false ) }
+              onRequestClose={ onCloseExportMedia }
             >
               <div className={ 'modal-content' }>
                 <div className={ 'modal-header' }>
@@ -1694,7 +1734,7 @@ export class ChunksEditionLayout extends Component {
                   <div className={ 'close-modal-icon-container' }>
                     <span
                       className={ 'icon' }
-                      onClick={ () => setExportMediaPrompted( false ) }
+                      onClick={ onCloseExportMedia }
                     >
                       <i className={ 'fas fa-times-circle' } />
                     </span>
@@ -1709,7 +1749,7 @@ export class ChunksEditionLayout extends Component {
                       <button
                         id={ 'download-media-composition' }
                         className={ 'box is-info' }
-                        onClick={ () => onDownloadCompositionAsHTML( tempMediaComposition ) }
+                        onClick={ onDownloadHTML }
                       >{t( 'download media annotations as an HTML page' )}
                       </button>
                     </li>
@@ -1779,7 +1819,7 @@ export class ChunksEditionLayout extends Component {
             <Modal
               isOpen={ newTagPrompted }
 
-              onRequestClose={ () => setNewTagPrompted( false ) }
+              onRequestClose={ onCloseNewTagModal }
             >
               <div className={ 'modal-content' }>
                 <div className={ 'modal-header' }>
@@ -1789,7 +1829,7 @@ export class ChunksEditionLayout extends Component {
                   <div className={ 'close-modal-icon-container' }>
                     <span
                       className={ 'icon' }
-                      onClick={ () => setNewTagPrompted( false ) }
+                      onClick={ onCloseNewTagModal }
                     >
                       <i className={ 'fas fa-times-circle' } />
                     </span>
@@ -1850,11 +1890,7 @@ export class ChunksEditionLayout extends Component {
                         </div>
                         <div style={ { paddingTop: '1rem' } }>
                           <button
-                            onClick={ ( e ) => {
-                                              e.stopPropagation();
-                                              e.preventDefault();
-                                              setNewTagCategoryPrompted( true )
-                                            } }
+                            onClick={ onOpenNewTagCategory }
                             className={ "button is-fullwidth" }
                           >
                             {t( 'Create new tag category' )}
@@ -1871,10 +1907,7 @@ export class ChunksEditionLayout extends Component {
                             placeholder={ t( 'Tag name' ) }
                             className={ 'input' }
                             value={ newTagTempData.name || '' }
-                            onChange={ ( e ) => setNewTagTempData( {
-                                                    ...newTagTempData,
-                                                    name: e.target.value
-                                                  } ) }
+                            onChange={ onNewTagTitleChange }
                           />
                         </div>
                         <div className={ 'field' }>
@@ -1885,10 +1918,7 @@ export class ChunksEditionLayout extends Component {
                             className={ 'textarea' }
                             value={ newTagTempData.description || '' }
                             placeholder={ t( 'Tag description' ) }
-                            onChange={ ( e ) => setNewTagTempData( {
-                                                    ...newTagTempData,
-                                                    description: e.target.value
-                                                  } ) }
+                            onChange={ onNewTagDescriptionChange }
                           />
                         </div>
                       </div>
@@ -1907,9 +1937,7 @@ export class ChunksEditionLayout extends Component {
                   </li>
                   <li>
                     <button
-                      onClick={ () => {
-                                        setNewTagPrompted( false );
-                                      } }
+                      onClick={ onCloseNewTagModal }
                       className={ 'button is-fullwidth is-warning' }
                     >
                       {t( 'cancel' )}
@@ -1927,7 +1955,7 @@ export class ChunksEditionLayout extends Component {
                           height: '80%'
                         }
                       } }
-              onRequestClose={ () => setNewTagCategoryPrompted( false ) }
+              onRequestClose={ onCloseNewTagCategoryModal }
             >
               <div className={ 'modal-content' }>
                 <div className={ 'modal-header' }>
@@ -1937,7 +1965,7 @@ export class ChunksEditionLayout extends Component {
                   <div className={ 'close-modal-icon-container' }>
                     <span
                       className={ 'icon' }
-                      onClick={ () => setNewTagCategoryPrompted( false ) }
+                      onClick={ onCloseNewTagCategoryModal }
                     >
                       <i className={ 'fas fa-times-circle' } />
                     </span>
@@ -1947,7 +1975,7 @@ export class ChunksEditionLayout extends Component {
                   <SchemaForm
                     schema={ tagCategorySchema }
                     document={ undefined }
-                    onCancel={ () => setNewTagCategoryPrompted( false ) }
+                    onCancel={ onCloseNewTagCategoryModal }
                     onSubmit={ onCreateNewTagCategory }
                   />
 

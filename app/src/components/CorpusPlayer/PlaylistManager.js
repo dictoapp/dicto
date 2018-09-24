@@ -26,6 +26,16 @@ const PlaylistManager = ( {
 } ) => {
 
   const onClear = () => onChange( [] );
+  const renderNoItem = () => <div>{translate( 'No excerpts in playlist' )}</div>;
+  const renderChunkCard = ( block, index ) => (
+    <ChunkCard
+      key={ index }
+      chunk={ block.chunk }
+      tags={ tags }
+      tagCategories={ tagCategories }
+      fields={ fields }
+    />
+  );
   return (
     <aside className={ 'playlist-manager' }>
       <div
@@ -67,16 +77,8 @@ const PlaylistManager = ( {
           className={ 'playlist-chunks-container' }
           items={ summary }
           minified
-          renderItem={ ( block, index ) => (
-            <ChunkCard
-              key={ index }
-              chunk={ block.chunk }
-              tags={ tags }
-              tagCategories={ tagCategories }
-              fields={ fields }
-            />
-          ) }
-          renderNoItem={ () => <div>{translate( 'No excerpts in playlist' )}</div> }
+          renderItem={ renderChunkCard }
+          renderNoItem={ renderNoItem }
         />
         {
           ( duration && duration > 0 ) ?

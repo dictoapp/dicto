@@ -75,6 +75,106 @@ class AsideTag extends Component {
           linkTag( chunkId, tag.metadata.id );
         } );
     };
+    const renderNoExcerptsForTag = () => (
+      <div
+        className={ 'column' }
+      >
+        {t( 'No excerpts attached to this tag yet' )}
+      </div>
+                        );
+    const renderTagChunks = ( chunk ) => {
+                          const mediaTitle = medias[chunk.metadata.mediaId] && medias[chunk.metadata.mediaId].metadata.title;
+
+                          return (
+                            <div
+                              style={ { marginBottom: '.5rem' } }
+                              key={ chunk.metadata.id }
+                            >
+                              <div className={ 'card' }>
+                                <div className={ 'card-content stretched-columns' }>
+                                  <div>
+                                    <div style={ { marginBottom: '1rem' } }>
+                                      {chunk.fields[fieldId]}
+                                    </div>
+                                    <div
+                                      className={ 'stretched-columns' }
+                                      data-for={ 'tooltip' }
+                                      data-tip={ mediaTitle }
+                                    >
+                                      <span style={ { marginRight: '.2rem' } }>
+                                        <i className={ 'fas fa-video' } />
+                                      </span>
+                                      <span>
+                                        {abbrev( mediaTitle || t( 'Untitled media' ), 20 )}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <button
+                                      className={ 'button is-rounded' }
+                                      data-for={ 'tooltip' }
+                                      data-tip={ t( 'Untag excerpt' ) }
+                                      onClick={ () => onUnlink( chunk.metadata.id ) }
+                                    >
+                                      <i className={ 'fas fa-unlink' } />
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        };
+    const renderNoMatchingTag = () => (
+      <div className={ 'column' }>
+        {
+                                searchString.length ?
+                                t( 'No excerpts matching search without this tag' )
+                                : t( 'No excerpts attached to this tag yet' )
+                              }
+      </div>
+                        );
+    const renderSearchedTags = ( chunk ) => {
+                          const mediaTitle = medias[chunk.metadata.mediaId] && medias[chunk.metadata.mediaId].metadata.title;
+                          return (
+                            <div
+                              style={ { marginBottom: '.5rem' } }
+                              key={ chunk.metadata.id }
+                            >
+                              <div className={ 'card' }>
+                                <div className={ 'card-content stretched-columns' }>
+                                  <div>
+                                    <div style={ { marginBottom: '1rem' } }>
+                                      {chunk.fields[fieldId]}
+                                    </div>
+                                    <div
+                                      className={ 'stretched-columns' }
+                                      data-for={ 'tooltip' }
+                                      data-tip={ mediaTitle }
+                                    >
+                                      <span style={ { marginRight: '.2rem' } }>
+                                        <i className={ 'fas fa-video' } />
+                                      </span>
+                                      <span>
+                                        {abbrev( mediaTitle || t( 'Untitled media' ), 20 )}
+                                      </span>
+                                    </div>
+
+                                  </div>
+                                  <div>
+                                    <button
+                                      className={ 'button is-rounded' }
+                                      data-for={ 'tooltip' }
+                                      data-tip={ t( 'Tag excerpt' ) }
+                                      onClick={ () => onLink( chunk.metadata.id ) }
+                                    >
+                                      <i className={ 'fas fa-link' } />
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        };
     return (
       <div className={ 'is-flex-1 aside-media rows' }>
         <div className={ 'aside-media-header columns' }>
@@ -118,55 +218,8 @@ class AsideTag extends Component {
               style={ { flex: 1 } }
               items={ relatedChunks }
               minified
-              renderNoItem={ () => (
-                <div
-                  className={ 'column' }
-                >
-                  {t( 'No excerpts attached to this tag yet' )}
-                </div>
-                        ) }
-              renderItem={ ( chunk ) => {
-                          const mediaTitle = medias[chunk.metadata.mediaId] && medias[chunk.metadata.mediaId].metadata.title;
-
-                          return (
-                            <div
-                              style={ { marginBottom: '.5rem' } }
-                              key={ chunk.metadata.id }
-                            >
-                              <div className={ 'card' }>
-                                <div className={ 'card-content stretched-columns' }>
-                                  <div>
-                                    <div style={ { marginBottom: '1rem' } }>
-                                      {chunk.fields[fieldId]}
-                                    </div>
-                                    <div
-                                      className={ 'stretched-columns' }
-                                      data-for={ 'tooltip' }
-                                      data-tip={ mediaTitle }
-                                    >
-                                      <span style={ { marginRight: '.2rem' } }>
-                                        <i className={ 'fas fa-video' } />
-                                      </span>
-                                      <span>
-                                        {abbrev( mediaTitle || t( 'Untitled media' ), 20 )}
-                                      </span>
-                                    </div>
-                                  </div>
-                                  <div>
-                                    <button
-                                      className={ 'button is-rounded' }
-                                      data-for={ 'tooltip' }
-                                      data-tip={ t( 'Untag excerpt' ) }
-                                      onClick={ () => onUnlink( chunk.metadata.id ) }
-                                    >
-                                      <i className={ 'fas fa-unlink' } />
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        } }
+              renderNoItem={ renderNoExcerptsForTag }
+              renderItem={ renderTagChunks }
             />
           </div>
           <div className={ 'stretched-columns' }>
@@ -211,57 +264,8 @@ class AsideTag extends Component {
               style={ { flex: 1 } }
               items={ visibleAllChunks }
               minified
-              renderNoItem={ () => (
-                <div className={ 'column' }>
-                  {
-                                searchString.length ?
-                                t( 'No excerpts matching search without this tag' )
-                                : t( 'No excerpts attached to this tag yet' )
-                              }
-                </div>
-                        ) }
-              renderItem={ ( chunk ) => {
-                          const mediaTitle = medias[chunk.metadata.mediaId] && medias[chunk.metadata.mediaId].metadata.title;
-                          return (
-                            <div
-                              style={ { marginBottom: '.5rem' } }
-                              key={ chunk.metadata.id }
-                            >
-                              <div className={ 'card' }>
-                                <div className={ 'card-content stretched-columns' }>
-                                  <div>
-                                    <div style={ { marginBottom: '1rem' } }>
-                                      {chunk.fields[fieldId]}
-                                    </div>
-                                    <div
-                                      className={ 'stretched-columns' }
-                                      data-for={ 'tooltip' }
-                                      data-tip={ mediaTitle }
-                                    >
-                                      <span style={ { marginRight: '.2rem' } }>
-                                        <i className={ 'fas fa-video' } />
-                                      </span>
-                                      <span>
-                                        {abbrev( mediaTitle || t( 'Untitled media' ), 20 )}
-                                      </span>
-                                    </div>
-
-                                  </div>
-                                  <div>
-                                    <button
-                                      className={ 'button is-rounded' }
-                                      data-for={ 'tooltip' }
-                                      data-tip={ t( 'Tag excerpt' ) }
-                                      onClick={ () => onLink( chunk.metadata.id ) }
-                                    >
-                                      <i className={ 'fas fa-link' } />
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        } }
+              renderNoItem={ renderNoMatchingTag }
+              renderItem={ renderSearchedTags }
             />
           </div>
         </div>

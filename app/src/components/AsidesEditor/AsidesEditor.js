@@ -403,7 +403,7 @@ export default class AsidesEditor extends Component {
                         <span className={ 'icon' }>
                           <i className={ 'fas fa-trash' } />
                         </span>
-                        <span className={ '' }>{t( 'delete additional content' )}</span>
+                        <span>{t( 'delete additional content' )}</span>
                       </button>
                     </div>
                   </div>
@@ -420,7 +420,7 @@ export default class AsidesEditor extends Component {
                 <span className={ 'icon' }>
                   <i className={ 'fas fa-plus-circle' } />
                 </span>
-                <span className={ '' }>{t( 'add additional contents to this excerpt' )}</span>
+                <span>{t( 'add additional contents to this excerpt' )}</span>
               </button>
             </div>
           </li>

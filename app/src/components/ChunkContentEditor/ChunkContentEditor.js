@@ -254,6 +254,35 @@ export default class ChunkContentEditor extends Component {
       e.stopPropagation();
     };
 
+    const onClickOnNewField = () => {
+      if ( activeFieldName !== 'default' ) {
+        setEditedFieldTempName( activeFieldName );
+        setEditedFieldId( activeFieldId );
+        setOptionsDropdownOpen( false );
+      }
+    }
+
+    const onCloseOptions = () => setOptionsDropdownOpen( false );
+    const onOpenShortcutsHelp = () => setShortcutsHelpVisibility( true );
+    const onCreateNewField = () => setTempNewFieldTitle( '' );
+    const onCancelNewField = () => setTempNewFieldTitle( undefined );
+    const onNewFieldTitleChange = ( e ) => setTempNewFieldTitle( e.target.value );
+    const onToggleOptionsDropdown = () => {
+      setOptionsDropdownOpen( !optionsDropdownOpen );
+    };
+    const onToggleTagsDropDown = () => {
+      setTagsDropdownOpen( !tagsDropdownOpen );
+    };
+    const onTagSearchTermChange = ( e ) => setTagSearchTerm( e.target.value );
+    const onCreateNewTag = () => {
+      setNewTagPrompted( true );
+      setNewTagTempData( {
+        name: tagSearchTerm || ''
+      } );
+    };
+
+    const onCloseTagsDropdown = () => setTagsDropdownOpen( false );
+
     return (
       <div className={ `dicto-ChunkContentEditor rows ${expanded ? 'expanded' : ''} ${disabled ? 'disabled' : ''}` }>
         <ul className={ 'time-input-container' }>
@@ -261,10 +290,10 @@ export default class ChunkContentEditor extends Component {
             data-for={ 'content-editor-tooltip' }
             data-tip={ t( 'Options' ) }
             isActive={ optionsDropdownOpen }
-            onClose={ () => setOptionsDropdownOpen( false ) }
+            onClose={ onCloseOptions }
           >
             <div
-              onClick={ () => setShortcutsHelpVisibility( true ) }
+              onClick={ onOpenShortcutsHelp }
               className={ 'dropdown-item' }
             >
               <span className={ 'button is-rounded' }>
@@ -286,25 +315,19 @@ export default class ChunkContentEditor extends Component {
             </div>
             <div
               style={ { display: tempNewFieldTitle === undefined ? 'flex' : 'none' } }
-              onClick={ ( e ) => e.stopPropagation() }
+              onClick={ silentEvent }
               className={ 'dropdown-item' }
             >
               <span
                 data-for={ 'content-editor-tooltip' }
                 data-tip={ t( 'create a new annotation field' ) }
-                onClick={ () => setTempNewFieldTitle( '' ) }
+                onClick={ onCreateNewField }
                 className={ 'button is-rounded' }
               >
                 <i className={ 'fas fa-plus-circle' } />
               </span>
               <span
-                onClick={ () => {
-                      if ( activeFieldName !== 'default' ) {
-                        setEditedFieldTempName( activeFieldName );
-                        setEditedFieldId( activeFieldId );
-                        setOptionsDropdownOpen( false );
-                      }
-                    } }
+                onClick={ onClickOnNewField }
                 className={ 'dropdown-item-main-content' }
               >
                 {
@@ -335,13 +358,13 @@ export default class ChunkContentEditor extends Component {
             </div>
             <div
               style={ { display: tempNewFieldTitle !== undefined ? 'flex' : 'none' } }
-              onClick={ ( e ) => e.stopPropagation() }
+              onClick={ silentEvent }
               className={ 'dropdown-item' }
             >
               <span
                 data-for={ 'content-editor-tooltip' }
                 data-tip={ t( 'cancel field creation' ) }
-                onClick={ () => setTempNewFieldTitle( undefined ) }
+                onClick={ onCancelNewField }
                 className={ 'button is-rounded' }
               >
                 <i className={ 'fas fa-times' } />
@@ -359,7 +382,7 @@ export default class ChunkContentEditor extends Component {
                   value={ tempNewFieldTitle || '' }
                   isActive={ tempNewFieldTitle !== undefined }
                   placeholder={ t( 'New field name' ) }
-                  onChange={ ( e ) => setTempNewFieldTitle( e.target.value ) }
+                  onChange={ onNewFieldTitleChange }
                 />
               </form>
               <span
@@ -376,10 +399,7 @@ export default class ChunkContentEditor extends Component {
           <li>
             <button
               className={ `button is-rounded options-toggle ${optionsDropdownOpen ? 'is-primary' : ''}` }
-              onClick={ () => {
-                setOptionsDropdownOpen( !optionsDropdownOpen );
-                
-              } }
+              onClick={ onToggleOptionsDropdown }
             >
               <i className={ 'fas fa-plus' } />
             </button>
@@ -421,7 +441,9 @@ export default class ChunkContentEditor extends Component {
                 >
                   {t( 'Default field contents' )}
                 </h6>
-                <MarkdownPlayer src={ chunkFields[defaultFieldId] || '' } />
+                <MarkdownPlayer 
+                  src={ chunkFields[defaultFieldId] || '' } 
+                />
               </div>
             }
             <div
@@ -444,7 +466,7 @@ export default class ChunkContentEditor extends Component {
         <ul className={ 'time-input-container' }>
           <ReverseDropdown
             isActive={ tagsDropdownOpen }
-            onClose={ () => setTagsDropdownOpen( false ) }
+            onClose={ onCloseTagsDropdown }
           >
             {
                                 chunkTags.length > 0 &&
@@ -699,18 +721,13 @@ export default class ChunkContentEditor extends Component {
                     className={ 'input' }
                     value={ tagSearchTerm }
                     isActive={ tagsDropdownOpen }
-                    onChange={ ( e ) => setTagSearchTerm( e.target.value ) }
+                    onChange={ onTagSearchTermChange }
                     placeholder={ t( 'Search tags' ) }
                   />
                 </form>
               </span>
               <span
-                onClick={ () => {
-                        setNewTagPrompted( true );
-                        setNewTagTempData( {
-                          name: tagSearchTerm || ''
-                        } );
-                      } }
+                onClick={ onCreateNewTag }
                 className={ 'button is-rounded' }
               >
                 <i className={ 'fas fa-plus' } />
@@ -722,14 +739,14 @@ export default class ChunkContentEditor extends Component {
               className={ 'button is-rounded tags-toggle' }
               data-for={ 'content-editor-tooltip' }
               data-tip={ t( 'Edit excerpt tags' ) }
-              onClick={ () => {
-                setTagsDropdownOpen( !tagsDropdownOpen );
-              } }
+              onClick={ onToggleTagsDropDown }
             >
 
               <i className={ 'fas fa-tags' } />
             </button>
-            <span className={ 'tags-counter' }>{Object.keys( chunkTags ).length}</span>
+            <span className={ 'tags-counter' }>
+              {Object.keys( chunkTags ).length}
+            </span>
           </li>
           <li className={ 'main-time-input-column' }>
             <TimeInput

@@ -134,6 +134,8 @@ export default class DatesPicker extends Component {
       e.preventDefault();
     };
 
+    const isOutsideRange = () => false;
+
     return (
       <div onClick={ silentEvent }>
         <div className={ 'level' }>
@@ -154,7 +156,7 @@ export default class DatesPicker extends Component {
                       openDirection={ 'up' }
                       startDate={ start }
                       startDateId={ `${id} start` }
-                      isOutsideRange={ () => false }
+                      isOutsideRange={ isOutsideRange }
                       startDatePlaceholderText={ t( 'start date' ) }
                       endDatePlaceholderText={ t( 'end date' ) }
                       displayFormat={ 'DD/MM/YYYY' }

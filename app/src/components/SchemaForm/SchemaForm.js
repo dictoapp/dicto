@@ -97,11 +97,12 @@ const makeForm = ( totalSchema, model, totalObject, value, level, key, path, onC
         );
       }
       // ... a plain number
+      const onNumberChange = ( e ) => onChange( path, +e.target.value );
       return (
         <input
           className={ 'input' }
           value={ value || '' }
-          onChange={ ( e ) => onChange( path, +e.target.value ) }
+          onChange={ onNumberChange }
         />
       );
       // value is an array
@@ -245,21 +246,23 @@ const makeForm = ( totalSchema, model, totalObject, value, level, key, path, onC
 
       // pointing to a color field
       if ( key.includes( 'color' ) ) {
+        const onColorChange = ( val ) => onChange( path, val.hex );
         return (
           <ColorPicker
             color={ value }
-            onChange={ ( val ) => onChange( path, val.hex ) }
+            onChange={ onColorChange }
           />
         );
       }
       // value is an enumerable string (select)
       else if ( model.enum ) {
         if ( model.enum.length > 1 ) {
+          const onSelectChange = ( e ) => onChange( path, e.value );
           return (
             <Select
               name={ key }
               value={ value }
-              onChange={ ( e ) => onChange( path, e.value ) }
+              onChange={ onSelectChange }
               clearable={ false }
               searchable={ false }
               options={ model.enum.map( ( thatValue ) => ( { value: thatValue, label: translate( thatValue ) } ) ) }
@@ -277,12 +280,13 @@ const makeForm = ( totalSchema, model, totalObject, value, level, key, path, onC
       }
       // value is a plain string
       else if ( model.longString ) {
+        const onMdChange = ( thatValue ) => onChange( path, thatValue );
         return (
           <MarkdownEditor
             value={ value }
             className={ 'textarea' }
             placeholder={ translate( model.description ) }
-            onChange={ ( thatValue ) => onChange( path, thatValue ) }
+            onChange={ onMdChange }
           />
         );
       }
@@ -304,6 +308,7 @@ const makeForm = ( totalSchema, model, totalObject, value, level, key, path, onC
             }
           } );
         };
+        const onAddressChange = ( e ) => onChange( path, e.target.value );
         return (
           <div className={ 'stretched-columns' }>
             <div className={ 'is-flex-1' }>
@@ -311,10 +316,10 @@ const makeForm = ( totalSchema, model, totalObject, value, level, key, path, onC
                 value={ value || '' }
                 className={ 'input is-fullwidth' }
                 placeholder={ translate( model.description ) }
-                onChange={ ( e ) => onChange( path, e.target.value ) }
+                onChange={ onAddressChange }
               />
             </div>
-            <div className={ '' }>
+            <div>
               <button
                 onClick={ onPickerClick }
                 className={ 'button' }
@@ -326,12 +331,13 @@ const makeForm = ( totalSchema, model, totalObject, value, level, key, path, onC
         );
       }
       else {
+        const onStrChange = ( e ) => onChange( path, e.target.value );
         return (
           <input
             value={ value || '' }
             className={ 'input' }
             placeholder={ translate( model.description ) }
-            onChange={ ( e ) => onChange( path, e.target.value ) }
+            onChange={ onStrChange }
           />
         );
       }
@@ -340,18 +346,20 @@ const makeForm = ( totalSchema, model, totalObject, value, level, key, path, onC
       const actualValue = value || {};
 
       if ( key && key.includes( 'location' ) ) {
+        const onLocationChange = ( val ) => onChange( path, val );
         return (
           <LocationPicker
             location={ actualValue }
-            onChange={ ( val ) => onChange( path, val ) }
+            onChange={ onLocationChange }
           />
         );
       }
       else if ( key && key.includes( 'dates' ) ) {
+        const onDatesChange = ( val ) => onChange( path, val );
         return (
           <DatesPicker
             dates={ actualValue }
-            onChange={ ( val ) => onChange( path, val ) }
+            onChange={ onDatesChange }
           />
         );
       }
@@ -531,14 +539,16 @@ export default class SchemaForm extends Component {
 
     const bindRef = ( component ) => {
       this.component = component;
-    }
+    };
+
+    const handleValidate = ( e ) => {
+      e.preventDefault();
+      onValidate();
+    };
 
     return (
       <form
-        onSubmit={ ( e ) => {
-              e.preventDefault();
-              onValidate();
-            } }
+        onSubmit={ handleValidate }
         className={ 'dicto-SchemaForm' }
         ref={ bindRef }
       >

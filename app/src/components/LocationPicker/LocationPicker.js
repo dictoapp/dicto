@@ -206,6 +206,8 @@ export default class LocationPickerContainer extends Component {
       e.preventDefault();
     };
 
+    const onLatitudeChange = ( e ) => !isNaN( +e.target.value ) && setLatitude( +e.target.value );
+    const onLongitudeChange = ( e ) => !isNaN( +e.target.value ) && setLongitude( +e.target.value );
     return (
       <div
         className={ 'stretched-columns' }
@@ -284,20 +286,20 @@ export default class LocationPickerContainer extends Component {
                       className={ 'input' }
                       value={ latitude || '' }
                       placeholder={ t( 'input latitude' ) }
-                      onChange={ ( e ) => !isNaN( +e.target.value ) && setLatitude( +e.target.value ) }
+                      onChange={ onLatitudeChange }
                     />
 
                   </div>
                 </div>
 
                 <div>
-                  <label className={ 'label' }>{t( 'Latitude' )}</label>
+                  <label className={ 'label' }>{t( 'Longitude' )}</label>
                   <div className={ 'control' }>
                     <input
                       className={ 'input' }
                       value={ longitude || '' }
                       placeholder={ t( 'input longitude' ) }
-                      onChange={ ( e ) => !isNaN( +e.target.value ) && setLongitude( +e.target.value ) }
+                      onChange={ onLongitudeChange }
                     />
                   </div>
                 </div>

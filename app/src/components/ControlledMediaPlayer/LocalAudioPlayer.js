@@ -65,6 +65,11 @@ export default class LocalAudioPlayer extends Component {
       onCanPlay();
       this.onReady( this.props );
     };
+    const bindRef = ( element ) => {
+            if ( element ) {
+              this.player = element.audioEl;
+            }
+          };
     return (
       <div 
         style={ {
@@ -77,11 +82,7 @@ export default class LocalAudioPlayer extends Component {
       >
         <AudioPlayer
           src={ src }
-          ref={ ( element ) => {
-            if ( element ) {
-              this.player = element.audioEl;
-            }
-          } }
+          ref={ bindRef }
           controls
           onPlay={ handlePlay }
           onPause={ handlePause }

@@ -36,15 +36,8 @@ export default class MediaView extends Component {
       this.cards[index] = card;
     };
 
-    return (
-      <div
-        style={ { height: '100%' } }
-        className={ 'is-stretched-column is-flex-1' }
-      >
-        <PaginatedList
-          className={ 'medias-list is-flex-1' }
-          items={ mediasList }
-          renderItem={ ( media, index ) => {
+    const renderNoItem = () => <div>{Object.keys( corpus.medias ).length ? translate( 'No matching media' ) : translate( 'No media yet' )}</div>;
+    const renderMedia = ( media, index ) => {
             const onClick = () => addPlaylistBuilder( 'media', media );
             const mediaId = media.metadata.id;
             const chunksCount = chunksList.filter( ( c ) => c.metadata.mediaId === mediaId ).length;
@@ -69,7 +62,6 @@ export default class MediaView extends Component {
                   actionContents={ [
                     <li
                       key={ 0 }
-                      className={ '' }
                     >
                       <button
                         className={ 'button is-rounded' }
@@ -84,8 +76,18 @@ export default class MediaView extends Component {
 
               </div>
             );
-          } }
-          renderNoItem={ () => <div>{Object.keys( corpus.medias ).length ? translate( 'No matching media' ) : translate( 'No media yet' )}</div> }
+          };
+          
+    return (
+      <div
+        style={ { height: '100%' } }
+        className={ 'is-stretched-column is-flex-1' }
+      >
+        <PaginatedList
+          className={ 'medias-list is-flex-1' }
+          items={ mediasList }
+          renderItem={ renderMedia }
+          renderNoItem={ renderNoItem }
         />
       </div>
     );

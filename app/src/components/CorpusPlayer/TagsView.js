@@ -92,6 +92,8 @@ export default class TagsView extends Component {
     } );
     const graph = { nodes: tagsList, edges: links };
     const onClickNode = ( e ) => addPlaylistBuilder( 'tag', e.data.node );
+    const onSetGraphMode = () => setViewMode( 'graph' );
+    const onSetListMode = () => setViewMode( 'list' );
     return (
       <div>
 
@@ -101,7 +103,7 @@ export default class TagsView extends Component {
         >
           <li className={ 'column' }>
             <button
-              onClick={ () => setViewMode( 'graph' ) }
+              onClick={ onSetGraphMode }
               className={ `button is-fullwidth ${viewMode === 'graph' ? 'is-primary' : ''}` }
             >
               <i className={ 'fas fa-asterisk' } />
@@ -109,7 +111,7 @@ export default class TagsView extends Component {
           </li>
           <li className={ 'column' }>
             <button
-              onClick={ () => setViewMode( 'list' ) }
+              onClick={ onSetListMode }
               className={ `button is-fullwidth ${viewMode === 'list' ? 'is-primary' : ''}` }
             >
               <i className={ 'fas fa-list' } />

@@ -188,9 +188,9 @@ const CompositionEditionLayout = ( {
     const quotedChunks = composition.summary.filter( ( c ) => c.blockType === 'chunk' ).map( ( c ) => c.content );
     const displayedChunks = filterChunks( displayFilterMode, displayFilterParam, corpus, searchTerm );
     const unquotedChunks = displayedChunks.filter(
-      chunk => 
+      ( chunk ) => 
         !quotedChunks.find(
-          quotedChunkId => 
+          ( quotedChunkId ) => 
             quotedChunkId === chunk.metadata.id
         )
     );
@@ -206,8 +206,8 @@ const CompositionEditionLayout = ( {
         source.droppableId === 'chunks-summary'
         && destination
       ) {
-        if (summary.filter( ( c ) => c.blockType === 'chunk' && c.content === draggableId ).length) {
-          toastr.warning(t('Excerpt already cited in the composition'))
+        if ( summary.filter( ( c ) => c.blockType === 'chunk' && c.content === draggableId ).length ) {
+          toastr.warning( t( 'Excerpt already cited in the composition' ) )
           return;
         }
         const dropIndex = destination.index;
@@ -379,185 +379,9 @@ const CompositionEditionLayout = ( {
       properties: schema.definitions.composition.properties.metadata.properties
     };
 
-    return (
-      <div className={ 'dicto-CompositionEditionLayout fix-height rows' }>
-        <Nav
-          localizationCrumbs={ [
-                  {
-                    href: '/corpora/',
-                    name: t( 'my corpora' )
-                  },
-                  {
-                    href: `/corpora/${corpus.metadata.id}`,
-                    name: `/ ${ corpus.metadata.title}` || t( 'untitled corpus' )
-                  },
-                  {
-                    href: `/corpora/${corpus.metadata.id}/composition/${composition.metadata.id}`,
-                    active: true,
-                    name: `${t('composition')} / ${ composition.metadata.title}` || t( 'untitled composition' )
-                  },
-                ] }
-          localOperations={ [] }
-          importantOperations={ [] }
-        />
-        <DragDropContext
-          onDragEnd={ onDragEnd }
-        >
-          <div className={ 'columns container is-fluid hero-body is-flex-1' }>
-            <div
-              id={ 'corpus-excerpts-container' }
-              className={ `column is-collapsable ${'is-half'} rows` }
-              style={ { paddingBottom: '1rem' } }
-            >
+    const onSearchTermChange = ( value ) => setSearchTerm( value );
 
-              <div
-                style={ {
-                              paddingLeft: '.5rem',
-                              paddingRight: '.5rem',
-                            } }
-                className={ 'level' }
-              >
-                <SearchInput
-                  value={ searchTerm }
-                  className={ 'is-flex-1' }
-                  onUpdate={ ( value ) => setSearchTerm( value ) }
-                  delay={ 500 }
-                  placeholder={ t( 'search an excerpt' ) }
-                />
-              </div>
-
-              <ul className={ 'accordions' }>
-                <li
-                  className={ `filters-container column accordion ${filtersVisible ? 'is-active' : ''}` }
-                >
-                  <div
-                    id={ 'filters-header' }
-                    onClick={ toggleFiltersVisibility }
-                    className={ 'accordion-header' }
-                  >
-                    <h4
-                      className={ 'title is-4' }
-                      style={ {
-                                          display: 'flex',
-                                          flexFlow: 'row nowrap',
-                                          alignItems: 'center',
-                                          justifyContents: 'stretch'
-                                        } }
-                    >
-                      <button
-                        style={ { marginRight: '1rem' } }
-                        className={ 'button is-rounded' }
-                      >
-                        <span
-                          className={ 'icon' }
-                        >
-                          <i
-                            style={ {
-                                                      display: filtersVisible ? 'inline' : 'none',
-                                                    } }
-                            className={ 'fas fa-minus-circle' }
-                          />
-                          <i
-                            style={ {
-                                                      display: !filtersVisible ? 'inline' : 'none',
-                                                    } }
-                            className={ 'fas fa-plus-circle' }
-                          />
-                        </span>
-                      </button>
-                      <span style={ { flex: 1 } }>
-                        {t( 'Filters and settings' )}
-                      </span>
-                    </h4>
-                  </div>
-                  <div className={ 'accordion-body' }>
-                    <div className={ 'accordion-content' }>
-                      <div className={ 'column' }>
-                        {
-                                              displayedChunks.length > 0 && fieldsSelectChoices.length > 1 ?
-                                                <ul className={ 'column columns' }>
-                                                  <li className={ 'column is-one-half' }>
-                                                    <div className={ 'subtitle is-6' }>{t( 'Use chunks field' )}</div>
-                                                  </li>
-                                                  <li className={ 'column' }>
-                                                    <Select
-                                                      name={ 'fieldSelect' }
-                                                      clearable={ false }
-                                                      value={ activeFieldId }
-                                                      onChange={ onActiveFieldIdChange }
-                                                      options={ fieldsSelectChoices }
-                                                    />
-                                                  </li>
-                                                </ul> 
-                                              : 
-                                                null
-                                            }
-                        <ul className={ 'columns' }>
-                          <li className={ 'column ' }>
-                            <div className={ 'subtitle is-6' }>{t( 'Display chunks from' )}</div>
-                          </li>
-                          <li className={ 'column' }>
-                            <div className={ 'field has-addons filter-modes' }>
-                              {
-                                                        filterModes
-                                                          .filter( ( filter ) => filter.available )
-                                                          .map( ( filterMode ) => {
-                                                            const onClick = () => {
-                                                              setDisplayFilterMode( filterMode.id );
-                                                              if ( filterMode.options && filterMode.options.length ) {
-                                                                setTimeout( () => setDisplayFilterParam( filterMode.options[0].value ) );
-                                                              }
-                                                            };
-                                                            return (
-                                                              <p
-                                                                key={ filterMode.id }
-                                                                className={ 'control' }
-                                                              >
-                                                                <a
-                                                                  onClick={ onClick }
-                                                                  className={ `button ${filterMode.id === displayFilterMode ? ' is-primary' : ''}` }
-                                                                >
-                                                                  <span>{' '}{filterMode.title}</span>
-                                                                </a>
-                                                              </p>
-                                                            );
-                                                          } )
-                                                      }
-                            </div>
-                          </li>
-
-                        </ul>
-                      </div>
-                      <div className={ 'columns column' }>
-
-                        <div className={ 'column' }>
-                          {
-                                                displayFilterUi()
-                                              }
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-
-              <Droppable
-                isDropDisabled
-                droppableId={ 'chunks-summary' }
-              >
-                {( provided, snapshot ) => (
-                  <div className={ 'chunks-wrapper is-flex-1 column' }>
-                    <div
-                      ref={ provided.innerRef }
-                      className={ `droppable-container ${snapshot.isDraggingOver ? 'active' : ''}  is-flex-1` }
-                      { ...provided.droppableProps }
-                    >
-                      <PaginatedList
-                        items={ displayedChunks }
-                        className={ 'is-flex-1' }
-                        itemsPerPage={ 30 }
-
-                        renderItem={ ( chunk, index ) => {
+    const renderCompositionChunks = ( chunk, index ) => {
                                               const onAddAllFromSameMedia = () => {
                                                 const mediaId = chunk.metadata.mediaId;
                                                 const otherChunks = Object.keys( corpus.chunks )
@@ -579,95 +403,20 @@ const CompositionEditionLayout = ( {
                                                   activeFieldId={ activeFieldId }
                                                 />
                                               );
-                                            } }
-                        renderNoItem={ () => (
-                          <div className={ 'column' }>
-                            <article className={ 'message is-info' }>
-                              <div className={ 'message-header' }>
-                                <p>{t( 'No excerpts to display' )}</p>
-                              </div>
-                              <div className={ 'message-body' }>
-                                {t( 'The current filter does not allow to pick any excerpt in your corpus.' )}
-                              </div>
-                            </article>
-                          </div>
-                                            ) }
-                      />
-                      {provided.placeholder}
-                    </div>
-
-                  </div>
-                          )}
-              </Droppable>
-
-              {
-                          displayedChunks.length > 0 ?
-                            <div
-                              id={ 'add-all-chunks' }
-                              style={ { paddingLeft: '.5rem', paddingRight: '.5rem' } }
-                            >
-                              <div
-                                style={ { padding: 0 } }
-                                className={ 'column' }
-                              >
-                                <button
-                                  onClick={ onAddAll }
-                                  className={ `button is-fullwidth is-dark ${unquotedChunks.length ? '' : 'is-disabled'}` }
-                                >{t( [ 'add one excerpt to the composition', 'add {n} excerpts to the composition', 'n' ], { n: unquotedChunks.length} )}
-                                </button>
-                              </div>
-                            </div>
-                          : 
-                            null
-                          }
-
-            </div>
-            <div
-              id={ 'composition-summary-container' }
-              className={ `column is-collapsable ${'is-half'} rows` }
-              style={ { paddingBottom: '1rem' } }
-            >
-              <div
-                style={ { marginBottom: 0 } }
-                className={ 'is-fullwidth column' }
-              >
-                <CompositionCard
-                  composition={ composition }
-                  medias={ corpus.medias }
-                  chunks={ corpus.chunks }
-                  minified
-                  onClick={ () => setMetadataVisibility( true ) }
-                  actionContents={ [
-                    <li
-                      key={ 1 }
-                      className={ '' }
-                    >
-                      <button
-                        data-for={ 'tooltip' }
-                        data-tip={ t( 'edit composition' ) }
-                        className={ 'button is-rounded' }
-                        onClick={ () => setMetadataVisibility( true ) }
-                      >
-                        <i className={ 'fas fa-pencil-alt' } />
-                      </button>
-                    </li>,
-                                ] }
-                />
-              </div>
-
-              <Droppable droppableId={ 'composition-summary' }>
-                {( provided, snapshot ) => (
-                  <div
-                    style={ { flex: 6 } }
-                    ref={ provided.innerRef }
-                    className={ `droppable-container ${snapshot.isDraggingOver ? 'active' : ''}  is-scrollable is-flex-1` }
-                    { ...provided.droppableProps }
-                  >
-                    <PaginatedList
-                      items={ composition.summary }
-                      className={ 'is-flex-1' }
-                      itemsPerPage={ 30 }
-                      renderItem={ ( compositionBlock, index ) => {
+                                            };
+    const renderNoExcerpts = () => (
+      <div className={ 'column' }>
+        <article className={ 'message is-info' }>
+          <div className={ 'message-header' }>
+            <p>{t( 'No excerpts to display' )}</p>
+          </div>
+          <div className={ 'message-body' }>
+            {t( 'The current filter does not allow to pick any excerpt in your corpus.' )}
+          </div>
+        </article>
+      </div>
+                                            );
+    const renderCompositionBlocks = ( compositionBlock, index ) => {
                                           const onMoveUp = () => {
                                             const newIndex = index - 1;
                                             let newSummary;
@@ -804,19 +553,279 @@ const CompositionEditionLayout = ( {
                                               setActiveCompositionBlockId={ setActiveCompositionBlockId }
                                             />
                                           );
+                                        };
+    const renderNoCompositionBlocks = () => (
+      <div className={ 'column' }>
+        <article className={ 'message is-success' }>
+          <div className={ 'message-header' }>
+            <p>{t( 'The composition summary is empty' )}</p>
+          </div>
+          <div className={ 'message-body' }>
+            {t( 'Drag & drop excerpts here to add items to your composition !' )}
+          </div>
+        </article>
+      </div>
+                                        );
+    
+    const onOpenMetadata = () => setMetadataVisibility( true );
+    const onCloseMetadata = () => setMetadataVisibility( false );
+    return (
+      <div className={ 'dicto-CompositionEditionLayout fix-height rows' }>
+        <Nav
+          localizationCrumbs={ [
+                  {
+                    href: '/corpora/',
+                    name: t( 'my corpora' )
+                  },
+                  {
+                    href: `/corpora/${corpus.metadata.id}`,
+                    name: `/ ${ corpus.metadata.title}` || t( 'untitled corpus' )
+                  },
+                  {
+                    href: `/corpora/${corpus.metadata.id}/composition/${composition.metadata.id}`,
+                    active: true,
+                    name: `${t( 'composition' )} / ${ composition.metadata.title}` || t( 'untitled composition' )
+                  },
+                ] }
+          localOperations={ [] }
+          importantOperations={ [] }
+        />
+        <DragDropContext
+          onDragEnd={ onDragEnd }
+        >
+          <div className={ 'columns container is-fluid hero-body is-flex-1' }>
+            <div
+              id={ 'corpus-excerpts-container' }
+              className={ `column is-collapsable ${'is-half'} rows` }
+              style={ { paddingBottom: '1rem' } }
+            >
+
+              <div
+                style={ {
+                              paddingLeft: '.5rem',
+                              paddingRight: '.5rem',
+                            } }
+                className={ 'level' }
+              >
+                <SearchInput
+                  value={ searchTerm }
+                  className={ 'is-flex-1' }
+                  onUpdate={ onSearchTermChange }
+                  delay={ 500 }
+                  placeholder={ t( 'search an excerpt' ) }
+                />
+              </div>
+
+              <ul className={ 'accordions' }>
+                <li
+                  className={ `filters-container column accordion ${filtersVisible ? 'is-active' : ''}` }
+                >
+                  <div
+                    id={ 'filters-header' }
+                    onClick={ toggleFiltersVisibility }
+                    className={ 'accordion-header' }
+                  >
+                    <h4
+                      className={ 'title is-4' }
+                      style={ {
+                                          display: 'flex',
+                                          flexFlow: 'row nowrap',
+                                          alignItems: 'center',
+                                          justifyContents: 'stretch'
                                         } }
-                      renderNoItem={ () => (
+                    >
+                      <button
+                        style={ { marginRight: '1rem' } }
+                        className={ 'button is-rounded' }
+                      >
+                        <span
+                          className={ 'icon' }
+                        >
+                          <i
+                            style={ {
+                                                      display: filtersVisible ? 'inline' : 'none',
+                                                    } }
+                            className={ 'fas fa-minus-circle' }
+                          />
+                          <i
+                            style={ {
+                                                      display: !filtersVisible ? 'inline' : 'none',
+                                                    } }
+                            className={ 'fas fa-plus-circle' }
+                          />
+                        </span>
+                      </button>
+                      <span style={ { flex: 1 } }>
+                        {t( 'Filters and settings' )}
+                      </span>
+                    </h4>
+                  </div>
+                  <div className={ 'accordion-body' }>
+                    <div className={ 'accordion-content' }>
+                      <div className={ 'column' }>
+                        {
+                                              displayedChunks.length > 0 && fieldsSelectChoices.length > 1 ?
+                                                <ul className={ 'column columns' }>
+                                                  <li className={ 'column is-one-half' }>
+                                                    <div className={ 'subtitle is-6' }>{t( 'Use chunks field' )}</div>
+                                                  </li>
+                                                  <li className={ 'column' }>
+                                                    <Select
+                                                      name={ 'fieldSelect' }
+                                                      clearable={ false }
+                                                      value={ activeFieldId }
+                                                      onChange={ onActiveFieldIdChange }
+                                                      options={ fieldsSelectChoices }
+                                                    />
+                                                  </li>
+                                                </ul> 
+                                              : 
+                                                null
+                                            }
+                        <ul className={ 'columns' }>
+                          <li className={ 'column ' }>
+                            <div className={ 'subtitle is-6' }>{t( 'Display chunks from' )}</div>
+                          </li>
+                          <li className={ 'column' }>
+                            <div className={ 'field has-addons filter-modes' }>
+                              {
+                                                        filterModes
+                                                          .filter( ( filter ) => filter.available )
+                                                          .map( ( filterMode ) => {
+                                                            const onClick = () => {
+                                                              setDisplayFilterMode( filterMode.id );
+                                                              if ( filterMode.options && filterMode.options.length ) {
+                                                                setTimeout( () => setDisplayFilterParam( filterMode.options[0].value ) );
+                                                              }
+                                                            };
+                                                            return (
+                                                              <p
+                                                                key={ filterMode.id }
+                                                                className={ 'control' }
+                                                              >
+                                                                <a
+                                                                  onClick={ onClick }
+                                                                  className={ `button ${filterMode.id === displayFilterMode ? ' is-primary' : ''}` }
+                                                                >
+                                                                  <span>{' '}{filterMode.title}</span>
+                                                                </a>
+                                                              </p>
+                                                            );
+                                                          } )
+                                                      }
+                            </div>
+                          </li>
+
+                        </ul>
+                      </div>
+                      <div className={ 'columns column' }>
+
                         <div className={ 'column' }>
-                          <article className={ 'message is-success' }>
-                            <div className={ 'message-header' }>
-                              <p>{t( 'The composition summary is empty' )}</p>
-                            </div>
-                            <div className={ 'message-body' }>
-                              {t( 'Drag & drop excerpts here to add items to your composition !' )}
-                            </div>
-                          </article>
+                          {
+                                                displayFilterUi()
+                                              }
                         </div>
-                                        ) }
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+
+              <Droppable
+                isDropDisabled
+                droppableId={ 'chunks-summary' }
+              >
+                {( provided, snapshot ) => (
+                  <div className={ 'chunks-wrapper is-flex-1 column' }>
+                    <div
+                      ref={ provided.innerRef }
+                      className={ `droppable-container ${snapshot.isDraggingOver ? 'active' : ''}  is-flex-1` }
+                      { ...provided.droppableProps }
+                    >
+                      <PaginatedList
+                        items={ displayedChunks }
+                        className={ 'is-flex-1' }
+                        itemsPerPage={ 30 }
+
+                        renderItem={ renderCompositionChunks }
+                        renderNoItem={ renderNoExcerpts }
+                      />
+                      {provided.placeholder}
+                    </div>
+
+                  </div>
+                          )}
+              </Droppable>
+
+              {
+                          displayedChunks.length > 0 ?
+                            <div
+                              id={ 'add-all-chunks' }
+                              style={ { paddingLeft: '.5rem', paddingRight: '.5rem' } }
+                            >
+                              <div
+                                style={ { padding: 0 } }
+                                className={ 'column' }
+                              >
+                                <button
+                                  onClick={ onAddAll }
+                                  className={ `button is-fullwidth is-dark ${unquotedChunks.length ? '' : 'is-disabled'}` }
+                                >{t( [ 'add one excerpt to the composition', 'add {n} excerpts to the composition', 'n' ], { n: unquotedChunks.length } )}
+                                </button>
+                              </div>
+                            </div>
+                          : 
+                            null
+                          }
+
+            </div>
+            <div
+              id={ 'composition-summary-container' }
+              className={ `column is-collapsable ${'is-half'} rows` }
+              style={ { paddingBottom: '1rem' } }
+            >
+              <div
+                style={ { marginBottom: 0 } }
+                className={ 'is-fullwidth column' }
+              >
+                <CompositionCard
+                  composition={ composition }
+                  medias={ corpus.medias }
+                  chunks={ corpus.chunks }
+                  minified
+                  onClick={ onOpenMetadata }
+                  actionContents={ [
+                    <li
+                      key={ 1 }
+                      className={ '' }
+                    >
+                      <button
+                        data-for={ 'tooltip' }
+                        data-tip={ t( 'edit composition' ) }
+                        className={ 'button is-rounded' }
+                        onClick={ onOpenMetadata }
+                      >
+                        <i className={ 'fas fa-pencil-alt' } />
+                      </button>
+                    </li>,
+                                ] }
+                />
+              </div>
+
+              <Droppable droppableId={ 'composition-summary' }>
+                {( provided, snapshot ) => (
+                  <div
+                    style={ { flex: 6 } }
+                    ref={ provided.innerRef }
+                    className={ `droppable-container ${snapshot.isDraggingOver ? 'active' : ''}  is-scrollable is-flex-1` }
+                    { ...provided.droppableProps }
+                  >
+                    <PaginatedList
+                      items={ composition.summary }
+                      className={ 'is-flex-1' }
+                      itemsPerPage={ 30 }
+                      renderItem={ renderCompositionBlocks }
+                      renderNoItem={ renderNoCompositionBlocks }
                     />
 
                     {provided.placeholder}

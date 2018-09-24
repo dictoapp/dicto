@@ -400,39 +400,9 @@ const CorpusLayout = ( {
     const renderMain = () => {
       switch ( activeSubview ) {
       case 'medias':
-        return (
-          <div className={ 'column is-9 is-full-height columns' }>
-            <div className={ 'column is-8 is-full-height rows' }>
-              {
-                      Object.keys( corpus.medias ).length > 1 &&
-                      <div
-                        style={ { paddingLeft: 0, marginBottom: 0 } }
-                        className={ 'level column is-full' }
-                      >
-                        <SearchInput
-                          value={ mediaSearchString }
-                          onUpdate={ ( value ) => setMediaSearchString( value ) }
-                          delay={ 500 }
-                          placeholder={ t( 'find a media' ) }
-                        />
-                      </div>
-                    }
-              <div
-                style={ { paddingLeft: 0 } }
-                className={ 'level column is-full' }
-              >
-                <button
-                  className={ 'button is-fullwidth' }
-                  onClick={ promptNewMedia }
-                >
-                  {t( 'Add a new media' )}
-                </button>
-              </div>
-              <PaginatedList
-                className={ 'medias-list is-flex-1' }
-                items={ visibleMedias }
-                renderNoItem={ () => <div className={ 'column' }>{Object.keys( corpus.medias ).length ? t( 'No matching media' ) : t( 'No media yet' )}</div> }
-                renderItem={ ( media ) => {
+        const onMediaSearchChange = ( value ) => setMediaSearchString( value );
+        const renderNoMedia = () => <div className={ 'column' }>{Object.keys( corpus.medias ).length ? t( 'No matching media' ) : t( 'No media yet' )}</div>;
+        const renderMedia = ( media ) => {
                           const onDelete = ( e ) => {
                             e.stopPropagation();
                             setPromptedToDeleteMediaId( media.metadata.id );
@@ -505,40 +475,26 @@ const CorpusLayout = ( {
                               />
                             </li>
                           );
-                        } }
-              />
-            </div>
-            <div className={ 'column is-4 is-full-height rows' }>
-              {
-                      asideMediaId &&
-                      <AsideMedia
-                        media={ corpus.medias[asideMediaId] }
-                        fieldId={ defaultFieldId }
-                        chunks={ chunksList.filter( ( c ) => c.metadata.mediaId === asideMediaId ) }
-                        onDeselect={ () => setAsideMediaId( undefined ) }
-                        onAnnotate={ () => history.push( `/corpora/${corpusId}/chunks?activeMedia=${asideMediaId}` ) }
-                        onCreateComposition={ () => createCompositionFromAsideMedia() }
-                        onDelete={ () => setPromptedToDeleteMediaId( corpusId, asideMediaId ) }
-                      />
-                    }
-            </div>
-          </div>
-        );
-      case 'compositions':
+                        };
+        const onCloseAsideMedia = () => setAsideMediaId( undefined );
+        const onAnnotateMedia = () => history.push( `/corpora/${corpusId}/chunks?activeMedia=${asideMediaId}` );
+        const handleCreateComposition = () => createCompositionFromAsideMedia();
+        const handleDeleteMedia = () => setPromptedToDeleteMediaId( corpusId, asideMediaId );
+
         return (
           <div className={ 'column is-9 is-full-height columns' }>
             <div className={ 'column is-8 is-full-height rows' }>
               {
-                      Object.keys( corpus.compositions ).length > 1 &&
+                      Object.keys( corpus.medias ).length > 1 &&
                       <div
                         style={ { paddingLeft: 0, marginBottom: 0 } }
                         className={ 'level column is-full' }
                       >
                         <SearchInput
-                          value={ compositionsSearchString }
-                          onUpdate={ ( value ) => setCompositionsSearchString( value ) }
+                          value={ mediaSearchString }
+                          onUpdate={ onMediaSearchChange }
                           delay={ 500 }
-                          placeholder={ t( 'find a composition' ) }
+                          placeholder={ t( 'find a media' ) }
                         />
                       </div>
                     }
@@ -548,16 +504,38 @@ const CorpusLayout = ( {
               >
                 <button
                   className={ 'button is-fullwidth' }
-                  onClick={ promptNewComposition }
+                  onClick={ promptNewMedia }
                 >
-                  {t( 'Add a new composition' )}
+                  {t( 'Add a new media' )}
                 </button>
               </div>
               <PaginatedList
                 className={ 'medias-list is-flex-1' }
-                items={ visibleCompositions }
-                renderNoItem={ () => <div className={ 'column' }>{Object.keys( corpus.compositions ).length ? t( 'No matching composition' ) : t( 'No composition yet' )}</div> }
-                renderItem={ ( composition ) => {
+                items={ visibleMedias }
+                renderNoItem={ renderNoMedia }
+                renderItem={ renderMedia }
+              />
+            </div>
+            <div className={ 'column is-4 is-full-height rows' }>
+              {
+                      asideMediaId &&
+                      <AsideMedia
+                        media={ corpus.medias[asideMediaId] }
+                        fieldId={ defaultFieldId }
+                        chunks={ chunksList.filter( ( c ) => c.metadata.mediaId === asideMediaId ) }
+                        onDeselect={ onCloseAsideMedia }
+                        onAnnotate={ onAnnotateMedia }
+                        onCreateComposition={ handleCreateComposition }
+                        onDelete={ handleDeleteMedia }
+                      />
+                    }
+            </div>
+          </div>
+        );
+      case 'compositions':
+        const onCompositionSearchChange = ( value ) => setCompositionsSearchString( value );
+        const renderNoCompositions = () => <div className={ 'column' }>{Object.keys( corpus.compositions ).length ? t( 'No matching composition' ) : t( 'No composition yet' )}</div>;
+        const renderComposition = ( composition ) => {
                           const onDelete = ( e ) => {
                             e.stopPropagation();
                             setPromptedToDeleteCompositionId( composition.metadata.id );
@@ -625,7 +603,43 @@ const CorpusLayout = ( {
                               />
                             </li>
                           );
-                        } }
+                        };
+        const onCloseAsideComposition = () => setAsideCompositionId( undefined );
+        const onEditComposition = () => history.push( `/corpora/${corpusId}/compositions/${asideCompositionId}` );
+        const onDeleteComposition = () => setPromptedToDeleteCompositionId( corpusId, asideCompositionId );
+        return (
+          <div className={ 'column is-9 is-full-height columns' }>
+            <div className={ 'column is-8 is-full-height rows' }>
+              {
+                      Object.keys( corpus.compositions ).length > 1 &&
+                      <div
+                        style={ { paddingLeft: 0, marginBottom: 0 } }
+                        className={ 'level column is-full' }
+                      >
+                        <SearchInput
+                          value={ compositionsSearchString }
+                          onUpdate={ onCompositionSearchChange }
+                          delay={ 500 }
+                          placeholder={ t( 'find a composition' ) }
+                        />
+                      </div>
+                    }
+              <div
+                style={ { paddingLeft: 0 } }
+                className={ 'level column is-full' }
+              >
+                <button
+                  className={ 'button is-fullwidth' }
+                  onClick={ promptNewComposition }
+                >
+                  {t( 'Add a new composition' )}
+                </button>
+              </div>
+              <PaginatedList
+                className={ 'medias-list is-flex-1' }
+                items={ visibleCompositions }
+                renderNoItem={ renderNoCompositions }
+                renderItem={ renderComposition }
               />
             </div>
             <div className={ 'column is-4 is-full-height rows' }>
@@ -634,9 +648,9 @@ const CorpusLayout = ( {
                       <AsideComposition
                         composition={ corpus.compositions[asideCompositionId] }
                         chunks={ corpus.chunks }
-                        onDeselect={ () => setAsideCompositionId( undefined ) }
-                        onAnnotate={ () => history.push( `/corpora/${corpusId}/compositions/${asideCompositionId}` ) }
-                        onDelete={ () => setPromptedToDeleteCompositionId( corpusId, asideCompositionId ) }
+                        onDeselect={ onCloseAsideComposition }
+                        onAnnotate={ onEditComposition }
+                        onDelete={ onDeleteComposition }
                       />
                     }
             </div>
@@ -661,6 +675,9 @@ const CorpusLayout = ( {
             };
           } );
 
+        const onTagSearchChange = ( value ) => setTagsSearchString( value );
+        const onCloseAsideTags = () => setAsideTagId( undefined );
+
         return (
           <div className={ 'column is-9 is-full-height columns' }>
             <div className={ 'column is-8 is-full-height rows' }>
@@ -672,7 +689,7 @@ const CorpusLayout = ( {
                       >
                         <SearchInput
                           value={ tagsSearchString }
-                          onUpdate={ ( value ) => setTagsSearchString( value ) }
+                          onUpdate={ onTagSearchChange }
                           delay={ 500 }
                           placeholder={ t( 'find a tag' ) }
                         />
@@ -705,6 +722,8 @@ const CorpusLayout = ( {
                                 const onDelete = () => {
                                   setPromptedToDeleteTagCategoryId( category.metadata.id );
                                 };
+
+                                const onPromptNewTag = () => promptNewTag( category.metadata.id );
                                 return (
                                   <div
                                     key={ category.metadata.id }
@@ -772,7 +791,7 @@ const CorpusLayout = ( {
                                               tagsSearchString.length === 0 &&
                                               <div className={ 'column' }>
                                                 <div
-                                                  onClick={ () => promptNewTag( category.metadata.id ) }
+                                                  onClick={ onPromptNewTag }
                                                   className={ 'button is-fullwidth' }
                                                 >
                                                   {t( 'Create a new tag in this category' )}
@@ -950,7 +969,7 @@ const CorpusLayout = ( {
                         relatedChunks={ chunksList.filter( ( c ) => c.tags.includes( asideTagId ) ) }
                         mode={ asideTagMode }
                         setMode={ setAsideTagMode }
-                        onDeselect={ () => setAsideTagId( undefined ) }
+                        onDeselect={ onCloseAsideTags }
                       />
                     }
             </div>
@@ -970,6 +989,29 @@ const CorpusLayout = ( {
       }
     };
 
+    const onViewMedias = () => onActiveSubviewClick( 'medias' );
+    const onViewTags = () => onActiveSubviewClick( 'tags' );
+    const onViewCompositions = () => onActiveSubviewClick( 'compositions' );
+    const onViewMetadata = () => onActiveSubviewClick( 'metadata' );
+    const onViewImport = () => onActiveSubviewClick( 'import' );
+    const onViewExport = () => onActiveSubviewClick( 'export' );
+    const onDeleteMediaConfirm = () => {
+                              deleteMedia( corpus.metadata.id, promptedToDeleteMediaId ); setPromptedToDeleteMediaId( undefined );
+                            };
+    const onDeleteTagCategoryConfirm = () => {
+                              onDeleteTagCategory( promptedToDeleteTagCategoryId ); setPromptedToDeleteTagCategoryId( undefined );
+                            };
+    const onDeleteTagConfirm = () => {
+                              onDeleteTag( promptedToDeleteTagId ); setPromptedToDeleteTagId( undefined );
+                            };
+    const onDeleteCompositionConfirm = () => {
+                              deleteComposition( corpus.metadata.id, promptedToDeleteCompositionId ); setPromptedToDeleteCompositionId( undefined );
+                            };
+
+    const onCloseImportModal = () => setImportModalVisible( false );
+
+    const handleMergeAllImportCollisions = () => onMergeAllImportCollisions();
+    const handleDuplicateAllImportCollisions = () => onDuplicateAllImportCollisions();
     return (
       <section className={ 'dicto-Corpus rows' }>
         <Nav
@@ -1003,7 +1045,7 @@ const CorpusLayout = ( {
               <ul className={ 'subviews-menu' }>
                 <li
                   id={ 'list-medias' }
-                  onClick={ () => onActiveSubviewClick( 'medias' ) }
+                  onClick={ onViewMedias }
                   className={ `subview-menu-item title is-4 ${activeSubview === 'medias' ? 'is-active' : ''}` }
                 >
                   <i className={ 'fas fa-video' } />
@@ -1012,7 +1054,7 @@ const CorpusLayout = ( {
 
                 <li
                   id={ 'list-tags' }
-                  onClick={ () => onActiveSubviewClick( 'tags' ) }
+                  onClick={ onViewTags }
                   className={ `subview-menu-item title is-4 ${activeSubview === 'tags' ? 'is-active' : ''}` }
                 >
                   <i className={ 'fas fa-tags' } />
@@ -1021,7 +1063,7 @@ const CorpusLayout = ( {
 
                 <li
                   id={ 'list-compositions' }
-                  onClick={ () => onActiveSubviewClick( 'compositions' ) }
+                  onClick={ onViewCompositions }
                   className={ `subview-menu-item title is-4 ${activeSubview === 'compositions' ? 'is-active' : ''}` }
                 >
                   <i className={ 'fas fa-list' } />
@@ -1030,7 +1072,7 @@ const CorpusLayout = ( {
 
                 <li
                   id={ 'edit-metadata' }
-                  onClick={ () => onActiveSubviewClick( 'metadata' ) }
+                  onClick={ onViewMetadata }
                   className={ `subview-menu-item title is-4 ${activeSubview === 'metadata' ? 'is-active' : ''}` }
                 >
                   <i className={ 'fas fa-file' } />
@@ -1039,7 +1081,7 @@ const CorpusLayout = ( {
 
                 <li
                   id={ 'import-corpus' }
-                  onClick={ () => onActiveSubviewClick( 'import' ) }
+                  onClick={ onViewImport }
                   className={ `subview-menu-item title is-4 ${activeSubview === 'export' ? 'is-active' : ''}` }
                 >
                   <i className={ 'fas fa-download' } />
@@ -1048,7 +1090,7 @@ const CorpusLayout = ( {
 
                 <li
                   id={ 'export-corpus' }
-                  onClick={ () => onActiveSubviewClick( 'export' ) }
+                  onClick={ onViewExport }
                   className={ `subview-menu-item title is-4 ${activeSubview === 'export' ? 'is-active' : ''}` }
                 >
                   <i className={ 'fas fa-upload' } />
@@ -1193,15 +1235,13 @@ const CorpusLayout = ( {
 
             <div className={ 'modal-footer' }>
               <button
-                onClick={ () => {
-                              deleteMedia( corpus.metadata.id, promptedToDeleteMediaId ); setPromptedToDeleteMediaId( undefined );
-                            } }
+                onClick={ onDeleteMediaConfirm }
                 className={ 'button is-danger is-fullwidth' }
               >
                 {t( 'delete the media' )}
               </button>
               <button
-                onClick={ () => setPromptedToDeleteMediaId( undefined ) }
+                onClick={ closeModals }
                 className={ 'button is-warning is-fullwidth' }
               >
                 {t( 'cancel' )}
@@ -1244,15 +1284,13 @@ const CorpusLayout = ( {
 
             <div className={ 'modal-footer' }>
               <button
-                onClick={ () => {
-                              onDeleteTagCategory( promptedToDeleteTagCategoryId ); setPromptedToDeleteTagCategoryId( undefined );
-                            } }
+                onClick={ onDeleteTagCategoryConfirm }
                 className={ 'button is-danger is-fullwidth' }
               >
                 {t( 'delete the tag category' )}
               </button>
               <button
-                onClick={ () => setPromptedToDeleteTagCategoryId( undefined ) }
+                onClick={ closeModals }
                 className={ 'button is-warning is-fullwidth' }
               >
                 {t( 'cancel' )}
@@ -1275,7 +1313,11 @@ const CorpusLayout = ( {
                 style={ { paddingLeft: '1rem' } }
                 className={ 'column content is-large' }
               >
-                {t( 'You are going to untag {n} excerpts. Are you sure you want to delete this tag ?', { n: promptedToDeleteTagRelatedChunks.length } )}
+                {t( [
+                  'You are going to untag one excerpt. Are you sure you want to delete this tag ?',
+                  'You are going to untag {n} excerpts. Are you sure you want to delete this tag ?',
+                  'n'
+                  ], { n: promptedToDeleteTagRelatedChunks.length } )}
               </div>
             </div>
 
@@ -1290,15 +1332,13 @@ const CorpusLayout = ( {
 
             <div className={ 'modal-footer' }>
               <button
-                onClick={ () => {
-                              onDeleteTag( promptedToDeleteTagId ); setPromptedToDeleteTagId( undefined );
-                            } }
+                onClick={ onDeleteTagConfirm }
                 className={ 'button is-danger is-fullwidth' }
               >
                 {t( 'delete the tag' )}
               </button>
               <button
-                onClick={ () => setPromptedToDeleteTagId( undefined ) }
+                onClick={ closeModals }
                 className={ 'button is-warning is-fullwidth' }
               >
                 {t( 'cancel' )}
@@ -1327,15 +1367,13 @@ const CorpusLayout = ( {
 
             <div className={ 'modal-footer' }>
               <button
-                onClick={ () => {
-                              deleteComposition( corpus.metadata.id, promptedToDeleteCompositionId ); setPromptedToDeleteCompositionId( undefined );
-                            } }
+                onClick={ onDeleteCompositionConfirm }
                 className={ 'button is-danger is-fullwidth' }
               >
                 {t( 'delete the composition' )}
               </button>
               <button
-                onClick={ () => setPromptedToDeleteCompositionId( undefined ) }
+                onClick={ closeModals }
                 className={ 'button is-warning is-fullwidth' }
               >
                 {t( 'cancel' )}
@@ -1345,7 +1383,7 @@ const CorpusLayout = ( {
         </Modal>
         <Modal
           isOpen={ importModalVisible }
-          onRequestClose={ () => setImportModalVisible( false ) }
+          onRequestClose={ onCloseImportModal }
         >
           <div className={ 'modal-content' }>
             <div className={ 'modal-header' }>
@@ -1355,7 +1393,7 @@ const CorpusLayout = ( {
               <div className={ 'close-modal-icon-container' }>
                 <span
                   className={ 'icon' }
-                  onClick={ () => setImportModalVisible( false ) }
+                  onClick={ onCloseImportModal }
                 >
                   <i className={ 'fas fa-times-circle' } />
                 </span>
@@ -1400,21 +1438,21 @@ const CorpusLayout = ( {
                         <li>
                           <button
                             className={ 'button is-fullwidth is-fullheight is-primary' }
-                            onClick={ () => onMergeAllImportCollisions() }
+                            onClick={ handleMergeAllImportCollisions }
                           >{t( 'merge all duplicates' )}
                           </button>
                         </li>
                         <li>
                           <button
                             className={ 'button is-fullwidth is-fullheight is-info' }
-                            onClick={ () => onDuplicateAllImportCollisions() }
+                            onClick={ handleDuplicateAllImportCollisions }
                           >{t( 'keep all duplicates' )}
                           </button>
                         </li>
                         <li>
                           <button
                             className={ 'button is-fullwidth is-fullheight is-warning' }
-                            onClick={ () => setImportModalVisible( false ) }
+                            onClick={ onCloseImportModal }
                           >{t( 'cancel' )}
                           </button>
                         </li>

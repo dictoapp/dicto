@@ -34,6 +34,16 @@ class CompositionChunk extends Component {
       context: { t }
     } = this;
     const duration = Math.abs( chunk.end - chunk.start );
+    const onEditExcerpts = () => {
+                                            history.push( `/corpora/${corpus.metadata.id}/chunks?activeMedia=${corpus.medias[chunk.metadata.mediaId].metadata.mediaUrl}` );
+                                        };
+    const onAddToEndOfComposition = () => addChunkToComposition( chunk, false );
+    const onAddToStartOfComposition = () => {
+                                    addChunkToComposition( chunk, true );
+                                  };
+    const handleAddAllFromSameMedia = () => {
+                                    onAddAllFromSameMedia();
+                                  };
     return (
       <Draggable
         key={ chunk.metadata.id }
@@ -92,9 +102,7 @@ class CompositionChunk extends Component {
                     <button
                       data-for={ 'tooltip' }
                       data-tip={ t( 'Edit related media excerpts' ) }
-                      onClick={ () => {
-                                            history.push( `/corpora/${corpus.metadata.id}/chunks?activeMedia=${corpus.medias[chunk.metadata.mediaId].metadata.mediaUrl}` );
-                                        } }
+                      onClick={ onEditExcerpts }
                       className={ 'button is-rounded' }
                     >
                       <i className={ 'fas fa-eye' } />
@@ -102,7 +110,7 @@ class CompositionChunk extends Component {
                     <button
                       data-for={ 'tooltip' }
                       data-tip={ t( 'Add this excerpt to your composition' ) }
-                      onClick={ () => addChunkToComposition( chunk, false ) }
+                      onClick={ onAddToEndOfComposition }
                       className={ `button is-rounded ${canQuote ? '' : 'is-disabled'}` }
                     >
                       <i className={ 'fas fa-link' } />
@@ -119,17 +127,13 @@ class CompositionChunk extends Component {
               <div className={ 'dropdown-content' }>
                 <MenuItem
                   attributes={ { className: 'dropdown-item' } }
-                  onClick={ () => {
-                                    addChunkToComposition( chunk, true );
-                                  } }
+                  onClick={ onAddToStartOfComposition }
                 >
                   {t( 'add excerpt at begining of composition' )}
                 </MenuItem>
                 <MenuItem
                   attributes={ { className: 'dropdown-item' } }
-                  onClick={ () => {
-                                    addChunkToComposition( chunk, false );
-                                  } }
+                  onClick={ onAddToEndOfComposition }
                 >
                   {t( 'add excerpt at end of composition' )}
                 </MenuItem>
@@ -139,9 +143,7 @@ class CompositionChunk extends Component {
                 />
                 <MenuItem
                   attributes={ { className: 'dropdown-item' } }
-                  onClick={ () => {
-                                    onAddAllFromSameMedia();
-                                  } }
+                  onClick={ handleAddAllFromSameMedia }
                 >
                   {t( 'add all excerpts from this media' )}
                 </MenuItem>
@@ -151,9 +153,7 @@ class CompositionChunk extends Component {
                 />
                 <MenuItem
                   attributes={ { className: 'dropdown-item' } }
-                  onClick={ () => {
-                                    history.push( `/corpora/${corpus.metadata.id}/chunks?activeMedia=${corpus.medias[chunk.metadata.mediaId].metadata.mediaUrl}` );
-                                  } }
+                  onClick={ onEditExcerpts }
                 >
                   {t( 'edit related media excerpts' )}
                 </MenuItem>

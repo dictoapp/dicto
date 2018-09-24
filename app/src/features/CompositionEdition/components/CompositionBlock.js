@@ -103,6 +103,17 @@ class CompositionBlock extends Component {
         }
       );
     };
+
+    const onDeleteAllBlocks = () => {
+                                  updateComposition(
+                                    corpus.metadata.id,
+                                    composition.metadata.id,
+                                    {
+                                      ...composition,
+                                      summary: []
+                                    }
+                                  );
+                                };
     if ( type === 'chunk' ) {
 
       const onSetActiveAsideEdition = () => {
@@ -126,6 +137,19 @@ class CompositionBlock extends Component {
         e.stopPropagation();
         onDelete();
       };
+      const onMoveToStart = () => {
+                                    onMoveTo( 0 );
+                                  };
+      const onMoveToEnd = () => {
+                                    onMoveTo( maxIndex );
+                                  };
+      const handleReorder = () => {
+                                    onReorder();
+                                  };
+      const handleDeleteAll = () => {
+                                    onDeleteAll();
+                                  };
+      
       return (
         <Draggable
           key={ compositionBlock.metadata.id }
@@ -254,17 +278,13 @@ class CompositionBlock extends Component {
                 <div className={ 'dropdown-content' }>
                   <MenuItem
                     attributes={ { className: 'dropdown-item' } }
-                    onClick={ () => {
-                                    onMoveTo( 0 );
-                                  } }
+                    onClick={ onMoveToStart }
                   >
                     {t( 'move this excerpt to the begining of composition' )}
                   </MenuItem>
                   <MenuItem
                     attributes={ { className: 'dropdown-item' } }
-                    onClick={ () => {
-                                    onMoveTo( maxIndex );
-                                  } }
+                    onClick={ onMoveToEnd }
                   >
                     {t( 'move this excerpt to the end of composition' )}
                   </MenuItem>
@@ -274,9 +294,7 @@ class CompositionBlock extends Component {
                   />
                   <MenuItem
                     attributes={ { className: 'dropdown-item' } }
-                    onClick={ () => {
-                                    onReorder();
-                                  } }
+                    onClick={ handleReorder }
                   >
                     {t( 'reorder composition excerpts by media' )}
                   </MenuItem>
@@ -286,9 +304,7 @@ class CompositionBlock extends Component {
                   />
                   <MenuItem
                     attributes={ { className: 'dropdown-item' } }
-                    onClick={ () => {
-                                    onDeleteAll();
-                                  } }
+                    onClick={ handleDeleteAll }
                   >
                     {t( 'remove all excerpts citations from this composition' )}
                   </MenuItem>
@@ -338,6 +354,43 @@ class CompositionBlock extends Component {
         }
       );
     };
+    const onMoveCommentToStart = () => {
+                                  updateComposition(
+                                    corpus.metadata.id,
+                                    composition.metadata.id,
+                                    {
+                                      ...composition,
+                                      summary: [
+                                        compositionBlock,
+                                        ...composition.summary.filter( ( b ) => b.metadata.id !== compositionBlock.metadata.id ),
+                                      ]
+                                    }
+                                  );
+                                };
+      const onMoveCommentToEnd = () => {
+                                  updateComposition(
+                                    corpus.metadata.id,
+                                    composition.metadata.id,
+                                    {
+                                      ...composition,
+                                      summary: [
+                                        ...composition.summary.filter( ( b ) => b.metadata.id !== compositionBlock.metadata.id ),
+                                        compositionBlock
+                                      ]
+                                    }
+                                  );
+                                };
+    const onDeleteComment = () => {
+                                  updateComposition(
+                                    corpus.metadata.id,
+                                    composition.metadata.id,
+                                    {
+                                      ...composition,
+                                      summary: index === 0 ? composition.summary.slice( index + 1 ) :
+                                        [ ...composition.summary.slice( 0, index ), ...composition.summary.slice( index + 1 ) ]
+                                    }
+                                  );
+                                };
     // case COMMENT
     return (
       <Draggable
@@ -376,37 +429,13 @@ class CompositionBlock extends Component {
               <div className={ 'dropdown-content' }>
                 <MenuItem
                   attributes={ { className: 'dropdown-item' } }
-                  onClick={ () => {
-                                  updateComposition(
-                                    corpus.metadata.id,
-                                    composition.metadata.id,
-                                    {
-                                      ...composition,
-                                      summary: [
-                                        compositionBlock,
-                                        ...composition.summary.filter( ( b ) => b.metadata.id !== compositionBlock.metadata.id ),
-                                      ]
-                                    }
-                                  );
-                                } }
+                  onClick={ onMoveCommentToStart }
                 >
                   {t( 'move composition block to begining of composition' )}
                 </MenuItem>
                 <MenuItem
                   attributes={ { className: 'dropdown-item' } }
-                  onClick={ () => {
-                                  updateComposition(
-                                    corpus.metadata.id,
-                                    composition.metadata.id,
-                                    {
-                                      ...composition,
-                                      summary: [
-                                        ...composition.summary.filter( ( b ) => b.metadata.id !== compositionBlock.metadata.id ),
-                                        compositionBlock
-                                      ]
-                                    }
-                                  );
-                                } }
+                  onClick={ onMoveCommentToEnd }
                 >
                   {t( 'move composition block to end of composition' )}
                 </MenuItem>
@@ -416,17 +445,7 @@ class CompositionBlock extends Component {
                 />
                 <MenuItem
                   attributes={ { className: 'dropdown-item' } }
-                  onClick={ () => {
-                                  updateComposition(
-                                    corpus.metadata.id,
-                                    composition.metadata.id,
-                                    {
-                                      ...composition,
-                                      summary: index === 0 ? composition.summary.slice( index + 1 ) :
-                                        [ ...composition.summary.slice( 0, index ), ...composition.summary.slice( index + 1 ) ]
-                                    }
-                                  );
-                                } }
+                  onClick={ onDeleteComment }
                 >
                   {t( 'delete this composition block' )}
                 </MenuItem>
@@ -436,16 +455,7 @@ class CompositionBlock extends Component {
                 />
                 <MenuItem
                   attributes={ { className: 'dropdown-item' } }
-                  onClick={ () => {
-                                  updateComposition(
-                                    corpus.metadata.id,
-                                    composition.metadata.id,
-                                    {
-                                      ...composition,
-                                      summary: []
-                                    }
-                                  );
-                                } }
+                  onClick={ onDeleteAllBlocks }
                 >
                   {t( 'delete all composition blocks' )}
                 </MenuItem>

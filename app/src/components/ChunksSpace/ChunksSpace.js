@@ -619,6 +619,9 @@ export default class ChunksSpace extends Component {
       const toCut = items.filter( ( item ) => item.start < mediaCurrentTime && item.end > mediaCurrentTime );
       toCut.forEach( ( chunk ) => onCut( chunk, mediaCurrentTime ) );
     };
+
+    const onSearchTermChange = ( e ) => setSearchTerm( e.target.value );
+
     return (
       <Measure
         bounds
@@ -701,10 +704,9 @@ export default class ChunksSpace extends Component {
                     type={ 'text' }
                     value={ searchTerm }
                     isActive={ searchActive }
-                    onChange={ ( e ) => setSearchTerm( e.target.value ) }
+                    onChange={ onSearchTermChange }
                     className={ 'input' }
                   />
-
                 </li>
                 <li>
                   <button

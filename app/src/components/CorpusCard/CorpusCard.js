@@ -101,6 +101,16 @@ class CorpusCard extends Component {
       e.stopPropagation();
       return true;
     };
+
+    const onClickMedias = ( e ) => silent( e ) && selectPreview( 'medias' );
+    const onHoverMedias = () => selectPreview( 'medias' );
+    const onClickChunks = ( e ) => silent( e ) && selectPreview( 'chunks' );
+    const onHoverChunks = () => selectPreview( 'chunks' );
+    const onClickTags = ( e ) => silent( e ) && selectPreview( 'tags' );
+    const onHoverTags = () => selectPreview( 'tags' );
+    const onClickCompositions = ( e ) => silent( e ) && selectPreview( 'compositions' );
+    const onHoverCompositions = () => selectPreview( 'compositions' );
+    
     return (
       <div className={ 'card dicto-CorpusCard' }>
         <div className={ 'columns' }>
@@ -112,32 +122,32 @@ class CorpusCard extends Component {
               <ul className={ 'column' }>
                 <li
                   onMouseOut={ setInterval }
-                  onClick={ ( e ) => silent( e ) && selectPreview( 'medias' ) }
-                  onMouseOver={ () => selectPreview( 'medias' ) }
+                  onClick={ onClickMedias }
+                  onMouseOver={ onHoverMedias }
                   className={ `preview-item ${activePreviewType === 'medias' ? 'active' : ''}` }
                 >
                   <i className={ 'fas fa-video' } />{' '}{t( [ 'one media', '{n} medias', 'n' ], { n: Object.keys( medias || {} ).length } )}
                 </li>
                 <li
                   onMouseOut={ setInterval }
-                  onClick={ ( e ) => silent( e ) && selectPreview( 'chunks' ) }
-                  onMouseOver={ () => selectPreview( 'chunks' ) }
+                  onClick={ onClickChunks }
+                  onMouseOver={ onHoverChunks }
                   className={ `preview-item ${activePreviewType === 'chunks' ? 'active' : ''}` }
                 >
                   <i className={ 'fas fa-film' } />{'  '}{t( [ 'one excerpt', '{n} excerpts', 'n' ], { n: Object.keys( chunks || {} ).length } )}
                 </li>
                 <li
                   onMouseOut={ setInterval }
-                  onClick={ ( e ) => silent( e ) && selectPreview( 'tags' ) }
-                  onMouseOver={ () => selectPreview( 'tags' ) }
+                  onClick={ onClickTags }
+                  onMouseOver={ onHoverTags }
                   className={ `preview-item ${activePreviewType === 'tags' ? 'active' : ''}` }
                 >
                   <i className={ 'fas fa-tag' } />{' '}{t( [ 'one tag', '{n} tags', 'n' ], { n: Object.keys( tags || {} ).length } )}
                 </li>
                 <li
                   onMouseOut={ setInterval }
-                  onClick={ ( e ) => silent( e ) && selectPreview( 'compositions' ) }
-                  onMouseOver={ () => selectPreview( 'compositions' ) }
+                  onClick={ onClickCompositions }
+                  onMouseOver={ onHoverCompositions }
                   className={ `preview-item ${activePreviewType === 'compositions' ? 'active' : ''}` }
                 >
                   <i className={ 'fas fa-list' } />{' '}{t( [ 'one composition', '{n} compositions', 'n' ], { n: Object.keys( compositions || {} ).length } )}

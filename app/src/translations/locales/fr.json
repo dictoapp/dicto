@@ -19,6 +19,8 @@
   "tag has temporal information": "l'étiquette dispose d'informations temporelles",
   "tag has a description": "l'étiquette dispose d'une description",
   "about this corpus": "à propos",
+  "You are going to untag {n} excerpts. Are you sure you want to delete this tag ?": "Vous êtes sur le point de désétiquetter {n} extraits. Êtes-vous sûr·e de vouloir supprimer cette étiquette ?",
+  "You are going to untag one excerpt. Are you sure you want to delete this tag ?": "Vous êtes sur le point de désétiquetter un extrait. Êtes-vous sûr·e de vouloir supprimer cette étiquette ?",
   "Create a new tag category": "Créer une nouvelle catégorie d'étiquettes",
   "mediaThumbnailUrl": "Adresse de l'image de vignette",
   "end date": "date de fin",

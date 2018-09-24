@@ -10,7 +10,6 @@ import corpusHtml from 'raw-loader!../templates/corpus.html';
 import { inElectron } from './electronUtils';
 
 const basename = `/${  ( __PUBLIC_URL__ || '' ).split( '/' ).pop()}`;
-
 export const buildCorpusRendering = ( corpus, lang = 'en' ) => {
   const {
     metadata: {

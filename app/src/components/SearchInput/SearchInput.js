@@ -49,6 +49,8 @@ export default class SearchInput extends Component {
       }
     } = this;
 
+    const onChange = ( e ) => onUpdate( e.target.value );
+
     return (
       <form
         className={ className }
@@ -59,7 +61,7 @@ export default class SearchInput extends Component {
           className={ 'input' }
           style={ { paddingLeft: '2em' } }
           value={ value || '' }
-          onChange={ ( e ) => onUpdate( e.target.value ) }
+          onChange={ onChange }
           placeholder={ placeholder }
         />
         <span

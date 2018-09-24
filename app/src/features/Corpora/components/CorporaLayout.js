@@ -50,6 +50,40 @@ const CorporaLayout = ( {
     } );
   };
 
+  const renderNoCorpora = () => ( 
+    <div>
+      {
+                                    loadingCorpora ? 
+                                      translate( 'Loading corpora list ...' )
+                                      : translate( 'You have no corpora yet' )
+                                  }
+    </div> 
+                          );
+
+  const renderCorpus = ( corpus, index ) => {
+                            const onDelete = () => setPromptedToDeleteCorpusId( corpus.metadata.id );
+                            const onDuplicate = () => duplicateCorpus( corpus );
+                            const onDownload = () => downloadCorpus( corpus );
+                            return (
+                              <li
+                                className={ 'level is-full column' }
+                                key={ index }
+                              >
+                                <CorpusCard
+                                  corpus={ corpus }
+                                  openHref={ `/corpora/${corpus.metadata.id}` }
+                                  onDelete={ onDelete }
+                                  onDuplicate={ onDuplicate }
+                                  onDownload={ onDownload }
+                                />
+                              </li>
+                            );
+                          };
+  const onDeleteCorpusCancel = () => setPromptedToDeleteCorpusId( undefined );
+  const onDeleteCorpusConfirm = () => {
+                            deleteCorpus( promptedToDeleteCorpusId );
+                            setPromptedToDeleteCorpusId( undefined );
+                          };
   return (
     <section className={ 'dicto-Corpora rows' }>
       <Nav
@@ -120,34 +154,8 @@ const CorporaLayout = ( {
                           } ) }
               id={ 'corpora-list' }
               className={ 'is-flex-1' }
-              renderNoItem={ () => ( 
-                <div>
-                  {
-                                    loadingCorpora ? 
-                                      translate( 'Loading corpora list ...' )
-                                      : translate( 'You have no corpora yet' )
-                                  }
-                </div> 
-                          ) }
-              renderItem={ ( corpus, index ) => {
-                            const onDelete = () => setPromptedToDeleteCorpusId( corpus.metadata.id );
-                            const onDuplicate = () => duplicateCorpus( corpus );
-                            const onDownload = () => downloadCorpus( corpus );
-                            return (
-                              <li
-                                className={ 'level is-full column' }
-                                key={ index }
-                              >
-                                <CorpusCard
-                                  corpus={ corpus }
-                                  openHref={ `/corpora/${corpus.metadata.id}` }
-                                  onDelete={ onDelete }
-                                  onDuplicate={ onDuplicate }
-                                  onDownload={ onDownload }
-                                />
-                              </li>
-                            );
-                          } }
+              renderNoItem={ renderNoCorpora }
+              renderItem={ renderCorpus }
             />
 
           </div>
@@ -181,7 +189,7 @@ const CorporaLayout = ( {
       </Modal>
       <Modal
         isOpen={ promptedToDeleteCorpusId !== undefined }
-        onRequestClose={ () => setPromptedToDeleteCorpusId( undefined ) }
+        onRequestClose={ onDeleteCorpusCancel }
       >
         <div className={ 'modal-content' }>
           <div className={ 'modal-header' }>
@@ -191,7 +199,7 @@ const CorporaLayout = ( {
             <div className={ 'close-modal-icon-container' }>
               <span
                 className={ 'icon' }
-                onClick={ () => setPromptedToDeleteCorpusId( undefined ) }
+                onClick={ onDeleteCorpusCancel }
               >
                 <i className={ 'fas fa-times-circle' } />
               </span>
@@ -208,16 +216,13 @@ const CorporaLayout = ( {
 
           <div className={ 'modal-footer' }>
             <button
-              onClick={ () => {
-                            deleteCorpus( promptedToDeleteCorpusId );
-                            setPromptedToDeleteCorpusId( undefined );
-                          } }
+              onClick={ onDeleteCorpusConfirm }
               className={ 'button is-danger is-fullwidth' }
             >
               {translate( 'delete the corpus' )}
             </button>
             <button
-              onClick={ () => setPromptedToDeleteCorpusId( undefined ) }
+              onClick={ onDeleteCorpusCancel }
               className={ 'button is-warning is-fullwidth' }
             >
               {translate( 'cancel' )}
