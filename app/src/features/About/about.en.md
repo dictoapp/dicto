@@ -28,7 +28,7 @@ Here is a non-comprehensive list of free tools that have been sources of inspira
 
 Dicto is the outcome of a design research project about academic publishing in the humanities and social sciences initiated in 2014 by Robin de Mourat (Université Rennes 2 - Sciences Po Paris), under the supervision of Nicolas Thély and Donato Ricci, and thanks to a PhD funding provided by the french Ministry of Higher Education and Research (MESR).
 
-Dicto has been developed and improved thanks to the feedbacks and support of many persons and organizations including Donato Ricci, Nicolas Thély, Antoine Delinotte, Laeticia Giorgino, Antoine Lefur, Joachim Prehn Thomsen, Thomas Fomsgaard Nyrup, Calibro company, Université Rennes 2, médialab Sciences Po, Maison des Sciences de l'Homme de Bretagne.
+Dicto has been developed and improved thanks to the feedbacks and support of many persons and organizations including Donato Ricci, Nicolas Thély, Antoine Delinotte, Laetitia Giorgino, Antoine Lefur, Joachim Prehn Thomsen, Thomas Fomsgaard Nyrup, Calibro company, Université Rennes 2, médialab Sciences Po, Maison des Sciences de l'Homme de Bretagne.
 
 # Contribute to Dicto
 

@@ -28,7 +28,7 @@ Voici une liste non-exhaustive d'outils gratuits ayant été des sources d'inspi
 
 Dicto est une expérimentation conduite dans le cadre d'une démarche de recherche en design portant sur la publication en shs, débutée en 2014 par Robin de Mourat (Université Rennes 2, Sciences Po Paris), sous la supervision de Nicolas Thély et de Donato Ricci, et grâce à un contrat doctoral MESR.
 
-Il a été développé et amélioré grâce aux retours et au soutien de nombreuses personnes et organisations, dont Donato Ricci, Nicolas Thély, Antoine Delinotte, Laeticia Giorgino, Antoine Lefur, Joachim Prehn Thomsen, Thomas Fomsgaard Nyrup, le studio Calibro, l'Université Rennes 2, le médialab Sciences Po, et la Maison des Sciences de l'Homme de Bretagne.
+Il a été développé et amélioré grâce aux retours et au soutien de nombreuses personnes et organisations, dont Donato Ricci, Nicolas Thély, Antoine Delinotte, Laetitia Giorgino, Antoine Lefur, Joachim Prehn Thomsen, Thomas Fomsgaard Nyrup, le studio Calibro, l'Université Rennes 2, le médialab Sciences Po, et la Maison des Sciences de l'Homme de Bretagne.
 
 # Contribuer à Dicto
 

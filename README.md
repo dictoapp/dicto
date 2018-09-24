@@ -67,7 +67,7 @@ Do not hesitate to [submit new issues](https://github.com/dictoapp/dicto/issues/
 
 Dicto is the outcome of a design research project about academic publishing in the humanities and social sciences initiated in 2014 by Robin de Mourat (Université Rennes 2 - Sciences Po Paris), under the supervision of Nicolas Thély and Donato Ricci, and thanks to a PhD funding provided by the french Ministry of Higher Education and Research (MESR).
 
-Dicto has been developed and improved thanks to the feedbacks and support of many persons and organizations including Donato Ricci, Nicolas Thély, Antoine Delinotte, Laeticia Giorgino, Antoine Lefur, Joachim Prehn Thomsen, Thomas Fomsgaard Nyrup, Calibro company, Université Rennes 2, médialab Sciences Po, Maison des Sciences de l'Homme de Bretagne.
+Dicto has been developed and improved thanks to the feedbacks and support of many persons and organizations including Donato Ricci, Nicolas Thély, Antoine Delinotte, Laetitia Giorgino, Antoine Lefur, Joachim Prehn Thomsen, Thomas Fomsgaard Nyrup, Calibro company, Université Rennes 2, médialab Sciences Po, Maison des Sciences de l'Homme de Bretagne.
 
 Besides, it relies on a lot of open source packages made by 471 different persons for which here are some credits :
 
