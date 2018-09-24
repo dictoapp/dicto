@@ -10,7 +10,7 @@ Voici une liste non-exhaustive d'outils gratuits ayant été des sources d'inspi
 
 * [oTranscribe](http://otranscribe.com/) - un service en ligne spécialisé dans la retranscription de pistes vidéo/audio
 * [sonal](http://www.sonal-info.com/fr) - un outil spécialisé dans le traitement qualitatif des entretiens de recherche
-* [scenari](https://scenari.org/co/home.html) - une série de technologies pour la production de chaînes de publication, notamment vidéos
+* [autoEdit](https://www.autoedit.io/) - outil de montage à partir de sélections textuelles, incluant des technologies de transcription automatique
 * [Advene](http://www.advene.org/) - un outil dédié à la génération et au partage d'annotations vidéo
 * [FrameTrail](https://frametrail.org/) - un outil dédié à l'édition et au visionnage de vidéos interactives dans le navigateur
 * [rekall](http://www.rekall.fr/) - un outil de documentation de projets scéniques
@@ -18,12 +18,13 @@ Voici une liste non-exhaustive d'outils gratuits ayant été des sources d'inspi
 * [Lignes de temps](https://www.iri.centrepompidou.fr/outils/lignes-de-temps/) - un dispositif d'annotation collaborative de médias temporels
 * [Mozilla Popcorn](http://www.mozillalabs.com/Popcorn/) - un outil de composition de vidéos assorties de contenus complémentaires
 * [Etalks](https://claireclivaz.hypotheses.org/489) - un dispositif pour la publication de conférences retranscrites assorties d'éléments complémentaires
+* [scenari](https://scenari.org/co/home.html) - une série de technologies pour la production de chaînes de publication, notamment vidéos
 * [Videogrep](http://antiboredom.github.io/videogrep/) - un outil de montage automatique à partir des sous-titres d'une vidéo
 * [Speech Editor](http://ucbvislab.github.io/speecheditor/) - un outil explorant les intersection entre une piste audio et sa retranscription
 * [video vortex](http://rmozone.com/videovortex9//) - un outil de visualisation abrégée d'évènements filmés
 * [F5](https://itunes.apple.com/fr/app/f5-transcription-free/id935669239?mt=12) - un autre outil de transcription
 
-# Crédits
+# À propos
 
 Dicto est une expérimentation conduite dans le cadre d'une démarche de recherche en design portant sur la publication en shs, débutée en 2014 par Robin de Mourat (Université Rennes 2, Sciences Po Paris), sous la supervision de Nicolas Thély et de Donato Ricci, et grâce à un contrat doctoral MESR.
 
