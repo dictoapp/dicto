@@ -39,7 +39,7 @@ export const getMediaPlatformFromUrl = ( url = '' ) => {
   }
 };
 
-export const getEventRelativePosition = ( e, targetClassName ) => {
+export const getEventRelativePosition = ( e, targetClassName = '' ) => {
   let element = e.target;
   let parentNode = element.parentNode;
   let rect = e.target.getBoundingClientRect();
