@@ -597,7 +597,7 @@ const CompositionEditionLayout = ( {
             <div
               id={ 'corpus-excerpts-container' }
               className={ `column is-collapsable ${'is-half'} rows` }
-              style={ { paddingBottom: '1rem' } }
+              style={ { paddingBottom: '2rem' } }
             >
 
               <div
@@ -782,10 +782,10 @@ const CompositionEditionLayout = ( {
             <div
               id={ 'composition-summary-container' }
               className={ `column is-collapsable ${'is-half'} rows` }
-              style={ { paddingBottom: '1rem' } }
+              style={ { paddingBottom: '2rem' } }
             >
               <div
-                style={ { marginBottom: 0 } }
+                style={ { marginBottom: 0, paddingRight: 0 } }
                 className={ 'is-fullwidth column' }
               >
                 <CompositionCard
