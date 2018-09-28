@@ -17,7 +17,7 @@ export const buildCorpusRendering = ( corpus, lang = 'en' ) => {
     }
   } = corpus;
   const bundleUrl = inElectron ? 'bundles/corpus-player/bundle.js' : `${basename  }/bundles/corpus-player/bundle.js`;
-  return get( bundleUrl )
+  return get( bundleUrl.replace( '//', '/' ) )
     .then( ( { data: corpusBundle } ) => {
       return new Promise( ( resolve ) => {
         let finalHtml = corpusHtml;
