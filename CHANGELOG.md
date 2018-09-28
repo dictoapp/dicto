@@ -2,20 +2,22 @@
 
 *Written according to [Keep a changelog](https://keepachangelog.com/en/1.0.0/) guidelines and [semantic versioning](https://semver.org/)*.
 
-## Unreleased
+## [1.0.0-alpha.3](https://github.com/dictoapp/dicto/tree/1.0.0-alpha.3) - 2018-09-28
 
 ### Fixed
 
 * fix bug when accessing a composition containing a citation to an excerpt that has been deleted from corpus
+* fix broken composition standalone player
 
 ### Changed
 
 * in composition view, display warning when trying to cite a excerpt twice
-* diverse UX fixes in composition view
+* diverse UI/UX fixes in composition view
 
 ### Added
 
 * in `about` section, new references to similar/alternative tools
+* add manual e2e test checklist
 
 ## [1.0.0-alpha.2](https://github.com/dictoapp/dicto/tree/1.0.0-alpha.2) - 2018-09-22
 
