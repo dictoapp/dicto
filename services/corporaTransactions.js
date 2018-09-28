@@ -100,18 +100,19 @@ const updateCorpus = ( { corpusId, corpus } ) => {
 const updateCorpusPart = ( { action } ) => {
   return new Promise( ( resolve, reject ) => {
     const corpusId = action.payload.corpusId;
+    let newCorpus;
     getCorpus( { corpusId } )
       .then( ( { corpus } ) => {
         const state = {
           [corpus.metadata.id]: corpus
         }
         const newState = reducer( state, action );
-        const newCorpus = newState[corpus.metadata.id];
+        newCorpus = newState[corpus.metadata.id];
         const thatPath = `${contentPath}/${corpusId}/${corpusId}.json`;
         return writeFile( thatPath, JSON.stringify( newCorpus ), 'utf8' )
       } )
       .then( () => {
-        return resolve( { corpusId, corpus } );
+        return resolve( { corpusId, corpus: newCorpus } );
       } )
       .catch( ( error ) => {
         reject( { corpusId, error } )
