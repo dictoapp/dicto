@@ -16,7 +16,7 @@ import MontagePlayer from './MontagePlayer';
 const mountNode = document.getElementById( 'mount' );
 
 const lang = window.lang || 'en';
-const translations = require( `../../translations/${lang}.json` );
+const translations = require( `../../translations/locales/${lang}.json` );
 
 import './Standalone.scss';
 

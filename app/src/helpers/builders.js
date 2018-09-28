@@ -49,7 +49,8 @@ export const buildMontage = ( montage, lang = 'en' ) => {
   } = montage;
 
   const bundleUrl = inElectron ? 'bundles/montage-player/bundle.js' : `${basename  }/bundles/montage-player/bundle.js`;
-  return get( bundleUrl )
+  console.log( 'get', bundleUrl );
+  return get( bundleUrl.replace( '//', '/' ) )
     .then( ( { data: montageBundle } ) => {
       return new Promise( ( resolve ) => {
         let finalHtml = montageHtml;
