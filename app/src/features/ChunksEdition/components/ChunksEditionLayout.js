@@ -183,6 +183,7 @@ export class ChunksEditionLayout extends Component {
 
           updateChunk,
           deleteChunk,
+          deleteChunks,
 
           createTag,
           updateTag,
@@ -716,7 +717,27 @@ export class ChunksEditionLayout extends Component {
       };
       const onDeleteAllChunks = () => {
         deselectChunk();
-        setTimeout( () => chunks.forEach( ( chunk ) => deleteChunk( corpus.metadata.id, chunk.metadata.id ) ) );
+        setTimeout( () => {
+          const chunksIds =  chunks.map( ( thatChunk ) => thatChunk.metadata.id );
+          console.log( 'chunks ids', chunksIds );
+          deleteChunks( corpus.metadata.id, chunksIds );
+
+          /*
+           * chunks.reduce( ( curr, chunk ) => {
+           *     return curr.then(() => 
+           *       new Promise((resolve, reject) => {
+           *       deleteChunk( corpus.metadata.id, chunk.metadata.id, err => {
+           *         console.log('in callback');
+           *         if (err) {
+           *           reject();
+           *         } else resolve()
+           *       } ) 
+           *     })
+           *   );
+           */
+            
+          // }, Promise.resolve() )
+        } );
       };
 
       const onPromptActiveMediaEdition = () => promptMediaEdition( corpusId, activeMedia.metadata.id, activeMedia );

@@ -97,7 +97,7 @@ const updateCorpus = ( { corpusId, corpus } ) => {
   } );
 };
 
-const updateCorpusPart = ( { action } ) => {
+const updateCorpusPart = ( { action, callback } ) => {
   return new Promise( ( resolve, reject ) => {
     const corpusId = action.payload.corpusId;
     let newCorpus;
@@ -112,9 +112,15 @@ const updateCorpusPart = ( { action } ) => {
         return writeFile( thatPath, JSON.stringify( newCorpus ), 'utf8' )
       } )
       .then( () => {
+        if ( callback ) {
+          callback( null, newCorpus );
+        }
         return resolve( { corpusId, corpus: newCorpus } );
       } )
       .catch( ( error ) => {
+        if ( callback ) {
+          callback( error );
+        }
         reject( { corpusId, error } )
       }
       );

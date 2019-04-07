@@ -62,6 +62,7 @@ export const CREATE_CHUNK = '§dicto/data/CREATE_CHUNK';
 export const CREATE_CHUNKS = '§dicto/data/CREATE_CHUNKS';
 export const UPDATE_CHUNK = '§dicto/data/UPDATE_CHUNK';
 export const DELETE_CHUNK = '§dicto/data/DELETE_CHUNK';
+export const DELETE_CHUNKS = '§dicto/data/DELETE_CHUNKS';
 
 export const CREATE_FIELD = '§dicto/data/CREATE_FIELD';
 export const UPDATE_FIELD = '§dicto/data/UPDATE_FIELD';
@@ -321,6 +322,24 @@ function corpora( state = CORPUSES_DEFAULT_STATE, action ) {
         chunks: Object.keys( state[payload.corpusId].chunks )
           .reduce( ( result, thatChunkId ) => {
             if ( thatChunkId !== payload.chunkId ) {
+              return {
+                ...result,
+                [thatChunkId]: state[payload.corpusId].chunks[thatChunkId]
+              };
+            }
+            return result;
+          }, {} )
+      }
+    };
+  
+   case DELETE_CHUNKS:
+    return {
+      ...state,
+      [payload.corpusId]: {
+        ...state[payload.corpusId],
+        chunks: Object.keys( state[payload.corpusId].chunks )
+          .reduce( ( result, thatChunkId ) => {
+            if ( !payload.chunksIds.includes( thatChunkId ) ) {
               return {
                 ...result,
                 [thatChunkId]: state[payload.corpusId].chunks[thatChunkId]
@@ -598,11 +617,11 @@ export const updateCorpus = ( id, newCorpus ) => {
  * UPDATE CORPUS ACTIONS
  */
 
-const updateCorpusPart = ( action ) => {
+const updateCorpusPart = ( action, callback ) => {
   return {
     type: action.type,
     promise: () => {
-      return requestCorpusUpdatePart( action, corpora );
+      return requestCorpusUpdatePart( action, corpora, callback );
     },
     payload: action.payload
   }
@@ -735,13 +754,21 @@ export const updateChunk = ( corpusId, chunkId, chunk ) => updateCorpusPart ( {
   }
 } );
 
-export const deleteChunk = ( corpusId, chunkId ) => updateCorpusPart ( {
+export const deleteChunk = ( corpusId, chunkId, callback ) => updateCorpusPart ( {
   type: DELETE_CHUNK,
   payload: {
     corpusId,
     chunkId
   }
-} );
+}, callback );
+
+export const deleteChunks = ( corpusId, chunksIds, callback ) => updateCorpusPart ( {
+  type: DELETE_CHUNKS,
+  payload: {
+    corpusId,
+    chunksIds
+  }
+}, callback );
 
 export const createField = ( corpusId, field ) => updateCorpusPart ( {
   type: CREATE_FIELD,
