@@ -1,7 +1,5 @@
 import React from 'react';
 
-import GMap from 'google-map-react';
-
 import {
   extent,
   mean,
@@ -9,8 +7,8 @@ import {
 import { nest } from 'd3-collection';
 import { scaleLinear } from 'd3-scale';
 
-import getConfig from '../../helpers/getConfig';
-const { googleApiKey } = getConfig();
+import Map from 'pigeon-maps'
+import Overlay from 'pigeon-overlay'
 
 import {
   mapToArray,
@@ -27,7 +25,9 @@ const LocalizationMarker = ( {
   location,
   tags = [],
   onClick,
-  tagCategories = {}
+  tagCategories = {},
+  lat,
+  lng,
 } ) => {
   let color = 'white';
   if ( tags.length ) {
@@ -126,28 +126,32 @@ const SpaceView = ( {
     <div>
       <div className={ 'map-wrapper' }>
         <div className={ 'map-container' }>
-          <GMap
-            bootstrapURLKeys={ { key: [ googleApiKey ] } }
-            defaultCenter={ { lat: latMean, lng: lngMean } }
-            defaultZoom={ zoom }
+          <Map
+            center={ [ latMean, lngMean ] }
+            zoom={ zoom }
           >
             {
               places.map( ( place, index ) => {
                 const onClick = () => addPlaylistBuilder( 'place', place );
                 return (
-                  <LocalizationMarker
+                  <Overlay
                     key={ index }
-                    onClick={ onClick }
-                    lat={ place.location.latitude }
-                    lng={ place.location.longitude }
-                    tags={ place.values }
-                    tagCategories={ tagCategories }
-                    location={ place.location }
-                  />
+                    anchor={ [ place.location.latitude, place.location.longitude ] }
+                  >
+                    <LocalizationMarker
+                      key={ index }
+                      onClick={ onClick }
+                      lat={ place.location.latitude }
+                      lng={ place.location.longitude }
+                      tags={ place.values }
+                      tagCategories={ tagCategories }
+                      location={ place.location }
+                    />
+                  </Overlay>
                 );
               } )
             }
-          </GMap>
+          </Map>
         </div>
       </div>
 
