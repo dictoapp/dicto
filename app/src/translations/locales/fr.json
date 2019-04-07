@@ -9,6 +9,7 @@
   "description text attached to the tag": "texte de description attaché à l'étiquette",
   "start date": "date de début",
   "mediaUrl": "Adresse du média",
+  "No excerpts matching search without this tag": "Pas d'extraits non-étiquettés avec cette recherche",
   "Excerpt already cited in the composition": "Extrait déjà cité dans la composition",
   "Citation of an excerpt deleted from your corpus": "Citation d'un extrait supprimé de votre corpus",
   "Corpus was successfully downloaded": "Le corpus a été téléchargé avec succès",
