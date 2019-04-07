@@ -128,7 +128,7 @@ class CompositionEditionContainer extends Component {
       /**
        * Filtering from corpus only the data which is needed for composition
        */
-      const chunkIds = composition.summary.filter( ( c ) => c.blockType === 'chunk' ).map( ( c ) => c.content ).filter(chunkId => corpus.chunks[chunkId])
+      const chunkIds = composition.summary.filter( ( c ) => c.blockType === 'chunk' ).map( ( c ) => c.content ).filter( ( chunkId ) => corpus.chunks[chunkId] )
       const chunks = chunkIds.reduce( ( res, chunkId ) => ( {
         ...res,
         [chunkId]: corpus.chunks[chunkId]

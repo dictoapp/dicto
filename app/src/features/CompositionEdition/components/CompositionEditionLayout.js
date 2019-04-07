@@ -595,7 +595,7 @@ const CompositionEditionLayout = ( {
         >
           <div 
             className={ 'columns container is-fluid hero-body is-flex-1' }
-            style={{maxHeight: 'calc(100% - 5rem)'}}
+            style={ { maxHeight: 'calc(100% - 5rem)' } }
           >
             <div
               id={ 'corpus-excerpts-container' }

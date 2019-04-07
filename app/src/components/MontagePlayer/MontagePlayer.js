@@ -254,7 +254,6 @@ export default class MontagePlayer extends Component {
       mediaSeekTo = currentPosition - activeBlock.start + activeBlock.chunk.start;
       mediaSeekTo = mediaSeekTo < 0 ? 0 : mediaSeekTo;
     }
-    console.log( 'duration', duration )
 
     const onInfoClick = () => {
       if ( isPlaying ) {
