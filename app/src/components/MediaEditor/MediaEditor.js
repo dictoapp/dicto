@@ -58,22 +58,38 @@ export default class MediaEditor extends Component {
 
     const onChange = ( metadata ) => {
       return new Promise( ( resolve ) => {
+        const newMetadata = {
+          ...this.state.media.metadata,
+          ...metadata
+        };
         const thatMedia = {
           ...this.state.media,
-          metadata
+          metadata: newMetadata
         };
+        this.setState( {
+          media: {
+            ...thatMedia,
+          }
+        } );
         if ( this.state.media &&
             this.state.media.metadata &&
             metadata.mediaUrl !== this.state.media.metadata.mediaUrl ) {
+            
           enrichMediaMetadata( thatMedia )
             .then( ( thatMetadata ) => {
               this.setState( {
                 media: {
                   ...thatMedia,
-                  metadata: thatMetadata
+                  metadata: {
+                    ...newMetadata,
+                    ...thatMetadata
+                  }
                 }
               } );
-              resolve( thatMetadata );
+              resolve( {
+                ...newMetadata,
+                ...thatMetadata
+              } );
             } )
             .catch( console.error );/* eslint no-console : 0 */
         }
@@ -81,7 +97,7 @@ export default class MediaEditor extends Component {
           this.setState( {
             media: thatMedia
           } );
-          resolve( thatMedia.metadata );
+          resolve( newMetadata );
         }
       } );
     };
