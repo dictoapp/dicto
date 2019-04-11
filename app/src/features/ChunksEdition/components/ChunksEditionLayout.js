@@ -846,7 +846,16 @@ export class ChunksEditionLayout extends Component {
               importantOperations={ [] }
             />
             <div
-              style={ { paddingBottom: 0, paddingTop: 0, maxHeight: 'calc(100% - 5rem)' } }
+              style={ { 
+                paddingBottom: 0, 
+                paddingTop: 0, 
+                maxHeight: 'calc(100% - 4rem)' ,
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                width: '100%',
+                height: 'calc(100% - 5rem)',
+              } }
               className={ 'columns hero-body is-flex-1' }
             >
               {

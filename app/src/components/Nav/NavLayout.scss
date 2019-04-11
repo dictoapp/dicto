@@ -1,4 +1,7 @@
 
+.navbar{
+    min-height: 4rem;
+}
 
 .navbar:not([class*=is-]) .navbar-burger span
 {
