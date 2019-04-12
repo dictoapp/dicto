@@ -29,7 +29,7 @@ const LandingLayout = ( {
             className={ 'logo-img' }
             src={ require( '../assets/logo.png' ) }
           />
-          <span>DICTO </span><span className={ 'tag' }>alpha</span>
+          <span>DICTO </span><span className={ 'tag' }>{__DICTO_VERSION__}</span>
         </h1>
         <h2 className={ 'subtitle is-3' }>{t( 'dicto-baseline' )}</h2>
         <div className={ 'content' }>
