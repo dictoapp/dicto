@@ -1,6 +1,6 @@
 {
   "name": "dicto",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "transcribe > annotate > remix > publish media contents",
   "author": "Robin de Mourat",
   "repository": "https://github.com/dictoapp/dicto",
@@ -33,7 +33,7 @@
     "private:build:win": "electron-builder --win",
     "private:bundle": "webpack --config ./webpack.electron.dev.js",
     "private:clean": "rimraf build",
-    "private:compile": "webpack --config ./webpack.electron.prod.js",
+    "private:compile": "node prepareElectronProd;webpack --config ./webpack.electron.prod.js",
     "private:serve": "electron ."
   },
   "precommit": [

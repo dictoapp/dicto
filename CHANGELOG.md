@@ -2,6 +2,23 @@
 
 *Written according to [Keep a changelog](https://keepachangelog.com/en/1.0.0/) guidelines and [semantic versioning](https://semver.org/)*.
 
+## [1.0.0-alpha.4](https://github.com/dictoapp/dicto/tree/1.0.0-alpha.4) - ??
+
+### Fixed
+
+* fix layout issues in firefox
+* fix bug with some media metadata retrieval processes
+* fix multiple chunks delete bug
+
+### Changed
+
+* use an open source maps engine
+
+### Added
+
+* timecode display and tooltips in montage player
+* display version number in home
+
 ## [1.0.0-alpha.3](https://github.com/dictoapp/dicto/tree/1.0.0-alpha.3) - 2018-09-28
 
 ### Fixed
