@@ -183,6 +183,7 @@ export class ChunksEditionLayout extends Component {
 
           updateChunk,
           deleteChunk,
+          deleteChunks,
 
           createTag,
           updateTag,
@@ -716,7 +717,27 @@ export class ChunksEditionLayout extends Component {
       };
       const onDeleteAllChunks = () => {
         deselectChunk();
-        setTimeout( () => chunks.forEach( ( chunk ) => deleteChunk( corpus.metadata.id, chunk.metadata.id ) ) );
+        setTimeout( () => {
+          const chunksIds =  chunks.map( ( thatChunk ) => thatChunk.metadata.id );
+          console.log( 'chunks ids', chunksIds );
+          deleteChunks( corpus.metadata.id, chunksIds );
+
+          /*
+           * chunks.reduce( ( curr, chunk ) => {
+           *     return curr.then(() => 
+           *       new Promise((resolve, reject) => {
+           *       deleteChunk( corpus.metadata.id, chunk.metadata.id, err => {
+           *         console.log('in callback');
+           *         if (err) {
+           *           reject();
+           *         } else resolve()
+           *       } ) 
+           *     })
+           *   );
+           */
+            
+          // }, Promise.resolve() )
+        } );
       };
 
       const onPromptActiveMediaEdition = () => promptMediaEdition( corpusId, activeMedia.metadata.id, activeMedia );
@@ -825,7 +846,16 @@ export class ChunksEditionLayout extends Component {
               importantOperations={ [] }
             />
             <div
-              style={ { paddingBottom: 0, paddingTop: 0, maxHeight: 'calc(100% - 5rem)' } }
+              style={ { 
+                paddingBottom: 0, 
+                paddingTop: 0, 
+                maxHeight: 'calc(100% - 4rem)' ,
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                width: '100%',
+                height: 'calc(100% - 5rem)',
+              } }
               className={ 'columns hero-body is-flex-1' }
             >
               {

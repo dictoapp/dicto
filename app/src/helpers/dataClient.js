@@ -198,7 +198,7 @@ export const requestCorpusDeletion = ( corpusId ) => {
   }
 }
 
-const updateCorpusPartInDb = ( action, reducer ) => {
+const updateCorpusPartInDb = ( action, reducer, callback ) => {
   return new Promise( ( resolve, reject ) => {
     let newCorporaList;
     let newCorpus;
@@ -236,22 +236,30 @@ const updateCorpusPartInDb = ( action, reducer ) => {
         } )
       } )
       .then( () => {
+        if ( callback ) {
+          callback( null, newCorpus );;
+        }
         return resolve( { data: {
           success: true,
           id: newCorpus.metadata.id,
           corpus: newCorpus,
         } } )
       } )
-      .catch( reject )
+      .catch( ( err ) => {
+        if ( callback ) {
+          callback( err );
+        }
+        reject( err );
+      } )
   } )
 }
 
-export const requestCorpusUpdatePart = ( action, reducer ) => {
+export const requestCorpusUpdatePart = ( action, reducer, callback ) => {
   if ( inElectron ) {
-    return requestToMain( 'update-corpus-part', { action } )
+    return requestToMain( 'update-corpus-part', { action, callback } )
   }
   else {
-    return updateCorpusPartInDb( action, reducer );
+    return updateCorpusPartInDb( action, reducer, callback );
   }
 }
 

@@ -222,4 +222,10 @@
             cursor: pointer;
         }
     }
+
+    &.expanded{
+        .main-editor-container textarea{
+            height: 100%!important;
+        }
+    }
 }

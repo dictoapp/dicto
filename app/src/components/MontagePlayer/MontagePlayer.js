@@ -13,7 +13,8 @@ import './MontagePlayer.scss';
 import 'react-image-gallery/styles/scss/image-gallery.scss';
 
 import {
-  computePlaylist
+  computePlaylist,
+  secsToSrt
 } from '../../helpers/utils';
 
 const TOLERANCE_SECONDS = 1.1;
@@ -461,6 +462,7 @@ export default class MontagePlayer extends Component {
               >
                 <span className={ 'icon' }>
                   <i className={ 'fas fa-pause' } />
+                  
                 </span>
               </button>
               <button
@@ -471,6 +473,15 @@ export default class MontagePlayer extends Component {
                 <i className={ 'fas fa-play' } />
               </button>
             </div>
+            <div className={ "time-display" }>
+              <span className="time-display-anchor">🕐</span>
+              <span className="time-display-value">
+              <span>{currentPosition && currentPosition > 0 ? secsToSrt( parseInt( currentPosition ), false ) : secsToSrt( 0, false )}</span>
+                <span>/</span>
+                <span>{duration && duration > 0 ? secsToSrt( parseInt( duration ), false ) : secsToSrt( 0, false )}</span>
+              </span>
+              
+            </div>
             <div className={ 'railway-container' }>
               <Railway
                 orientation={ 'horizontal' }
@@ -478,6 +489,7 @@ export default class MontagePlayer extends Component {
                 mediaDuration={ duration }
                 seekToMediaTime={ onSeek }
                 chunks={ list }
+                enableTooltip={true}
               />
             </div>
             <div className={ 'gui-btn-container' }>

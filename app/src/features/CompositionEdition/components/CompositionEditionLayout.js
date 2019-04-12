@@ -593,7 +593,10 @@ const CompositionEditionLayout = ( {
         <DragDropContext
           onDragEnd={ onDragEnd }
         >
-          <div className={ 'columns container is-fluid hero-body is-flex-1' }>
+          <div 
+            className={ 'columns container is-fluid hero-body is-flex-1' }
+            style={ { maxHeight: 'calc(100% - 5rem)' } }
+          >
             <div
               id={ 'corpus-excerpts-container' }
               className={ `column is-collapsable ${'is-half'} rows` }

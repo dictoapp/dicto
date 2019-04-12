@@ -141,12 +141,12 @@ const getLocalMetadata = ( path ) => {
   } );
 };
 
-const dailymotionIdRegex = /dailymotion.*\/(.{7})$/i;
+const dailymotionIdRegex = /dailymotion.*\/(.{5,7})$/i;
 const getDailymotionMetadata = ( url ) => {
   // https://www.dailymotion.com/thumbnail/video/
-
   return new Promise( ( resolve ) => {
     let videoId = url.match( dailymotionIdRegex );
+    console.log( 'url', url, 'video id', videoId );
     if ( videoId !== null ) {
       videoId = videoId[1];
       const endpoint = `https://api.dailymotion.com/video/${videoId}`;
@@ -157,8 +157,10 @@ const getDailymotionMetadata = ( url ) => {
             title: info.title,
             mediaThumbnailUrl: `https://www.dailymotion.com/thumbnail/video/${videoId}`,
           } );
-        } );
+        } )
+        .catch( () => resolve( {} ) )
     }
+ else resolve( {} )
   } );
 };
 
