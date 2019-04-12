@@ -7,6 +7,12 @@
 
 .dicto-ChunksEditionLayout
 {
+    .hero-body{
+        padding-right: 0;
+    }
+    > input:last-of-type{
+        opacity: 0;
+    }
     .media-player-container
     {
         overflow: hidden;
