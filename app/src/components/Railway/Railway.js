@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import {
   getEventRelativePosition,
+  abbrev,
 } from '../../helpers/utils';
 
+import CommonMark from 'commonmark';
+
+const reader = new CommonMark.Parser();
+const writer = new CommonMark.HtmlRenderer();
+
 import './Railway.scss';
+
+import Tooltip from 'react-tooltip';
 
 export default class Railway extends Component {
 
@@ -13,6 +21,7 @@ export default class Railway extends Component {
       dragStart: undefined,
       dragPosition: undefined,
       dragOnLift: undefined,
+      tooltipContent: undefined,
     };
   }
 
@@ -27,7 +36,12 @@ export default class Railway extends Component {
       onDrag,
       onDragEnd,
       selectedChunkId,
+      enableTooltip = false,
     } = this.props;
+
+    const {
+      tooltipContent
+    } = this.state;
 
     const silentEvent = ( e ) => {
       e.stopPropagation();
@@ -75,6 +89,29 @@ export default class Railway extends Component {
 
     const onMouseMove = ( e ) => {
       silentEvent( e );
+
+      if (enableTooltip) {
+        const { x, y, rect } = getEventRelativePosition( e, 'dicto-Railway' );
+        const h = orientation === 'vertical' ? rect.height : rect.width;
+        const position = orientation === 'vertical' ? y : x;
+        const thatRatio = position / h;
+        const realPosition = mediaDuration * thatRatio;
+        const hoveredChunk = chunks.find(thatChunk => thatChunk.start < realPosition && thatChunk.end > realPosition);
+        if (hoveredChunk) {
+          const tooltipFieldId = hoveredChunk.activeFieldId;
+          let newTooltipContent = hoveredChunk.chunk && hoveredChunk.chunk.fields[tooltipFieldId];
+          newTooltipContent = newTooltipContent && abbrev(newTooltipContent.split('\n')[0], 100);
+          newTooltipContent = newTooltipContent && writer.render(reader.parse(newTooltipContent));
+          if (newTooltipContent !== tooltipContent) {
+            this.setState({
+              tooltipContent: newTooltipContent
+            });
+            Tooltip.show(this.tooltip);
+            this.tooltip.tooltipRef.innerHTML = newTooltipContent;
+            Tooltip.rebuild();
+          }
+        }
+      }
 
       if ( typeof onDrag === 'function' && this.state.mouseDown && !this.state.dragStart ) {
         setStartDrag( e );
@@ -204,6 +241,10 @@ export default class Railway extends Component {
       return railwayStyle;
     };
 
+    const bindTooltip = tooltip => {
+      this.tooltip = tooltip;
+    }
+
     const timeMarkPosition = `${( mediaCurrentTime / mediaDuration ) * 100 }%`;
 
     return (
@@ -214,6 +255,9 @@ export default class Railway extends Component {
         onMouseMove={ onMouseMove }
         onWheel={ onMouseWheel }
         onMouseLeave={ onMouseLeave }
+        data-tip={tooltipContent}
+        data-for="tooltip"
+        data-html={true}
       >
         {
               chunks.map( ( chunk, index ) => {
@@ -247,6 +291,7 @@ export default class Railway extends Component {
                   left: orientation === 'horizontal' ? timeMarkPosition : undefined,
                 } }
         />
+        <Tooltip ref={bindTooltip} id="tooltip" />
       </div>
     );
   }
