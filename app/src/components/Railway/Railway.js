@@ -106,7 +106,6 @@ export default class Railway extends Component {
             this.setState({
               tooltipContent: newTooltipContent
             });
-            Tooltip.show(this.tooltip);
             this.tooltip.tooltipRef.innerHTML = newTooltipContent;
             Tooltip.rebuild();
           }
@@ -256,7 +255,7 @@ export default class Railway extends Component {
         onWheel={ onMouseWheel }
         onMouseLeave={ onMouseLeave }
         data-tip={tooltipContent}
-        data-for="tooltip"
+        data-for="railway-tooltip"
         data-html={true}
       >
         {
@@ -291,7 +290,7 @@ export default class Railway extends Component {
                   left: orientation === 'horizontal' ? timeMarkPosition : undefined,
                 } }
         />
-        <Tooltip ref={bindTooltip} id="tooltip" />
+        <Tooltip ref={bindTooltip} id="railway-tooltip" />
       </div>
     );
   }
