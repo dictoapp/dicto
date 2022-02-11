@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Joyride from 'react-joyride';
-import { ACTIONS, EVENTS } from 'react-joyride/es/constants';
+// import { ACTIONS, EVENTS } from 'react-joyride/es/constants';
+import { ACTIONS, EVENTS } from 'react-joyride';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';

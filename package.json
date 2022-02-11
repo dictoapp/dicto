@@ -10,6 +10,9 @@
   },
   "license": "AGPL-3.0",
   "main": "main_process.js",
+  "engines": {
+    "node": ">=0.10.3 <10"
+  },
   "scripts": {
     "comb": "csscomb app/src",
     "build:web": "npm run private:build:bundles;webpack ./app/src/main.js -o docs/build/bundle.js --config ./webpack.web.prod.js --babel --progress;cp app/*.png docs/;cp app/loading.gif docs/loading.gif; node prepareWebProd;",
@@ -171,7 +174,7 @@
     "react-full-screen": "^0.2.2",
     "react-hotkeys": "^0.10.0",
     "react-image-gallery": "^0.8.10",
-    "react-joyride": "^2.0.0-11",
+    "react-joyride": "^2.3.2",
     "react-key-handler": "^1.0.1",
     "react-leaflet": "^1.7.1",
     "react-markdown": "^3.4.1",
@@ -198,6 +201,7 @@
     "redux-pouchdb": "^0.1.1",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
+    "sass": "^1.49.7",
     "sass-convert": "^0.5.2",
     "sass-loader": "^6.0.6",
     "typeface-roboto": "0.0.41",

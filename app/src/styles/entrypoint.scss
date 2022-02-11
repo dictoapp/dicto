@@ -12,7 +12,9 @@ $gradient-bottom-right: 0;
 
 @import './accordion.bulma-plugin.scss';
 
-@import '~react-redux-toastr/src/styles/index';
+// @import '~react-redux-toastr/src/styles/index';
+
+@import '~react-redux-toastr/lib/css/react-redux-toastr.min.css';
 
 #mount
 {
