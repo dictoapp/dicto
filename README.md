@@ -452,7 +452,6 @@ Besides, it relies on a lot of open source packages made by 471 different person
 - **Joseph Puzzo** *jgpuzzo2@gmail.com* (1 package)
 - **Chris Pearce** *hello@chrispearce.me* (1 package)
 - **Xiao Lin** (1 package)
-- **Ayrton De Craene** *im@ayrton.be* (1 package)
 - **Paul Le Cam** *paul@ulem.net* (1 package)
 - **Caleb Morris** *caleb.morris.g@gmail.com* (1 package)
 - **Ken Hibino** *ken.hibino7@gmail.com* (1 package)
